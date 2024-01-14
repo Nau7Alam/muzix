@@ -22,8 +22,8 @@ export enum FontSize {
   md = 16,
   default = 18,
   lg = 24,
-  xxl = 32,
-  xxxl = 48,
+  xxlg = 32,
+  xxxlg = 48,
 }
 
 export enum FontWeight {

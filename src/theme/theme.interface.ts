@@ -6,8 +6,8 @@ interface IFontSizes {
   md: number;
   default: number;
   lg: number;
-  xxl: number;
-  xxxl: number;
+  xxlg: number;
+  xxxlg: number;
 }
 
 type FontWeightLitral =

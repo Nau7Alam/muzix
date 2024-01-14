@@ -4,6 +4,7 @@ import { ITheme } from '../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import Header from '../components/Header/Header';
 import ActivePlayer from '../components/ActivePlayer/ActivePlayer';
+import PlayerProgress from '../components/PlayerProgress/PlayerProgress';
 
 const Player = () => {
   const theme: ITheme = useTheme() as ITheme;
@@ -14,6 +15,7 @@ const Player = () => {
     <View style={styles.container}>
       <Header />
       <ActivePlayer />
+      <PlayerProgress />
     </View>
   );
 };

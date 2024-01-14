@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Text, View } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { StyleSheet, Image } from 'react-native';
@@ -7,76 +7,85 @@ import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import { CarouselMusicItemProps } from './ActivePlayer.interface';
 
-const CarouselMusicItem = ({ item }: CarouselMusicItemProps) => {
-  const theme = useTheme() as ITheme;
-  const styles = useMemo(() => createStyle(theme), [theme]);
-
+const CarouselMusicItem = ({ styles, music }: CarouselMusicItemProps) => {
   return (
-    <View style={styles.container} key={item.id}>
+    <View style={styles.itemContainer} key={music.id}>
       <View style={styles.imageBox}>
         <Image
-          source={{ uri: item.coverImage }}
+          source={{ uri: music.coverImage }}
           style={styles.image}
           resizeMode="cover"
         />
       </View>
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.artist}>{item.artist}</Text>
+      <Text style={styles.title}>{music.title}</Text>
+      <Text style={styles.artist}>{music.artist}</Text>
     </View>
   );
 };
 
 const ActivePlayer = () => {
   const isCarousel = React.useRef(null);
-  const { screen } = useTheme() as ITheme;
-  const itemWidth = screen.width * 0.7;
+  const theme = useTheme() as ITheme;
+  const screenWidth = theme.screen.width;
+  const itemWidth = screenWidth * 0.65;
+  const styles = useMemo(() => createStyle(theme), [theme]);
 
   return (
-    <Fragment>
+    <View>
       <Carousel
         layout="default"
         layoutCardOffset={9}
         ref={isCarousel}
         data={songs}
-        renderItem={CarouselMusicItem}
-        sliderWidth={screen.width}
+        renderItem={({ item }) => (
+          <CarouselMusicItem styles={styles} music={item} />
+        )}
+        sliderWidth={screenWidth}
         itemWidth={itemWidth}
         inactiveSlideShift={2}
         useScrollView={true}
+        hasParallaxImages={true}
       />
-    </Fragment>
+    </View>
   );
 };
 
 export default ActivePlayer;
 
 const createStyle = (theme: ITheme) => {
-  const { colors, borderRadius, fontSize, fontWeight, padding, screen } = theme;
-  const itemWidth = screen.width * 0.7;
-  const coverImageWidth = screen.width * 0.8;
+  const {
+    colors,
+    borderRadius,
+    fontSize,
+    fontWeight,
+    padding,
+    margin,
+    screen,
+  } = theme;
+  const itemWidth = screen.width * 0.65;
+  const coverImageWidth = itemWidth * 0.82;
 
   return StyleSheet.create({
-    container: {
-      borderRadius: borderRadius.eight,
+    itemContainer: {
       width: itemWidth,
       paddingBottom: padding.xxlg,
-      shadowColor: '#000',
+      shadowColor: colors.shadow,
       shadowOffset: {
         width: 0,
         height: 3,
       },
       shadowOpacity: 0.29,
-      shadowRadius: 4.65,
-      elevation: 0,
+      padding: padding.four,
     },
     imageBox: {
       borderRadius: borderRadius.full,
-      overflow: 'hidden',
-      padding: padding.ten,
-      margin: padding.ten,
-      elevation: 6,
-      alignSelf: 'center',
       backgroundColor: colors.card,
+      padding: padding.ten,
+      overflow: 'hidden',
+      alignSelf: 'center',
+      elevation: 6,
+      marginTop: margin.lg,
+      marginBottom: margin.xxlg,
     },
     image: {
       width: coverImageWidth,
@@ -86,16 +95,13 @@ const createStyle = (theme: ITheme) => {
     title: {
       color: colors.text,
       fontSize: fontSize.lg,
-      fontWeight: fontWeight.bold,
-      paddingLeft: padding.xlg,
-      paddingRight: padding.xlg,
+      fontWeight: fontWeight.semiBold,
       textAlign: 'center',
     },
     artist: {
-      color: '#222',
-      fontSize: fontSize.default,
-      paddingLeft: padding.xlg,
-      paddingRight: padding.xlg,
+      marginTop: margin.ten,
+      color: colors.textLight,
+      fontSize: fontSize.sm,
       textAlign: 'center',
     },
   });
