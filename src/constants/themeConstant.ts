@@ -37,22 +37,4 @@ export enum FontWeight {
   bold = '800',
 }
 
-export const FlexAlignments = {
-  flexCenter: {
-    justifyContent: 'center',
-    alingContent: 'center',
-  },
-  topCenter: {
-    alingItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  bottomCenter: {
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  spaceBetween: {
-    justifyContent: 'space-between',
-  },
-};
-
 export const { width, height } = Dimensions.get('window');

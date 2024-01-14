@@ -1,15 +1,11 @@
 import React, { Fragment, useMemo } from 'react';
 import { Text, View } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import { StyleSheet, Dimensions, Image } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { songs } from '../../constants/musicList';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import { CarouselMusicItemProps } from './ActivePlayer.interface';
-
-export const SLIDER_WIDTH = Dimensions.get('window').width;
-export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
-export const SONG_IMAGE_SIZE = Math.round(ITEM_WIDTH * 0.8);
 
 const CarouselMusicItem = ({ item }: CarouselMusicItemProps) => {
   const theme = useTheme() as ITheme;
@@ -32,6 +28,8 @@ const CarouselMusicItem = ({ item }: CarouselMusicItemProps) => {
 
 const ActivePlayer = () => {
   const isCarousel = React.useRef(null);
+  const { screen } = useTheme() as ITheme;
+  const itemWidth = screen.width * 0.7;
 
   return (
     <Fragment>
@@ -41,8 +39,8 @@ const ActivePlayer = () => {
         ref={isCarousel}
         data={songs}
         renderItem={CarouselMusicItem}
-        sliderWidth={SLIDER_WIDTH}
-        itemWidth={ITEM_WIDTH}
+        sliderWidth={screen.width}
+        itemWidth={itemWidth}
         inactiveSlideShift={2}
         useScrollView={true}
       />
@@ -53,13 +51,14 @@ const ActivePlayer = () => {
 export default ActivePlayer;
 
 const createStyle = (theme: ITheme) => {
-  const { colors, borderRadius, fontSize, fontWeight, padding } = theme;
+  const { colors, borderRadius, fontSize, fontWeight, padding, screen } = theme;
+  const itemWidth = screen.width * 0.7;
+  const coverImageWidth = screen.width * 0.8;
+
   return StyleSheet.create({
     container: {
-      justifyContent: 'center',
-      alignItems: 'center',
       borderRadius: borderRadius.eight,
-      width: ITEM_WIDTH,
+      width: itemWidth,
       paddingBottom: padding.xxlg,
       shadowColor: '#000',
       shadowOffset: {
@@ -80,8 +79,8 @@ const createStyle = (theme: ITheme) => {
       backgroundColor: colors.card,
     },
     image: {
-      width: SONG_IMAGE_SIZE,
-      height: SONG_IMAGE_SIZE,
+      width: coverImageWidth,
+      height: coverImageWidth,
       borderRadius: borderRadius.full,
     },
     title: {
