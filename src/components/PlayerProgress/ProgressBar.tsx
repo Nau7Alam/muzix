@@ -14,7 +14,7 @@ const ProgressBar = ({ progress, onProgressChange }: ProgressBarProps) => {
   const styles = useMemo(() => createStyle(theme), [theme]);
   return (
     <View style={[styles.container]}>
-      <Text center xxs style={styles.text}>
+      <Text center xxs color={theme.colors.border} style={styles.text}>
         2:44
       </Text>
       <Slider
@@ -31,7 +31,7 @@ const ProgressBar = ({ progress, onProgressChange }: ProgressBarProps) => {
         animateTransitions
         animationType="spring"
       />
-      <Text center xxs style={styles.text}>
+      <Text center xxs color={theme.colors.border} style={styles.text}>
         -3:24
       </Text>
     </View>

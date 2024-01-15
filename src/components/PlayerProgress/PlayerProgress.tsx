@@ -25,19 +25,19 @@ export const PlayerProgress = () => {
           onPress={onPlay}
           size={theme.fontSize.lg}
           name="reload"
-          color={theme.colors.text}
+          color={theme.colors.border}
         />
         <PressableIcon
           onPress={onPlay}
           name="heart"
           size={theme.fontSize.xxlg}
-          color={theme.colors.text}
+          color={theme.colors.border}
         />
         <PressableIcon
           onPress={onPlay}
           size={theme.fontSize.lg}
           name="shuffle"
-          color={theme.colors.text}
+          color={theme.colors.border}
         />
       </View>
       <ProgressBar progress={progress} onProgressChange={onProgress} />
@@ -46,20 +46,20 @@ export const PlayerProgress = () => {
           onPress={onPlay}
           size={theme.fontSize.lg}
           name="control-rewind"
-          color={theme.colors.text}
+          color={theme.colors.border}
         />
         <PressableIcon
           onPress={onPlay}
           buttonStyle={styles.playButton}
           name="control-pause"
           size={theme.fontSize.xxlg}
-          color={theme.colors.text}
+          color={theme.colors.border}
         />
         <PressableIcon
           onPress={onPlay}
           size={theme.fontSize.lg}
           name="control-forward"
-          color={theme.colors.text}
+          color={theme.colors.border}
         />
       </View>
     </View>
