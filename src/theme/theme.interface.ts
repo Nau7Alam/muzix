@@ -4,8 +4,9 @@ interface IFontSizes {
   xs: number;
   sm: number;
   md: number;
-  default: number;
+  base: number;
   lg: number;
+  xlg: number;
   xxlg: number;
   xxxlg: number;
 }

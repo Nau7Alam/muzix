@@ -20,8 +20,9 @@ export enum FontSize {
   xs = 12,
   sm = 14,
   md = 16,
-  default = 18,
+  base = 18,
   lg = 24,
+  xlg = 28,
   xxlg = 32,
   xxxlg = 48,
 }

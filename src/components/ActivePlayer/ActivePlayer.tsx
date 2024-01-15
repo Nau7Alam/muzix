@@ -1,13 +1,18 @@
 import React, { useMemo } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { StyleSheet, Image } from 'react-native';
 import { songs } from '../../constants/musicList';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import { CarouselMusicItemProps } from './ActivePlayer.interface';
+import Text from '../Text/Text';
 
-const CarouselMusicItem = ({ styles, music }: CarouselMusicItemProps) => {
+const CarouselMusicItem = ({
+  music,
+  styles,
+  theme,
+}: CarouselMusicItemProps) => {
   return (
     <View style={styles.itemContainer} key={music.id}>
       <View style={styles.imageBox}>
@@ -17,8 +22,12 @@ const CarouselMusicItem = ({ styles, music }: CarouselMusicItemProps) => {
           resizeMode="cover"
         />
       </View>
-      <Text style={styles.title}>{music.title}</Text>
-      <Text style={styles.artist}>{music.artist}</Text>
+      <Text lg center semiBold color={theme.colors.text}>
+        {music.title}
+      </Text>
+      <Text sm center color={theme.colors.textLight} style={styles.artist}>
+        {music.artist}
+      </Text>
     </View>
   );
 };
@@ -38,7 +47,7 @@ const ActivePlayer = () => {
         ref={isCarousel}
         data={songs}
         renderItem={({ item }) => (
-          <CarouselMusicItem styles={styles} music={item} />
+          <CarouselMusicItem styles={styles} theme={theme} music={item} />
         )}
         sliderWidth={screenWidth}
         itemWidth={itemWidth}
@@ -53,15 +62,7 @@ const ActivePlayer = () => {
 export default ActivePlayer;
 
 const createStyle = (theme: ITheme) => {
-  const {
-    colors,
-    borderRadius,
-    fontSize,
-    fontWeight,
-    padding,
-    margin,
-    screen,
-  } = theme;
+  const { colors, borderRadius, padding, margin, screen } = theme;
   const itemWidth = screen.width * 0.65;
   const coverImageWidth = itemWidth * 0.82;
 
@@ -92,17 +93,8 @@ const createStyle = (theme: ITheme) => {
       height: coverImageWidth,
       borderRadius: borderRadius.full,
     },
-    title: {
-      color: colors.text,
-      fontSize: fontSize.lg,
-      fontWeight: fontWeight.semiBold,
-      textAlign: 'center',
-    },
     artist: {
       marginTop: margin.ten,
-      color: colors.textLight,
-      fontSize: fontSize.sm,
-      textAlign: 'center',
     },
   });
 };

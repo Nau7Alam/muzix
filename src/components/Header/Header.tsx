@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
+import Text from '../Text/Text';
 
 export const Header = () => {
   const theme = useTheme() as ITheme;
@@ -16,7 +17,15 @@ export const Header = () => {
         color={theme.colors.text}
       />
       <View>
-        <Text style={styles.title}>Muzix</Text>
+        <Text
+          base
+          medium
+          upperCase
+          color={theme.colors.primary}
+          style={styles.title}
+        >
+          Muzix
+        </Text>
       </View>
       <PressableIcon
         onPress={() => console.log('SEARCH')}
@@ -31,7 +40,7 @@ export const Header = () => {
 export default Header;
 
 const createStyle = (theme: ITheme) => {
-  const { colors, padding, fontSize, fontWeight } = theme;
+  const { colors, padding } = theme;
   return StyleSheet.create({
     continer: {
       flexDirection: 'row',
@@ -41,8 +50,7 @@ const createStyle = (theme: ITheme) => {
       padding: padding.lg,
     },
     title: {
-      fontSize: fontSize.default,
-      fontWeight: fontWeight.medium,
+      fontStyle: 'italic',
     },
   });
 };
