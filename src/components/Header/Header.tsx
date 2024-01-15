@@ -17,13 +17,7 @@ export const Header = () => {
         color={theme.colors.text}
       />
       <View>
-        <Text
-          base
-          medium
-          upperCase
-          color={theme.colors.primary}
-          style={styles.title}
-        >
+        <Text base lg color={theme.colors.primary} style={styles.title}>
           Muzix
         </Text>
       </View>
@@ -47,10 +41,8 @@ const createStyle = (theme: ITheme) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: colors.card,
-      padding: padding.lg,
+      padding: padding.six,
     },
-    title: {
-      fontStyle: 'italic',
-    },
+    title: {},
   });
 };

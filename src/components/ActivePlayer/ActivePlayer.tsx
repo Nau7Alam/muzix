@@ -22,7 +22,7 @@ const CarouselMusicItem = ({
           resizeMode="cover"
         />
       </View>
-      <Text lg center semiBold color={theme.colors.text}>
+      <Text lg center semiBold color={theme.colors.text} numberOfLines={2}>
         {music.title}
       </Text>
       <Text sm center color={theme.colors.textLight} style={styles.artist}>
@@ -40,7 +40,7 @@ const ActivePlayer = () => {
   const styles = useMemo(() => createStyle(theme), [theme]);
 
   return (
-    <View>
+    <View style={styles.container}>
       <Carousel
         layout="default"
         layoutCardOffset={9}
@@ -67,6 +67,9 @@ const createStyle = (theme: ITheme) => {
   const coverImageWidth = itemWidth * 0.82;
 
   return StyleSheet.create({
+    container: {
+      flex: 6,
+    },
     itemContainer: {
       width: itemWidth,
       paddingBottom: padding.xxlg,

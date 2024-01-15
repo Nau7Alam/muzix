@@ -14,7 +14,7 @@ export const LightThemes: ITheme = {
     background: '#f8f9fb',
     text: '#4f596d',
     textLight: '#bcbcbe',
-    border: '#9698a0',
+    border: '#8b8c92',
     borderLight: '#b0b4bd',
     notification: 'red',
     shadow: '#ededef',

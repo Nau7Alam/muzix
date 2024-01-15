@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
@@ -7,8 +7,12 @@ import ProgressBar from './ProgressBar';
 
 export const PlayerProgress = () => {
   const [pressCount, setPressCount] = useState(0);
+  const [progress, setProgress] = useState(0);
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
+  const onProgress = (value: any) => {
+    setProgress(value);
+  };
   const onPlay = () => {
     console.log('PRESSED !!');
     const rounded = Number((pressCount + 0.1).toFixed(1));
@@ -16,10 +20,27 @@ export const PlayerProgress = () => {
   };
   return (
     <View style={styles.continer}>
-      <Text style={{ fontSize: theme.fontSize.xxlg, marginBottom: 20 }}>
-        Click Count : {pressCount}
-      </Text>
-      <ProgressBar progress={0.5} />
+      <View style={styles.musicOptions}>
+        <PressableIcon
+          onPress={onPlay}
+          size={theme.fontSize.lg}
+          name="reload"
+          color={theme.colors.text}
+        />
+        <PressableIcon
+          onPress={onPlay}
+          name="heart"
+          size={theme.fontSize.xxlg}
+          color={theme.colors.text}
+        />
+        <PressableIcon
+          onPress={onPlay}
+          size={theme.fontSize.lg}
+          name="shuffle"
+          color={theme.colors.text}
+        />
+      </View>
+      <ProgressBar progress={progress} onProgressChange={onProgress} />
       <View style={styles.musicButtons}>
         <PressableIcon
           onPress={onPlay}
@@ -49,13 +70,20 @@ const createStyle = (theme: ITheme) => {
   const { margin, padding, colors, borderRadius } = theme;
   return StyleSheet.create({
     continer: {
-      padding: padding.lg,
+      paddingHorizontal: padding.ten,
+      flex: 4,
+      justifyContent: 'space-evenly',
+    },
+    musicOptions: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      paddingHorizontal: padding.lg,
     },
     musicButtons: {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: margin.lg,
     },
     playButton: {
       backgroundColor: colors.card,
