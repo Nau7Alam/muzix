@@ -13,7 +13,6 @@ export const Header = () => {
     <View style={styles.continer}>
       <PressableIcon
         onPress={() => {
-          console.log('MENU');
           Appearance.setColorScheme(isLight ? 'dark' : 'light');
         }}
         size={theme.fontSize.lg}
@@ -21,7 +20,7 @@ export const Header = () => {
         color={theme.colors.text}
       />
       <View>
-        <Text lg medium color={theme.colors.primary} style={styles.title}>
+        <Text md medium color={theme.colors.textDark} style={styles.title}>
           Muzix
         </Text>
       </View>

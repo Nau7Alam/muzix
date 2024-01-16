@@ -9,12 +9,12 @@ export const PlayerProgress = () => {
   const [pressCount, setPressCount] = useState(0);
   const [progress, setProgress] = useState(0);
   const theme = useTheme() as ITheme;
+  const { colors, fontSize } = theme;
   const styles = useMemo(() => createStyle(theme), [theme]);
   const onProgress = (value: any) => {
     setProgress(value);
   };
   const onPlay = () => {
-    console.log('PRESSED !!');
     const rounded = Number((pressCount + 0.1).toFixed(1));
     setPressCount(rounded);
   };
@@ -23,43 +23,43 @@ export const PlayerProgress = () => {
       <View style={styles.musicOptions}>
         <PressableIcon
           onPress={onPlay}
-          size={theme.fontSize.lg}
-          name="reload"
-          color={theme.colors.border}
+          size={fontSize.lg}
+          name="refresh"
+          color={colors.icon}
         />
         <PressableIcon
           onPress={onPlay}
           name="heart"
-          size={theme.fontSize.xxlg}
-          color={theme.colors.border}
+          size={fontSize.lg}
+          color={colors.icon}
         />
         <PressableIcon
           onPress={onPlay}
-          size={theme.fontSize.lg}
+          size={fontSize.lg}
           name="shuffle"
-          color={theme.colors.border}
+          color={colors.icon}
         />
       </View>
       <ProgressBar progress={progress} onProgressChange={onProgress} />
       <View style={styles.musicButtons}>
         <PressableIcon
           onPress={onPlay}
-          size={theme.fontSize.lg}
+          size={fontSize.lg}
           name="control-rewind"
-          color={theme.colors.border}
+          color={colors.icon}
         />
         <PressableIcon
           onPress={onPlay}
           buttonStyle={styles.playButton}
           name="control-pause"
-          size={theme.fontSize.xxlg}
-          color={theme.colors.border}
+          size={fontSize.xxlg}
+          color={colors.iconDark}
         />
         <PressableIcon
           onPress={onPlay}
-          size={theme.fontSize.lg}
+          size={fontSize.lg}
           name="control-forward"
-          color={theme.colors.border}
+          color={colors.icon}
         />
       </View>
     </View>

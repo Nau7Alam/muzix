@@ -25,7 +25,7 @@ const CarouselMusicItem = ({
       <Text lg center semiBold color={theme.colors.text} numberOfLines={2}>
         {music.title}
       </Text>
-      <Text sm center color={theme.colors.textLight} style={styles.artist}>
+      <Text sm center color={theme.colors.textSecondary} style={styles.artist}>
         {music.artist}
       </Text>
     </View>

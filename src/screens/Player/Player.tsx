@@ -1,22 +1,22 @@
 import React, { useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { ITheme } from '../theme/theme.interface';
+import { StyleSheet } from 'react-native';
+import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
-import Header from '../components/Header/Header';
-import ActivePlayer from '../components/ActivePlayer/ActivePlayer';
-import PlayerProgress from '../components/PlayerProgress/PlayerProgress';
+import Header from '../../components/Header/Header';
+import ActivePlayer from '../../components/ActivePlayer/ActivePlayer';
+import PlayerProgress from '../../components/PlayerProgress/PlayerProgress';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Player = () => {
   const theme: ITheme = useTheme() as ITheme;
-  console.log('THEME', theme.fontSize);
   const styles = useMemo(() => createStyle(theme), [theme]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header />
       <ActivePlayer />
       <PlayerProgress />
-    </View>
+    </SafeAreaView>
   );
 };
 

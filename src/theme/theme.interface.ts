@@ -52,14 +52,47 @@ interface ISpaceSizes {
 
 export interface IColors {
   primary: string;
+  primaryLight: string;
+  primaryDark: string;
+
   background: string;
+  backgroundDark: string;
+  backgroundDarker: string;
+
   text: string;
   textLight: string;
+  textDark: string;
+
+  textSecondary: string;
+  textSecondaryLight: string;
+  textSecondaryDark: string;
+
+  danger: string;
+  dangerLight: string;
+  dangerDark: string;
+
+  white: string;
+  black: string;
+
+  success: string;
+
   border: string;
   borderLight: string;
+  borderDark: string;
+
   notification: string;
+
   shadow: string;
+  shadowLight: string;
+  shadowDark: string;
+
   card: string;
+  cardLight: string;
+  cardDark: string;
+
+  icon: string;
+  iconLight: string;
+  iconDark: string;
 }
 interface IScreen {
   width: number;

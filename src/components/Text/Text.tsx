@@ -80,7 +80,7 @@ const Text = ({
   return (
     <NativeText
       style={[
-        color ? setColor(color) : null,
+        color ? setColor(color) : { color: theme.colors.text },
         StyleSheet.flatten([
           customStyle,
           xxxs && styles.xxxs,

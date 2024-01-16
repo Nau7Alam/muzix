@@ -10,13 +10,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LightThemes } from './theme/light';
 import { DarkThemes } from './theme/dark';
-import Player from './screens/Player';
+import Player from './screens/Player/Player';
+import Songs from './screens/Songs/Songs';
 
 const Stack = createStackNavigator();
+
 export const Router = () => {
   const styles = useMemo(() => createStyle(), []);
   const isLight = useColorScheme() === 'light';
-  console.log('COLOR SCHEME is Light ', isLight);
 
   return (
     <KeyboardAvoidingView
@@ -31,6 +32,7 @@ export const Router = () => {
             screenOptions={{ headerShown: false, gestureEnabled: true }}
           >
             <Stack.Screen name="Player" component={Player} />
+            <Stack.Screen name="Songs" component={Songs} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>

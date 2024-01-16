@@ -7,7 +7,8 @@ import { useTheme } from '@react-navigation/native';
 type PressableIconProps = {
   onPress: () => void;
   size: number;
-  color: string;
+  color?: string;
+  style?: object;
   name: string;
   buttonStyle?: any;
 };
@@ -17,12 +18,16 @@ const PressableIcon = ({
   size,
   color,
   name,
+  style: customStyle,
 }: PressableIconProps) => {
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
   return (
-    <Pressable onPress={onPress} style={[styles.container, buttonStyle]}>
-      <Icon name={name} size={size} color={color} />
+    <Pressable
+      onPress={onPress}
+      style={[styles.container, buttonStyle, customStyle]}
+    >
+      <Icon name={name} size={size} color={color ?? theme.colors.icon} />
     </Pressable>
   );
 };
