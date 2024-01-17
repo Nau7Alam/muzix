@@ -52,10 +52,11 @@ const ListItem = ({
           ...(selected && styles.selectedCoverImage),
         }}
         source={{ uri: coverImage }}
+        resizeMode="cover"
       />
       <View style={styles.titleBox}>
         <Text numberOfLines={1} md semiBold color={colors.text}>
-          {title} This is an additional text for the song were length is checked
+          {title}
         </Text>
         <Text numberOfLines={1} xs color={colors.textLight}>
           {subTitle}

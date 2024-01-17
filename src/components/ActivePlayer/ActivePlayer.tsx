@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { StyleSheet, Image } from 'react-native';
-import { songs } from '../../constants/musicList';
+import { staticSongs } from '../../constants/musicList';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import { CarouselMusicItemProps } from './ActivePlayer.interface';
@@ -17,7 +17,7 @@ const CarouselMusicItem = ({
     <View style={styles.itemContainer} key={music.id}>
       <View style={styles.imageBox}>
         <Image
-          source={{ uri: music.coverImage }}
+          source={{ uri: music.cover }}
           style={styles.image}
           resizeMode="cover"
         />
@@ -45,7 +45,7 @@ const ActivePlayer = () => {
         layout="default"
         layoutCardOffset={9}
         ref={isCarousel}
-        data={songs}
+        data={staticSongs}
         renderItem={({ item }) => (
           <CarouselMusicItem styles={styles} theme={theme} music={item} />
         )}
