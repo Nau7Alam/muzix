@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { View } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { StyleSheet, Image } from 'react-native';
@@ -13,6 +13,7 @@ const CarouselMusicItem = ({
   styles,
   theme,
 }: CarouselMusicItemProps) => {
+  const carouselRef = useRef(null);
   return (
     <View style={styles.itemContainer} key={music.id}>
       <View style={styles.imageBox}>

@@ -7,19 +7,26 @@ import Text from '../Text/Text';
 
 type ProgressBarProps = {
   progress: number;
+  lenght: number;
   onProgressChange: (val: any) => void;
 };
-const ProgressBar = ({ progress, onProgressChange }: ProgressBarProps) => {
+const ProgressBar = ({
+  lenght,
+  progress,
+  onProgressChange,
+}: ProgressBarProps) => {
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
   return (
     <View style={[styles.container]}>
       <Text center xxs color={theme.colors.border} style={styles.text}>
-        2:44
+        {progress}
       </Text>
       <Slider
         containerStyle={styles.sliderBox}
         value={progress}
+        // minimumValue={}
+        maximumValue={lenght}
         onValueChange={(value: any) => onProgressChange(value)}
         minimumTrackTintColor={theme.colors.border}
         maximumTrackTintColor={theme.colors.borderLight}
@@ -29,10 +36,10 @@ const ProgressBar = ({ progress, onProgressChange }: ProgressBarProps) => {
         trackStyle={styles.track}
         trackClickable
         animateTransitions
-        animationType="spring"
+        animationType="timing"
       />
       <Text center xxs color={theme.colors.border} style={styles.text}>
-        -3:24
+        {lenght}
       </Text>
     </View>
   );

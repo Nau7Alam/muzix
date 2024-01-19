@@ -28,7 +28,7 @@ export const checkPermission = async () => {
   return isGranted;
 };
 
-export const getAllSongs = async () => {
+export const getLocalSongs = async () => {
   const hasPermission = await checkPermission();
   if (!hasPermission) {
     console.log('Request PERMISSION');
@@ -42,17 +42,15 @@ export const getAllSongs = async () => {
       sortBy: SortSongFields.TITLE,
       sortOrder: SortSongOrder.DESC,
     });
-    console.log('songsOrError', songsOrError);
     if (typeof songsOrError === 'string') {
-      console.log('ERROR:::', songsOrError);
+      console.log('ERROR ::: ', songsOrError);
       return;
     }
-    console.log('All Songs', songsOrError.length);
     return songsOrError;
   }
 };
 
-export const getAllAlbumsArtist = async (artist?: string) => {
+export const getLocalAlbumsByArtist = async (artist?: string) => {
   const hasPermission = await checkPermission();
   if (!hasPermission) {
     console.log('Request PERMISSION');
@@ -67,15 +65,14 @@ export const getAllAlbumsArtist = async (artist?: string) => {
     });
 
     if (typeof albumsOrError === 'string') {
-      console.log('ERROR:::', albumsOrError);
+      console.log('ERROR ::: ', albumsOrError);
       return;
     }
-    console.log('All Albums', albumsOrError.length);
     return albumsOrError;
   }
 };
 
-export const searchSongsBy = async (searchKey?: string) => {
+export const searchSongsByKey = async (searchKey?: string) => {
   const hasPermission = await checkPermission();
   if (!hasPermission) {
     console.log('Request PERMISSION');
@@ -91,10 +88,9 @@ export const searchSongsBy = async (searchKey?: string) => {
     });
 
     if (typeof resultsOrError === 'string') {
-      console.log('ERROR:::', resultsOrError);
+      console.log('ERROR ::: ', resultsOrError);
       return;
     }
-    console.log('All Searched songs', resultsOrError.length);
     return resultsOrError;
   }
 };

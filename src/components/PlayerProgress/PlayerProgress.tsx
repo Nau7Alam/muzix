@@ -5,16 +5,28 @@ import { useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
 import ProgressBar from './ProgressBar';
 
-export const PlayerProgress = () => {
+interface PlayerProgressProps {
+  progress: number;
+  lenght: number;
+  onProgressChange: (e: any) => void;
+  onPlayControl: () => void;
+  onForwardControl: () => void;
+  onBackwardCongrol: () => void;
+}
+
+export const PlayerProgress = ({
+  progress,
+  lenght,
+  onProgressChange,
+  onPlayControl,
+  onForwardControl,
+  onBackwardCongrol,
+}: PlayerProgressProps) => {
   const [pressCount, setPressCount] = useState(0);
-  const [progress, setProgress] = useState(0);
   const theme = useTheme() as ITheme;
   const { colors, fontSize } = theme;
   const styles = useMemo(() => createStyle(theme), [theme]);
-  const onProgress = (value: any) => {
-    setProgress(value);
-  };
-  const onPlay = () => {
+  const onShare = () => {
     const rounded = Number((pressCount + 0.1).toFixed(1));
     setPressCount(rounded);
   };
@@ -22,41 +34,45 @@ export const PlayerProgress = () => {
     <View style={styles.continer}>
       <View style={styles.musicOptions}>
         <PressableIcon
-          onPress={onPlay}
+          onPress={onShare}
           size={fontSize.lg}
           name="refresh"
           color={colors.icon}
         />
         <PressableIcon
-          onPress={onPlay}
+          onPress={onShare}
           name="heart"
           size={fontSize.lg}
           color={colors.icon}
         />
         <PressableIcon
-          onPress={onPlay}
+          onPress={onShare}
           size={fontSize.lg}
           name="shuffle"
           color={colors.icon}
         />
       </View>
-      <ProgressBar progress={progress} onProgressChange={onProgress} />
+      <ProgressBar
+        progress={progress}
+        lenght={lenght}
+        onProgressChange={onProgressChange}
+      />
       <View style={styles.musicButtons}>
         <PressableIcon
-          onPress={onPlay}
+          onPress={onBackwardCongrol}
           size={fontSize.lg}
           name="control-rewind"
           color={colors.icon}
         />
         <PressableIcon
-          onPress={onPlay}
+          onPress={onPlayControl}
           buttonStyle={styles.playButton}
           name="control-pause"
           size={fontSize.xxlg}
           color={colors.iconDark}
         />
         <PressableIcon
-          onPress={onPlay}
+          onPress={onForwardControl}
           size={fontSize.lg}
           name="control-forward"
           color={colors.icon}

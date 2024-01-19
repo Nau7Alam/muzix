@@ -5,7 +5,7 @@ import ListItem from '../../components/ListItem/ListItem';
 import { FlatList, StyleSheet } from 'react-native';
 import { IMusic } from '../../interfaces/player/music.interface';
 import Header from '../../components/Header/Header';
-import { getAllSongs } from '../../helpers/permission';
+import { getLocalSongs } from '../../helpers/permission';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { useTheme } from '@react-navigation/native';
@@ -22,7 +22,7 @@ const Songs = () => {
   const styles = useMemo(() => createStyle(theme), [theme]);
 
   useEffect(() => {
-    getAllSongs()
+    getLocalSongs()
       .then(result => {
         const idMappedSongs: IMusic[] =
           result?.map(i => ({
@@ -69,7 +69,7 @@ const Songs = () => {
   );
 };
 
-const createStyle = (theme: ITheme) => {
+const createStyle = (_theme: ITheme) => {
   return StyleSheet.create({
     container: {
       flex: 1,

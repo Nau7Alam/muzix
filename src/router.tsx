@@ -12,6 +12,7 @@ import { LightThemes } from './theme/light';
 import { DarkThemes } from './theme/dark';
 import Player from './screens/Player/Player';
 import Songs from './screens/Songs/Songs';
+import { HomeBottomTab } from './navigators/BottomTab';
 
 const Stack = createStackNavigator();
 
@@ -28,9 +29,10 @@ export const Router = () => {
       <SafeAreaView style={styles.container}>
         <NavigationContainer theme={isLight ? LightThemes : DarkThemes}>
           <Stack.Navigator
-            initialRouteName="Player"
+            initialRouteName="HomeTabs"
             screenOptions={{ headerShown: false, gestureEnabled: true }}
           >
+            <Stack.Screen name="HomeTabs" component={HomeBottomTab} />
             <Stack.Screen name="Player" component={Player} />
             <Stack.Screen name="Songs" component={Songs} />
           </Stack.Navigator>

@@ -5,12 +5,17 @@ import { staticSongs } from '../constants/musicList';
 import localTrack from '../../assets/resources/pure.m4a';
 // @ts-expect-error – sure we can import this
 import localArtwork from '../../assets/resources/artwork.jpg';
+import { IMusic } from '../interfaces/player/music.interface';
 
-export const QueueInitialTracksService = async (): Promise<void> => {
+export const QueueInitialTracksService = async (
+  localSongs: IMusic[]
+): Promise<void> => {
+  console.log('LOCAL SONGS   >>>>>>>>$$$$$$$$ ', localSongs);
+  await TrackPlayer.reset();
   await TrackPlayer.add([
-    ...(staticSongs as Track[]),
+    ...(localSongs as Track[]),
     {
-      id: '12345667776',
+      id: 'resourceId 00',
       url: localTrack,
       title: 'Pure (Demo)',
       artist: 'David Chavez',
@@ -20,5 +25,6 @@ export const QueueInitialTracksService = async (): Promise<void> => {
       album: '',
       genre: '',
     },
+    ...(staticSongs as Track[]),
   ]);
 };

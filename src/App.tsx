@@ -1,13 +1,23 @@
 import React from 'react';
 import { Router } from './router';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StatusBar } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export const App = () => {
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle="dark-content" backgroundColor="pink" />
-      <Router />
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={styles.container}>
+      <Provider store={store}>
+        <StatusBar barStyle="dark-content" backgroundColor="pink" />
+        <Router />
+      </Provider>
+    </GestureHandlerRootView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
