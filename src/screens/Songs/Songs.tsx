@@ -1,48 +1,57 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { staticSongs } from '../../constants/musicList';
 import ListItem from '../../components/ListItem/ListItem';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { IMusic } from '../../interfaces/player/music.interface';
 import Header from '../../components/Header/Header';
-import { getLocalSongs } from '../../helpers/permission';
-import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
 import { useTheme } from '@react-navigation/native';
 import { ITheme } from '../../theme/theme.interface';
+import { useTrackSongs } from '../../hooks/trackHooks';
+import {
+  activeSongSelector,
+  allSongSelector,
+  setActiveSong,
+} from '../../reducers/playerReducer';
+import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
+import Text from '../../components/Text/Text';
+import { addCurrentTrack } from '../../playerServices/trackFunctions';
 
-const Songs = () => {
+const Songs = ({ navigation }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | string>(null);
-  const [songs, setSongs] = useState<IMusic[]>(staticSongs);
-  const onSongSelect = (songId: string) => {
-    setSelectedSong(songId);
-  };
+  const { isPlayerReady } = useTrackSongs();
 
+  const dispatch = useAppDispatch();
+  const songs = useAppSelector(allSongSelector);
+  const activeSong = useAppSelector(activeSongSelector);
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
 
-  useEffect(() => {
-    getLocalSongs()
-      .then(result => {
-        const idMappedSongs: IMusic[] =
-          result?.map(i => ({
-            id: uuidv4(),
-            ...i,
-          })) ?? [];
-        songs && setSongs(songs?.concat(...idMappedSongs));
-      })
-      .catch(() => {
-        console.log('ERROR OCCUREED');
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const onSongClick = (songId: string) => {
-    if (selectedSong !== songId) {
+  const onSongSelect = (song: IMusic) => {
+    setSelectedSong(song.id);
+  };
+
+  const onSongClick = (song: IMusic) => {
+    if (selectedSong !== song.id) {
       setSelectedSong(null);
     }
+    addCurrentTrack(song);
+    dispatch(setActiveSong(song));
+    navigation.navigate('Player');
   };
   const onSongOptionClick = () => {};
   const onSongFavClick = () => {};
+
+  if (!isPlayerReady) {
+    return (
+      <View>
+        <Text xxxlg center>
+          {' '}
+          NOT READY
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <SafeAreaView>
       <Header />
@@ -54,10 +63,10 @@ const Songs = () => {
             key={song.id}
             title={song.title}
             subTitle={song.artist}
-            onItemClick={() => onSongClick(song.id)}
-            onItemSelect={() => onSongSelect(song.id)}
+            onItemClick={() => onSongClick(song)}
+            onItemSelect={() => onSongSelect(song)}
             coverImage={song.cover}
-            selected={selectedSong === song.id}
+            selected={activeSong?.id === song.id}
             onOptionClick={onSongOptionClick}
             onSecondaryOptionClick={onSongFavClick}
           />
@@ -76,6 +85,7 @@ const createStyle = (_theme: ITheme) => {
       backgroundColor: '#fff',
     },
     listContainer: {
+      paddingTop: 10,
       paddingBottom: 70,
     },
   });

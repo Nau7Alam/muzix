@@ -1,64 +1,53 @@
-import React, { useMemo, useRef } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import { View } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import { StyleSheet, Image } from 'react-native';
-import { staticSongs } from '../../constants/musicList';
+import { StyleSheet } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
-import { CarouselMusicItemProps } from './ActivePlayer.interface';
-import Text from '../Text/Text';
+import { IMusic } from '../../interfaces/player/music.interface';
+import CarouselMusicItem from './CarouselMusicItem';
 
-const CarouselMusicItem = ({
-  music,
-  styles,
-  theme,
-}: CarouselMusicItemProps) => {
-  const carouselRef = useRef(null);
-  return (
-    <View style={styles.itemContainer} key={music.id}>
-      <View style={styles.imageBox}>
-        <Image
-          source={{ uri: music.cover }}
-          style={styles.image}
-          resizeMode="cover"
+type ActivePlayerProps = {
+  activeIndex: number;
+  songs: IMusic[];
+  onSlideChange: (n: number) => void;
+};
+
+const ActivePlayer = forwardRef(
+  ({ activeIndex, songs, onSlideChange }: ActivePlayerProps, ref: any) => {
+    const theme = useTheme() as ITheme;
+    const screenWidth = theme.screen.width;
+    const itemWidth = screenWidth * 0.65;
+    const styles = useMemo(() => createStyle(theme), [theme]);
+
+    return (
+      <View style={styles.container}>
+        <Carousel
+          layout="default"
+          ref={ref}
+          data={songs}
+          renderItem={({ item }) => (
+            <CarouselMusicItem styles={styles} theme={theme} music={item} />
+          )}
+          getItemLayout={(_data, index) => ({
+            length: itemWidth,
+            offset: itemWidth * index,
+            index,
+          })}
+          initialNumToRender={0}
+          firstItem={activeIndex}
+          inactiveSlideShift={40}
+          inactiveSlideOpacity={0.6}
+          sliderWidth={screenWidth}
+          itemWidth={itemWidth}
+          useScrollView={true}
+          hasParallaxImages={true}
+          onSnapToItem={index => onSlideChange(index)}
         />
       </View>
-      <Text lg center semiBold color={theme.colors.text} numberOfLines={2}>
-        {music.title}
-      </Text>
-      <Text sm center color={theme.colors.textSecondary} style={styles.artist}>
-        {music.artist}
-      </Text>
-    </View>
-  );
-};
-
-const ActivePlayer = () => {
-  const isCarousel = React.useRef(null);
-  const theme = useTheme() as ITheme;
-  const screenWidth = theme.screen.width;
-  const itemWidth = screenWidth * 0.65;
-  const styles = useMemo(() => createStyle(theme), [theme]);
-
-  return (
-    <View style={styles.container}>
-      <Carousel
-        layout="default"
-        layoutCardOffset={9}
-        ref={isCarousel}
-        data={staticSongs}
-        renderItem={({ item }) => (
-          <CarouselMusicItem styles={styles} theme={theme} music={item} />
-        )}
-        sliderWidth={screenWidth}
-        itemWidth={itemWidth}
-        inactiveSlideShift={2}
-        useScrollView={true}
-        hasParallaxImages={true}
-      />
-    </View>
-  );
-};
+    );
+  }
+);
 
 export default ActivePlayer;
 

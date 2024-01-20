@@ -24,7 +24,7 @@ export const playerReducer = createSlice({
   },
 });
 
-export const { setAllSong } = playerReducer.actions;
+export const { setAllSong, setActiveSong } = playerReducer.actions;
 
 export const allSongSelector = (state: RootState) => state.player.songs;
 export const activeSongSelector = (state: RootState) => state.player.activeSong;

@@ -6,6 +6,7 @@ import PressableIcon from '../PressabelIcon/PressableIcon';
 import ProgressBar from './ProgressBar';
 
 interface PlayerProgressProps {
+  isPlaying: boolean;
   progress: number;
   lenght: number;
   onProgressChange: (e: any) => void;
@@ -15,6 +16,7 @@ interface PlayerProgressProps {
 }
 
 export const PlayerProgress = ({
+  isPlaying,
   progress,
   lenght,
   onProgressChange,
@@ -67,7 +69,7 @@ export const PlayerProgress = ({
         <PressableIcon
           onPress={onPlayControl}
           buttonStyle={styles.playButton}
-          name="control-pause"
+          name={isPlaying ? 'control-pause' : 'control-play'}
           size={fontSize.xxlg}
           color={colors.iconDark}
         />

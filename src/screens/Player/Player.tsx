@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
@@ -13,21 +13,32 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import { useTrackSongs } from '../../hooks/trackHooks';
 import Text from '../../components/Text/Text';
+import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
+import {
+  activeSongSelector,
+  allSongSelector,
+  setActiveSong,
+} from '../../reducers/playerReducer';
+import { getIndexOfSong } from '../../helpers/utitlities';
+import { addCurrentTrack } from '../../playerServices/trackFunctions';
 
 const Player = () => {
   const theme: ITheme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
   const { position, duration } = useProgress();
+  const { isPlayerReady } = useTrackSongs();
+  const songs = useAppSelector(allSongSelector);
+  const activeSong = useAppSelector(activeSongSelector) ?? songs[0];
+  const activeSongIndex = getIndexOfSong(songs, activeSong!);
+  const dispatch = useAppDispatch();
+
   const onProgress = (value: any) => {
-    console.log('HELLO WORLD', value[0]);
     TrackPlayer.seekTo(value[0]);
   };
-  const { isPlayerReady } = useTrackSongs();
   const playerState = usePlaybackState();
   const isPlaying = playerState.state === State.Playing;
 
-  console.log('PLAYING ???', isPlaying);
-  console.log('Progress', { duration, position });
+  console.log('INDEX OF >>>>>>>>>>>', activeSongIndex);
 
   const playSong = async () => {
     if (isPlaying) {
@@ -36,24 +47,40 @@ const Player = () => {
       await TrackPlayer.play();
     }
   };
+
+  const onSongSlide = (index: number) => {
+    console.log('INDEX >>>>', index);
+    const activeOnCarousel = songs[index];
+    addCurrentTrack(activeOnCarousel);
+    dispatch(setActiveSong(activeOnCarousel));
+  };
+
   const onNext = async () => {
-    await TrackPlayer.skipToNext();
-    let trackIndex = await TrackPlayer.getActiveTrackIndex();
-    if (trackIndex) {
-      let trackObject = await TrackPlayer.getTrack(trackIndex);
-      console.log(`Title >>>>>>>>>>>>>>>>>> ${trackObject?.title}`);
+    if (activeSongIndex <= songs.length - 2) {
+      const nextSong = songs[activeSongIndex + 1];
+      console.log('NEXT SONG ', nextSong.title);
+      carouselRef.current?.snapToNext();
+      addCurrentTrack(nextSong);
+      dispatch(setActiveSong(nextSong));
     }
   };
 
   const onBack = async () => {
-    await TrackPlayer.skipToPrevious();
+    if (activeSongIndex > 0) {
+      const previousSong = songs[activeSongIndex - 1];
+      console.log('PREVIOUS SONG ', previousSong.title);
+      carouselRef.current.snapToPrev();
+      addCurrentTrack(previousSong);
+      dispatch(setActiveSong(previousSong));
+    }
   };
+
+  const carouselRef = useRef<any>(null);
 
   if (!isPlayerReady) {
     return (
       <View>
         <Text xxxlg center>
-          {' '}
           NOT READY
         </Text>
       </View>
@@ -63,8 +90,14 @@ const Player = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      <ActivePlayer />
+      <ActivePlayer
+        ref={carouselRef}
+        activeIndex={activeSongIndex}
+        songs={songs}
+        onSlideChange={onSongSlide}
+      />
       <PlayerProgress
+        isPlaying={isPlaying}
         progress={position}
         lenght={duration}
         onProgressChange={onProgress}

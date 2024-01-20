@@ -4,6 +4,7 @@ import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import { Slider } from '@miblanchard/react-native-slider';
 import Text from '../Text/Text';
+import { secondsToHms } from '../../helpers/utitlities';
 
 type ProgressBarProps = {
   progress: number;
@@ -20,12 +21,11 @@ const ProgressBar = ({
   return (
     <View style={[styles.container]}>
       <Text center xxs color={theme.colors.border} style={styles.text}>
-        {progress}
+        {secondsToHms(progress)}
       </Text>
       <Slider
         containerStyle={styles.sliderBox}
         value={progress}
-        // minimumValue={}
         maximumValue={lenght}
         onValueChange={(value: any) => onProgressChange(value)}
         minimumTrackTintColor={theme.colors.border}
@@ -35,11 +35,9 @@ const ProgressBar = ({
         thumbStyle={styles.thumb}
         trackStyle={styles.track}
         trackClickable
-        animateTransitions
-        animationType="timing"
       />
       <Text center xxs color={theme.colors.border} style={styles.text}>
-        {lenght}
+        {secondsToHms(lenght)}
       </Text>
     </View>
   );
