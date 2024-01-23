@@ -73,6 +73,7 @@ export interface IColors {
 
   white: string;
   black: string;
+  transparent: string;
 
   success: string;
 

@@ -1,5 +1,5 @@
 import React, { useMemo, useRef } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import Header from '../../components/Header/Header';
@@ -11,8 +11,6 @@ import TrackPlayer, {
   usePlaybackState,
   useProgress,
 } from 'react-native-track-player';
-import { useTrackSongs } from '../../hooks/trackHooks';
-import Text from '../../components/Text/Text';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import {
   activeSongSelector,
@@ -20,27 +18,31 @@ import {
   setActiveSong,
 } from '../../reducers/playerReducer';
 import { getIndexOfSong } from '../../helpers/utitlities';
-import { addCurrentTrack } from '../../playerServices/trackFunctions';
+import {
+  addAndPlayCurrentTrack,
+  addCurrentTrack,
+} from '../../playerServices/trackFunctions';
 
 const Player = () => {
   const theme: ITheme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
   const { position, duration } = useProgress();
-  const { isPlayerReady } = useTrackSongs();
   const songs = useAppSelector(allSongSelector);
   const activeSong = useAppSelector(activeSongSelector) ?? songs[0];
-  const activeSongIndex = getIndexOfSong(songs, activeSong!);
+  const activeSongIndex = getIndexOfSong(songs, activeSong);
   const dispatch = useAppDispatch();
+  const carouselRef = useRef<any>(null);
 
   const onProgress = (value: any) => {
     TrackPlayer.seekTo(value[0]);
   };
+
   const playerState = usePlaybackState();
   const isPlaying = playerState.state === State.Playing;
 
-  console.log('INDEX OF >>>>>>>>>>>', activeSongIndex);
-
   const playSong = async () => {
+    const currentQueue = await TrackPlayer.getQueue();
+    !currentQueue.length && addCurrentTrack(activeSong);
     if (isPlaying) {
       await TrackPlayer.pause();
     } else {
@@ -49,18 +51,16 @@ const Player = () => {
   };
 
   const onSongSlide = (index: number) => {
-    console.log('INDEX >>>>', index);
     const activeOnCarousel = songs[index];
-    addCurrentTrack(activeOnCarousel);
+    addAndPlayCurrentTrack(activeOnCarousel);
     dispatch(setActiveSong(activeOnCarousel));
   };
 
   const onNext = async () => {
     if (activeSongIndex <= songs.length - 2) {
       const nextSong = songs[activeSongIndex + 1];
-      console.log('NEXT SONG ', nextSong.title);
       carouselRef.current?.snapToNext();
-      addCurrentTrack(nextSong);
+      addAndPlayCurrentTrack(nextSong);
       dispatch(setActiveSong(nextSong));
     }
   };
@@ -68,24 +68,11 @@ const Player = () => {
   const onBack = async () => {
     if (activeSongIndex > 0) {
       const previousSong = songs[activeSongIndex - 1];
-      console.log('PREVIOUS SONG ', previousSong.title);
       carouselRef.current.snapToPrev();
-      addCurrentTrack(previousSong);
+      addAndPlayCurrentTrack(previousSong);
       dispatch(setActiveSong(previousSong));
     }
   };
-
-  const carouselRef = useRef<any>(null);
-
-  if (!isPlayerReady) {
-    return (
-      <View>
-        <Text xxxlg center>
-          NOT READY
-        </Text>
-      </View>
-    );
-  }
 
   return (
     <SafeAreaView style={styles.container}>

@@ -14,9 +14,9 @@ export const getLocalSongs = async () => {
     getPermission();
   } else {
     const songsOrError = await getAll({
-      limit: 20,
-      offset: 0,
-      coverQuality: 50,
+      // limit: 10, optional
+      // offset: 0, optional
+      coverQuality: 100,
       minSongDuration: 1000,
       sortBy: SortSongFields.TITLE,
       sortOrder: SortSongOrder.DESC,
@@ -36,9 +36,9 @@ export const getLocalAlbumsByArtist = async (artist?: string) => {
     getPermission();
   } else {
     const albumsOrError = await getAlbums({
-      limit: 10,
-      offset: 0,
-      coverQuality: 50,
+      // limit: 10,
+      // offset: 0,
+      coverQuality: 100,
       artist: artist ?? '',
       sortOrder: SortSongOrder.DESC,
     });
@@ -58,8 +58,8 @@ export const searchSongsByKey = async (searchKey?: string) => {
     getPermission();
   } else {
     const resultsOrError = await searchSongs({
-      limit: 10,
-      offset: 0,
+      // limit: 10,
+      // offset: 0,
       coverQuality: 50,
       searchBy: searchKey ?? '',
       sortBy: SortSongFields.DURATION,

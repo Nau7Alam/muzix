@@ -14,7 +14,7 @@ import {
 } from '../../reducers/playerReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import Text from '../../components/Text/Text';
-import { addCurrentTrack } from '../../playerServices/trackFunctions';
+import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
 
 const Songs = ({ navigation }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | string>(null);
@@ -34,7 +34,7 @@ const Songs = ({ navigation }: any) => {
     if (selectedSong !== song.id) {
       setSelectedSong(null);
     }
-    addCurrentTrack(song);
+    addAndPlayCurrentTrack(song);
     dispatch(setActiveSong(song));
     navigation.navigate('Player');
   };

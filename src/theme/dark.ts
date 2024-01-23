@@ -23,9 +23,10 @@ export const DarkThemes: ITheme = {
     textLight: '#e0e5ee',
     textDark: '#526a94',
 
-    textSecondary: '',
-    textSecondaryLight: '',
-    textSecondaryDark: '',
+    // TODO : Add proper secondary colors for dark and light mode
+    textSecondary: '#8c9fbf',
+    textSecondaryLight: '#e0e5ee',
+    textSecondaryDark: '#526a94',
 
     danger: '#ff5a51',
     dangerLight: '#ff8680',
@@ -33,6 +34,7 @@ export const DarkThemes: ITheme = {
 
     white: '#fff',
     black: '#000',
+    transparent: 'rgba(0,0,0,0)',
 
     success: '#36ec6c',
 

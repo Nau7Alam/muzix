@@ -32,6 +32,7 @@ export const LightThemes: ITheme = {
 
     white: '#ffffff',
     black: '#000000',
+    transparent: 'rgba(0,0,0,0)',
 
     success: '#36ec6c',
 
