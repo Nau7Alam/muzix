@@ -6,6 +6,7 @@ import {
   searchSongs,
 } from 'react-native-get-music-files';
 import { checkPermission, getPermission } from './permission';
+import { IAlbum } from '../interfaces/player/music.interface';
 
 export const getLocalSongs = async () => {
   const hasPermission = await checkPermission();
@@ -47,7 +48,7 @@ export const getLocalAlbumsByArtist = async (artist?: string) => {
       console.log('ERROR ::: ', albumsOrError);
       return;
     }
-    return albumsOrError;
+    return albumsOrError as IAlbum[];
   }
 };
 

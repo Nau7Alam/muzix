@@ -9,3 +9,12 @@ export interface IMusic {
   genre?: string;
   cover: string;
 }
+
+export interface IAlbum {
+  id: string;
+  url: string;
+  album: string;
+  artist: string;
+  numberOfSongs: string;
+  cover: string;
+}

@@ -5,7 +5,11 @@ import { useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
 import Text from '../Text/Text';
 
-export const Header = () => {
+type HeaderProps = {
+  title?: string;
+};
+
+export const Header = ({ title }: HeaderProps) => {
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
   const isLight = Appearance.getColorScheme() === 'light';
@@ -21,7 +25,7 @@ export const Header = () => {
       />
       <View>
         <Text md medium color={theme.colors.textDark} style={styles.title}>
-          Muzix
+          {title ? title : 'Muzix'}
         </Text>
       </View>
       <PressableIcon
