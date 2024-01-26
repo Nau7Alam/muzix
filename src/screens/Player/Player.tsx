@@ -2,10 +2,8 @@ import React, { useMemo, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
-import Header from '../../components/Header/Header';
 import ActivePlayer from '../../components/ActivePlayer/ActivePlayer';
 import PlayerProgress from '../../components/PlayerProgress/PlayerProgress';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import TrackPlayer, {
   State,
   usePlaybackState,
@@ -22,6 +20,7 @@ import {
   addAndPlayCurrentTrack,
   addCurrentTrack,
 } from '../../playerServices/trackFunctions';
+import Layout from '../../components/Layout/Layout';
 
 const Player = () => {
   const theme: ITheme = useTheme() as ITheme;
@@ -75,8 +74,7 @@ const Player = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header />
+    <Layout style={styles.container}>
       <ActivePlayer
         ref={carouselRef}
         activeIndex={activeSongIndex}
@@ -92,7 +90,7 @@ const Player = () => {
         onForwardControl={onNext}
         onBackwardCongrol={onBack}
       />
-    </SafeAreaView>
+    </Layout>
   );
 };
 

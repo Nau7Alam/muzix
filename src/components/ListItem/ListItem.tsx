@@ -16,9 +16,9 @@ type ListItemProps = {
   subTitle: string;
   coverImage: string;
   selected?: boolean;
-  onItemSelect?: () => void;
   onItemClick: () => void;
-  onOptionClick: () => void;
+  onItemSelect?: () => void;
+  onOptionClick?: () => void;
   onSecondaryOptionClick?: () => void;
 };
 
@@ -61,28 +61,27 @@ const ListItem = ({
         <Text numberOfLines={1} xs color={colors.textLight}>
           {subTitle}
         </Text>
-        {/* <Text color={colors.textLight} xxs bold>
-          {selected ? 'SELECTED' : 'NOT SELECTED'}
-        </Text> */}
       </View>
-      <View style={styles.optionBox}>
-        {!!onSecondaryOptionClick && (
+      {!!onOptionClick && (
+        <View style={styles.optionBox}>
+          {!!onSecondaryOptionClick && (
+            <PressableIcon
+              name="heart"
+              onPress={onSecondaryOptionClick}
+              color={selected ? colors.primaryDark : colors.primary}
+              size={fontSize.lg}
+              style={styles.iconStyle}
+            />
+          )}
           <PressableIcon
-            name="heart"
-            onPress={onSecondaryOptionClick}
-            color={selected ? colors.primaryDark : colors.primary}
+            name="options-vertical"
+            color={selected ? colors.icon : colors.iconDark}
+            onPress={onOptionClick}
             size={fontSize.lg}
             style={styles.iconStyle}
           />
-        )}
-        <PressableIcon
-          name="options-vertical"
-          color={selected ? colors.icon : colors.iconDark}
-          onPress={onOptionClick}
-          size={fontSize.lg}
-          style={styles.iconStyle}
-        />
-      </View>
+        </View>
+      )}
     </Pressable>
   );
 };
@@ -96,8 +95,8 @@ const createStyle = (theme: ITheme) => {
       marginHorizontal: margin.four,
       marginLeft: margin.ten,
       marginRight: margin.zero,
-      paddingVertical: padding.six,
-      paddingHorizontal: padding.eight,
+      paddingVertical: padding.four,
+      paddingHorizontal: padding.six,
       flexDirection: 'row',
       alignItems: 'center',
     },
@@ -107,13 +106,13 @@ const createStyle = (theme: ITheme) => {
       borderBottomLeftRadius: borderRadius.full,
     },
     coverImage: {
-      height: 55,
-      width: 55,
+      height: 50,
+      width: 50,
       borderRadius: borderRadius.ten,
     },
     selectedCoverImage: {
-      height: 60,
-      width: 60,
+      height: 55,
+      width: 55,
       borderRadius: borderRadius.full,
       borderColor: colors.cardDark,
       borderWidth: borderRadius.six,

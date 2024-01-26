@@ -1,27 +1,28 @@
-import React, { useMemo, useState } from 'react';
+import React, { Fragment, useMemo, useState } from 'react';
 import ListItem from '../../components/ListItem/ListItem';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { IMusic } from '../../interfaces/player/music.interface';
 import { useTheme } from '@react-navigation/native';
 import { ITheme } from '../../theme/theme.interface';
-import { useTrackSongs } from '../../hooks/trackHooks';
 import {
   activeSongSelector,
   allSongSelector,
   setActiveSong,
 } from '../../reducers/playerReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
-import Text from '../../components/Text/Text';
 import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
-import Layout from '../../components/Layout/Layout';
+import AlbumHeader from './AlbumHeader';
 
-const Songs = ({ navigation }: any) => {
+const AlbumDetail = ({ navigation, route }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | string>(null);
-  const { isPlayerReady } = useTrackSongs();
 
+  const activeAlbum = route?.params?.album;
+  console.log('PARAM ******', { ...activeAlbum, cover: 'COVER IMAGE' });
   const dispatch = useAppDispatch();
   const songs = useAppSelector(allSongSelector);
+  const songsInAlbum = songs.filter(song => song.album === activeAlbum?.album);
   const activeSong = useAppSelector(activeSongSelector);
+
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
 
@@ -40,22 +41,17 @@ const Songs = ({ navigation }: any) => {
   const onSongOptionClick = () => {};
   const onSongFavClick = () => {};
 
-  if (!isPlayerReady) {
-    return (
-      <View>
-        <Text xxxlg center>
-          {' '}
-          NOT READY
-        </Text>
-      </View>
-    );
-  }
-
   return (
-    <Layout style={styles.container}>
+    <Fragment>
+      <AlbumHeader
+        title={activeAlbum?.album}
+        coverImage={activeAlbum.cover}
+        songCount={activeAlbum.numberOfSongs}
+        artist={activeAlbum.artist}
+      />
       <FlatList
         contentContainerStyle={styles.listContainer}
-        data={songs}
+        data={songsInAlbum}
         renderItem={({ item: song }: { item: IMusic }) => (
           <ListItem
             key={song.id}
@@ -72,7 +68,7 @@ const Songs = ({ navigation }: any) => {
         keyExtractor={item => item.id}
         keyboardShouldPersistTaps={'handled'}
       />
-    </Layout>
+    </Fragment>
   );
 };
 
@@ -82,9 +78,10 @@ const createStyle = ({ padding }: ITheme) => {
       flex: 1,
     },
     listContainer: {
-      paddingBottom: padding.xxlg + 30,
+      paddingTop: padding.four,
+      paddingBottom: 50,
     },
   });
 };
 
-export default Songs;
+export default AlbumDetail;

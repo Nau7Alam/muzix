@@ -6,9 +6,9 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { useTheme } from '@react-navigation/native';
 import { IColors, ITheme } from '../theme/theme.interface';
 import Settings from '../screens/Settings/Settings';
-import Albums from '../screens/Albums/Albums';
 import Playlists from '../screens/Playlists/Playlists';
 import { StyleSheet } from 'react-native';
+import AlbumStack from './AlbumStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +29,7 @@ const renderIcons = (
   } else if (route.name === 'Albums') {
     iconName = 'notebook';
   } else if (route.name === 'Playlists') {
-    iconName = 'folder-alt';
+    iconName = 'playlist';
   }
   return (
     <Icon
@@ -55,14 +55,14 @@ export const HomeBottomTab = () => {
         headerShown: false,
         tabBarIcon: ({ focused }) =>
           renderIcons(route, focused, colors, fontSize, styles),
-        tabBarActiveTintColor: colors.primary,
+        tabBarActiveTintColor: colors.primaryDark,
         tabBarInactiveTintColor: colors.textSecondary,
         tabBarStyle: styles.tabBarStyle,
         tabBarLabelStyle: styles.tabBarLabelStyle,
       })}
     >
       <Tab.Screen name="Songs" component={Songs} />
-      <Tab.Screen name="Albums" component={Albums} />
+      <Tab.Screen name="Albums" component={AlbumStack} />
       <Tab.Screen name="Player" component={Player} />
       <Tab.Screen name="Playlists" component={Playlists} />
       <Tab.Screen name="Settings" component={Settings} />
@@ -70,7 +70,7 @@ export const HomeBottomTab = () => {
   );
 };
 
-const createColor = ({ colors, fontSize }: ITheme) => {
+const createColor = ({ colors, fontSize, fontWeight }: ITheme) => {
   return StyleSheet.create({
     tabBarStyle: {
       backgroundColor: colors.cardLight,
@@ -83,7 +83,7 @@ const createColor = ({ colors, fontSize }: ITheme) => {
     tabBarLabelStyle: {
       fontSize: fontSize.xxs,
       paddingBottom: 4,
-      color: colors.textSecondaryDark,
+      fontWeight: fontWeight.semiBold,
     },
     tabBarIconStyle: {
       zIndex: 10,

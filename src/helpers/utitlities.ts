@@ -17,3 +17,7 @@ export function secondsToHms(d: number) {
   var sDisplay = s > 0 ? `${s < 10 ? '0' + s : s}` : '00';
   return hDisplay + mDisplay + sDisplay;
 }
+
+export const addS = (count: any, text: string) => {
+  return Number(count) > 1 ? `${count} ${text}s` : `${count} ${text}`;
+};

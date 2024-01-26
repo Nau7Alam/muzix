@@ -19,12 +19,20 @@ export const Header = ({ title }: HeaderProps) => {
         onPress={() => {
           Appearance.setColorScheme(isLight ? 'dark' : 'light');
         }}
-        size={theme.fontSize.lg}
-        name="menu"
+        size={theme.fontSize.xlg}
+        style={styles.logo}
+        name="music-tone-alt"
         color={theme.colors.text}
       />
-      <View>
-        <Text md medium color={theme.colors.textDark} style={styles.title}>
+      <View style={styles.titleBox}>
+        <Text
+          numberOfLines={1}
+          md
+          medium
+          center
+          color={theme.colors.primaryLight}
+          style={styles.title}
+        >
           {title ? title : 'Muzix'}
         </Text>
       </View>
@@ -48,7 +56,14 @@ const createStyle = (theme: ITheme) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: colors.card,
-      padding: padding.six,
+      padding: padding.four,
+    },
+    logo: {
+      paddingVertical: 0,
+      transform: [{ scale: 1.2 }, { rotate: '-20deg' }],
+    },
+    titleBox: {
+      flex: 1,
     },
     title: {},
   });

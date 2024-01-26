@@ -1,14 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
 import Text from '../../components/Text/Text';
+import Layout from '../../components/Layout/Layout';
 
 const Settings = () => {
   return (
-    <View>
+    <Layout title="Settings">
       <Text xxlg bold center>
         Settings
       </Text>
-    </View>
+    </Layout>
   );
 };
 

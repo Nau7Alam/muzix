@@ -1,14 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
 import Text from '../../components/Text/Text';
+import Layout from '../../components/Layout/Layout';
 
 const Playlists = () => {
   return (
-    <View>
+    <Layout title="Playlists">
       <Text xxlg bold center>
         Playlists
       </Text>
-    </View>
+    </Layout>
   );
 };
 
