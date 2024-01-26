@@ -30,7 +30,7 @@ const Albums = ({ navigation }: { navigation: any }) => {
             title={album.album}
             coverImage={album.cover}
             subTitle={album.artist + '・' + addS(album.numberOfSongs, 'Song')}
-            onItemClick={() => onAlbumClick(album)}
+            onClick={() => onAlbumClick(album)}
           />
         );
       })}

@@ -11,6 +11,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import playlistReducer from './reducers/playlistReducer';
 
 const persistConfig = {
   key: 'root',
@@ -20,6 +21,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   player: playerReducer,
+  playlist: playlistReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -37,5 +39,5 @@ export const persistor = persistStore(store);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+// Inferred types eg:>> {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;

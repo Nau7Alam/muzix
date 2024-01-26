@@ -82,7 +82,6 @@ const Text = ({
       style={[
         color ? setColor(color) : { color: theme.colors.text },
         StyleSheet.flatten([
-          customStyle,
           xxxs && styles.xxxs,
           xxs && styles.xxs,
           xs && styles.xs,
@@ -107,6 +106,7 @@ const Text = ({
           upperCase && styles.upperCase,
           lowerCase && styles.lowerCase,
           capitalize && styles.capitalize,
+          customStyle,
         ]),
       ]}
       {...rest}

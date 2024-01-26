@@ -17,7 +17,6 @@ const AlbumDetail = ({ navigation, route }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | string>(null);
 
   const activeAlbum = route?.params?.album;
-  console.log('PARAM ******', { ...activeAlbum, cover: 'COVER IMAGE' });
   const dispatch = useAppDispatch();
   const songs = useAppSelector(allSongSelector);
   const songsInAlbum = songs.filter(song => song.album === activeAlbum?.album);
@@ -57,8 +56,8 @@ const AlbumDetail = ({ navigation, route }: any) => {
             key={song.id}
             title={song.title}
             subTitle={song.artist}
-            onItemClick={() => onSongClick(song)}
-            onItemSelect={() => onSongSelect(song)}
+            onClick={() => onSongClick(song)}
+            onSelect={() => onSongSelect(song)}
             coverImage={song.cover}
             selected={activeSong?.id === song.id}
             onOptionClick={onSongOptionClick}

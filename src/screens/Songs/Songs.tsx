@@ -61,8 +61,8 @@ const Songs = ({ navigation }: any) => {
             key={song.id}
             title={song.title}
             subTitle={song.artist}
-            onItemClick={() => onSongClick(song)}
-            onItemSelect={() => onSongSelect(song)}
+            onClick={() => onSongClick(song)}
+            onSelect={() => onSongSelect(song)}
             coverImage={song.cover}
             selected={activeSong?.id === song.id}
             onOptionClick={onSongOptionClick}

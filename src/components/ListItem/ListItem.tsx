@@ -5,6 +5,9 @@ import {
   Image,
   View,
   GestureResponderEvent,
+  StyleProp,
+  TextStyle,
+  ImageStyle,
 } from 'react-native';
 import Text from '../Text/Text';
 import { ITheme } from '../../theme/theme.interface';
@@ -13,11 +16,13 @@ import PressableIcon from '../PressabelIcon/PressableIcon';
 
 type ListItemProps = {
   title: string;
-  subTitle: string;
-  coverImage: string;
+  subTitle?: string;
+  coverImage?: string;
   selected?: boolean;
-  onItemClick: () => void;
-  onItemSelect?: () => void;
+  titleStyle?: StyleProp<TextStyle>;
+  coverImageStyle?: StyleProp<ImageStyle>;
+  onClick: () => void;
+  onSelect?: () => void;
   onOptionClick?: () => void;
   onSecondaryOptionClick?: () => void;
 };
@@ -27,35 +32,47 @@ const ListItem = ({
   coverImage,
   subTitle,
   selected,
-  onItemClick,
-  onItemSelect,
+  titleStyle,
+  coverImageStyle,
+  onClick,
+  onSelect,
   onOptionClick,
   onSecondaryOptionClick,
 }: ListItemProps) => {
   const theme = useTheme() as ITheme;
   const { colors, fontSize } = theme;
   const styles = useMemo(() => createStyle(theme), [theme]);
+
   return (
     <Pressable
-      onPress={onItemClick}
+      onPress={onClick}
       style={{
         ...styles.continer,
         ...(selected && styles.selectedStyle),
       }}
-      onLongPress={(_event: GestureResponderEvent) =>
-        !!onItemSelect && onItemSelect()
-      }
+      onLongPress={(_event: GestureResponderEvent) => !!onSelect && onSelect()}
     >
       <Image
         style={{
           ...styles.coverImage,
           ...(selected && styles.selectedCoverImage),
+          ...(!!coverImageStyle && (coverImageStyle as Object)),
         }}
-        source={{ uri: coverImage }}
+        source={
+          coverImage
+            ? { uri: coverImage }
+            : require('../../../assets/images/music_placeholder.png')
+        }
         resizeMode="cover"
       />
       <View style={styles.titleBox}>
-        <Text numberOfLines={1} md semiBold color={colors.text}>
+        <Text
+          numberOfLines={1}
+          md
+          semiBold
+          color={colors.text}
+          style={[titleStyle]}
+        >
           {title}
         </Text>
         <Text numberOfLines={1} xs color={colors.textLight}>
@@ -120,6 +137,7 @@ const createStyle = (theme: ITheme) => {
     titleBox: {
       flex: 1,
       justifyContent: 'space-around',
+      alignSelf: 'center',
       gap: padding.four,
       padding: padding.ten,
     },

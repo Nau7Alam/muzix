@@ -11,7 +11,7 @@ const initialState: PlayerStateType = {
   activeSong: null,
 };
 
-export const playerReducer = createSlice({
+const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
@@ -24,9 +24,9 @@ export const playerReducer = createSlice({
   },
 });
 
-export const { setAllSong, setActiveSong } = playerReducer.actions;
+export const { setAllSong, setActiveSong } = playerSlice.actions;
 
 export const allSongSelector = (state: RootState) => state.player.songs;
 export const activeSongSelector = (state: RootState) => state.player.activeSong;
 
-export default playerReducer.reducer;
+export default playerSlice.reducer;
