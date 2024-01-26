@@ -60,7 +60,7 @@ const createStyle = (theme: ITheme) => {
     },
     logo: {
       paddingVertical: 0,
-      transform: [{ scale: 1.2 }, { rotate: '-20deg' }],
+      transform: [{ rotate: '-20deg' }, { translateX: 5 }],
     },
     titleBox: {
       flex: 1,

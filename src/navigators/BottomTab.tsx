@@ -20,6 +20,8 @@ const renderIcons = (
   styles: any
 ) => {
   let iconName = '';
+  let iconSize = focused ? fontSize.xlg : fontSize.lg;
+  let iconColor = focused ? colors.white : colors.text;
   if (route.name === 'Player') {
     iconName = 'disc';
   } else if (route.name === 'Songs') {
@@ -38,8 +40,8 @@ const renderIcons = (
         styles.tabBarIconStyle,
         { backgroundColor: focused ? colors.primaryDark : colors.cardLight },
       ]}
-      color={focused ? colors.white : colors.text}
-      size={focused ? fontSize.xlg : fontSize.lg}
+      color={iconColor}
+      size={iconSize}
     />
   );
 };
