@@ -5,7 +5,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { IconProps } from 'react-native-vector-icons/Icon';
 
-const getIcon = (type: string) => {
+const getIcon = (type?: string) => {
   switch (type) {
     case 'octa':
       return Octicons;
@@ -19,7 +19,7 @@ const getIcon = (type: string) => {
 };
 
 type IProps = {
-  type: string;
+  type?: string;
 } & IconProps;
 const Icon = ({ type, ...rest }: IProps) => {
   const IconComponent = getIcon(type);

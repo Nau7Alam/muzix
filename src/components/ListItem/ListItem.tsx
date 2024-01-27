@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import {
   Pressable,
   StyleSheet,
-  Image,
   View,
   GestureResponderEvent,
   StyleProp,
@@ -13,6 +12,7 @@ import Text from '../Text/Text';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
+import Avatar from '../Avatar/Avatar';
 
 type ListItemProps = {
   title: string;
@@ -52,18 +52,12 @@ const ListItem = ({
       }}
       onLongPress={(_event: GestureResponderEvent) => !!onSelect && onSelect()}
     >
-      <Image
-        style={{
-          ...styles.coverImage,
-          ...(selected && styles.selectedCoverImage),
-          ...(!!coverImageStyle && (coverImageStyle as Object)),
-        }}
-        source={
-          coverImage
-            ? { uri: coverImage }
-            : require('../../../assets/images/music_placeholder.png')
-        }
-        resizeMode="cover"
+      <Avatar
+        style={[
+          selected && styles.selectedCoverImage,
+          !!coverImageStyle && (coverImageStyle as Object),
+        ]}
+        image={coverImage}
       />
       <View style={styles.titleBox}>
         <Text
@@ -121,11 +115,6 @@ const createStyle = (theme: ITheme) => {
       backgroundColor: colors.primary,
       borderTopLeftRadius: borderRadius.full,
       borderBottomLeftRadius: borderRadius.full,
-    },
-    coverImage: {
-      height: 50,
-      width: 50,
-      borderRadius: borderRadius.ten,
     },
     selectedCoverImage: {
       height: 55,

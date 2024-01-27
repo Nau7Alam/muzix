@@ -1,5 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode, useCallback, useMemo } from 'react';
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import {
@@ -8,8 +7,9 @@ import {
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
 import BottomSheetModalHeader from './BottomSheetHeader';
+import { ITheme } from '../../theme/theme.interface';
 
-const createStyles = theme => {
+const createStyles = (theme: ITheme) => {
   const { padding } = theme;
   return StyleSheet.create({
     handleStyle: {
@@ -17,6 +17,16 @@ const createStyles = theme => {
       paddingTop: padding.four,
     },
   });
+};
+
+type BottomSheetUIProps = {
+  bottomSheetModalRef: any;
+  headerTitle: string;
+  children: ReactNode;
+  showHeader: boolean;
+  initialSnapPoints: any[];
+  onDismiss?: () => void;
+  closeFilter: () => void;
 };
 
 const BottomSheetUI = ({
@@ -27,13 +37,13 @@ const BottomSheetUI = ({
   initialSnapPoints,
   bottomSheetModalRef,
   onDismiss,
-}) => {
-  const theme = useTheme();
+}: BottomSheetUIProps) => {
+  const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyles(theme), [theme]);
   const { colors } = theme;
 
   const renderBackdrop = useCallback(
-    props => (
+    (props: any) => (
       <BottomSheetBackdrop
         {...props}
         enableTouchThrough={false}
@@ -50,9 +60,9 @@ const BottomSheetUI = ({
     <BottomSheetModalLibrary
       index={1}
       ref={bottomSheetModalRef}
-      onChange={props => {}}
+      onChange={_props => {}}
       snapPoints={initialSnapPoints}
-      backgroundStyle={{ backgroundColor: colors.card }}
+      backgroundStyle={{ backgroundColor: colors.cardLight }}
       handleIndicatorStyle={{ backgroundColor: colors.textSecondaryDark }}
       handleStyle={styles.handleStyle}
       topInset={60}
@@ -72,16 +82,6 @@ const BottomSheetUI = ({
       <BottomSheetScrollView>{children}</BottomSheetScrollView>
     </BottomSheetModalLibrary>
   );
-};
-
-BottomSheetUI.propTypes = {
-  children: PropTypes.element.isRequired,
-  bottomSheetModalRef: PropTypes.object.isRequired,
-  showHeader: PropTypes.bool,
-  onDismiss: PropTypes.func,
-  initialSnapPoints: PropTypes.array,
-  closeFilter: PropTypes.func,
-  headerTitle: PropTypes.string,
 };
 
 export default BottomSheetUI;

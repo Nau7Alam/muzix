@@ -15,8 +15,8 @@ import Text from '../../components/Text/Text';
 import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
 import Layout from '../../components/Layout/Layout';
 import BottomSheetUI from '../../components/BottomSheetUI/BottomSheetUI';
-import ConversationFilter from '../../components/BottomSheetUI/ConversationFilter/ConversationFilter';
-import { ASSIGNEE_TYPES } from '../../constants/musicList';
+import OptionList from '../../components/BottomSheetUI/OptionList/OptionList';
+import { SONG_OPTIONS, ASSIGNEE_TYPES2 } from '../../constants/listOptions';
 
 const Songs = ({ navigation }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | IMusic>(null);
@@ -43,32 +43,49 @@ const Songs = ({ navigation }: any) => {
   const onSongOptionClick = (song: IMusic) => {
     console.log(song.title);
     setSelectedSong(song);
-    toggleConversationAssigneeModal();
+    toggleSongModal();
   };
   const onSongFavClick = (song: IMusic) => {
     console.log(song.title);
   };
 
   // Conversation filter modal
-  const conversationFilterModalSnapPoints = useMemo(
+  const songModalSnapPoints = useMemo(
     () => [theme.screen.height - 350, theme.screen.height - 350],
     [theme.screen.height]
   );
 
   // Filter by assignee type
-  const conversationAssigneeModal = useRef<any>(null);
+  const songOptionModal = useRef<any>(null);
+  const playlistModal = useRef<any>(null);
 
-  const toggleConversationAssigneeModal = useCallback(() => {
-    conversationAssigneeModal.current.present() ||
-      conversationAssigneeModal.current?.dismiss();
-  }, []);
-  const closeConversationAssigneeModal = useCallback(() => {
-    conversationAssigneeModal.current?.dismiss();
+  const toggleSongModal = useCallback(() => {
+    songOptionModal.current.present() || songOptionModal.current?.dismiss();
   }, []);
 
-  const onSelectAssigneeType = async (item: any) => {
-    closeConversationAssigneeModal();
+  const togglePlaylistModal = useCallback(() => {
+    playlistModal.current.present() || playlistModal.current?.dismiss();
+  }, []);
+
+  const closeSongModal = useCallback(() => {
+    songOptionModal.current?.dismiss();
+  }, []);
+
+  const closePlaylistModal = useCallback(() => {
+    playlistModal.current?.dismiss();
+  }, []);
+
+  const onSelectSongOption = async (item: any) => {
     console.log('CLLLLLLOOSEE ', item);
+    setSelectedSong(null);
+    closeSongModal();
+    togglePlaylistModal();
+  };
+
+  const onSelectPlaylist = async (item: any) => {
+    console.log('SELECT PLAYLIST ', item);
+    setSelectedSong(null);
+    closePlaylistModal();
   };
 
   if (!isPlayerReady) {
@@ -103,17 +120,33 @@ const Songs = ({ navigation }: any) => {
         keyboardShouldPersistTaps={'handled'}
       />
       <BottomSheetUI
-        bottomSheetModalRef={conversationAssigneeModal}
-        initialSnapPoints={conversationFilterModalSnapPoints}
+        bottomSheetModalRef={songOptionModal}
+        initialSnapPoints={songModalSnapPoints}
         showHeader
-        headerTitle={'Song options'}
-        closeFilter={closeConversationAssigneeModal}
+        headerTitle={selectedSong?.title ?? ''}
+        closeFilter={closeSongModal}
         children={
-          <ConversationFilter
+          <OptionList
             activeValue={'unassigned'}
-            items={ASSIGNEE_TYPES}
-            onChangeFilter={onSelectAssigneeType}
-            leftIcon={'check'}
+            items={SONG_OPTIONS}
+            onChangeFilter={onSelectSongOption}
+            leftIcon={'shuriken'}
+            colors={theme.colors}
+          />
+        }
+      />
+      <BottomSheetUI
+        bottomSheetModalRef={playlistModal}
+        initialSnapPoints={songModalSnapPoints}
+        showHeader
+        headerTitle={'Select Playlist'}
+        closeFilter={closePlaylistModal}
+        children={
+          <OptionList
+            activeValue={'fav'}
+            items={ASSIGNEE_TYPES2}
+            onChangeFilter={onSelectPlaylist}
+            leftIcon={'shimmer'}
             colors={theme.colors}
           />
         }
