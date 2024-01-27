@@ -80,3 +80,18 @@ export const staticSongs = [
     genre: '',
   },
 ];
+
+export const ASSIGNEE_TYPES = [
+  {
+    key: 'mine',
+    name: 'Mine',
+  },
+  {
+    key: 'unassigned',
+    name: 'Unassigned',
+  },
+  {
+    key: 'all',
+    name: 'All',
+  },
+];
