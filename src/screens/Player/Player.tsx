@@ -22,7 +22,7 @@ import {
 } from '../../playerServices/trackFunctions';
 import Layout from '../../components/Layout/Layout';
 
-const Player = () => {
+const Player = ({ route }: any) => {
   const theme: ITheme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
   const { position, duration } = useProgress();
@@ -31,6 +31,8 @@ const Player = () => {
   const activeSongIndex = getIndexOfSong(songs, activeSong);
   const dispatch = useAppDispatch();
   const carouselRef = useRef<any>(null);
+
+  console.log('@@@@@@@@@', route.params.playMode);
 
   const onProgress = (value: any) => {
     TrackPlayer.seekTo(value[0]);

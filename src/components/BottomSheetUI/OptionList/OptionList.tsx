@@ -6,7 +6,7 @@ import Icon from '../../Icon/Icon';
 import { IColors, ITheme } from '../../../theme/theme.interface';
 
 const createStyles = (theme: ITheme) => {
-  const { padding, borderRadius } = theme;
+  const { padding, borderRadius, colors } = theme;
   return StyleSheet.create({
     bottomSheet: {
       flex: 1,
@@ -24,12 +24,12 @@ const createStyles = (theme: ITheme) => {
       borderBottomWidth: 0.4,
       borderRadius: borderRadius.eight,
       alignItems: 'center',
+      borderBottomColor: colors.borderLight,
     },
   });
 };
 
 type OptionListProps = {
-  activeValue: string | number;
   leftIcon: string;
   items: any[];
   onChangeFilter: (val?: string | number) => void;
@@ -38,7 +38,6 @@ type OptionListProps = {
 
 const OptionList = ({
   colors,
-  activeValue,
   leftIcon,
   items,
   onChangeFilter,
@@ -52,16 +51,7 @@ const OptionList = ({
         {items.map(item => (
           <Pressable
             key={item.value}
-            style={[
-              {
-                borderBottomColor: colors.borderLight,
-                backgroundColor:
-                  activeValue === item.value
-                    ? colors.primaryLight
-                    : colors.cardLight,
-              },
-              styles.bottomSheetItem,
-            ]}
+            style={[styles.bottomSheetItem]}
             onPress={() => {
               onChangeFilter(item);
             }}
@@ -75,7 +65,7 @@ const OptionList = ({
               />
             )}
             <Text numberOfLines={1} md color={colors.text}>
-              {item.name}, {activeValue} {item.value} HELLO WORLD IS WORKING
+              {item.name}
             </Text>
           </Pressable>
         ))}

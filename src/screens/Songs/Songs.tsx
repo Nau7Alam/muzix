@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import ListItem from '../../components/ListItem/ListItem';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { IMusic } from '../../interfaces/player/music.interface';
+import { ISong } from '../../interfaces/player/music.interface';
 import { useTheme } from '@react-navigation/native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTrackSongs } from '../../hooks/trackHooks';
@@ -16,23 +16,30 @@ import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
 import Layout from '../../components/Layout/Layout';
 import BottomSheetUI from '../../components/BottomSheetUI/BottomSheetUI';
 import OptionList from '../../components/BottomSheetUI/OptionList/OptionList';
-import { SONG_OPTIONS, ASSIGNEE_TYPES2 } from '../../constants/listOptions';
+import { SONG_OPTIONS, SONG_OPERATION } from '../../constants/listOptions';
+import {
+  addToPlaylist,
+  allPlaylistSelector,
+} from '../../reducers/playlistReducer';
 
 const Songs = ({ navigation }: any) => {
-  const [selectedSong, setSelectedSong] = useState<null | IMusic>(null);
+  const [selectedSong, setSelectedSong] = useState<null | ISong>(null);
   const { isPlayerReady } = useTrackSongs();
 
   const dispatch = useAppDispatch();
   const songs = useAppSelector(allSongSelector);
+  const playlist = useAppSelector(allPlaylistSelector);
+  const playlistArray = Object.keys(playlist).map(p => ({ name: p, value: p }));
   const activeSong = useAppSelector(activeSongSelector);
+
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
 
-  const onSongSelect = (song: IMusic) => {
+  const onSongSelect = (song: ISong) => {
     setSelectedSong(song);
   };
 
-  const onSongClick = (song: IMusic) => {
+  const onSongClick = (song: ISong) => {
     if (selectedSong?.id !== song.id) {
       setSelectedSong(null);
     }
@@ -40,12 +47,13 @@ const Songs = ({ navigation }: any) => {
     dispatch(setActiveSong(song));
     navigation.navigate('Player');
   };
-  const onSongOptionClick = (song: IMusic) => {
+
+  const onSongOptionClick = (song: ISong) => {
     console.log(song.title);
     setSelectedSong(song);
     toggleSongModal();
   };
-  const onSongFavClick = (song: IMusic) => {
+  const onSongFavClick = (song: ISong) => {
     console.log(song.title);
   };
 
@@ -76,21 +84,30 @@ const Songs = ({ navigation }: any) => {
   }, []);
 
   const onSelectSongOption = async (item: any) => {
-    console.log('CLLLLLLOOSEE ', item);
-    setSelectedSong(null);
     closeSongModal();
-    togglePlaylistModal();
+    console.log(item.value);
+    switch (item.value) {
+      case SONG_OPERATION.add_to_playlist:
+        togglePlaylistModal();
+        break;
+      case SONG_OPERATION.play:
+        onSongClick(selectedSong!);
+        break;
+      default:
+        console.log('FROM SWITCH');
+        break;
+    }
   };
 
   const onSelectPlaylist = async (item: any) => {
-    console.log('SELECT PLAYLIST ', item);
+    dispatch(addToPlaylist({ name: item.value, song: selectedSong }));
     setSelectedSong(null);
     closePlaylistModal();
   };
 
   if (!isPlayerReady) {
     return (
-      <View>
+      <View style={styles.loaderBox}>
         <Text xxxlg center>
           NOT READY
         </Text>
@@ -103,7 +120,7 @@ const Songs = ({ navigation }: any) => {
       <FlatList
         contentContainerStyle={styles.listContainer}
         data={songs}
-        renderItem={({ item: song }: { item: IMusic }) => (
+        renderItem={({ item: song }: { item: ISong }) => (
           <ListItem
             key={song.id}
             title={song.title}
@@ -124,10 +141,11 @@ const Songs = ({ navigation }: any) => {
         initialSnapPoints={songModalSnapPoints}
         showHeader
         headerTitle={selectedSong?.title ?? ''}
+        subTitle={selectedSong?.artist + '・' + selectedSong?.album}
+        coverImage={selectedSong?.cover ?? ''}
         closeFilter={closeSongModal}
         children={
           <OptionList
-            activeValue={'unassigned'}
             items={SONG_OPTIONS}
             onChangeFilter={onSelectSongOption}
             leftIcon={'shuriken'}
@@ -143,8 +161,7 @@ const Songs = ({ navigation }: any) => {
         closeFilter={closePlaylistModal}
         children={
           <OptionList
-            activeValue={'fav'}
-            items={ASSIGNEE_TYPES2}
+            items={playlistArray}
             onChangeFilter={onSelectPlaylist}
             leftIcon={'shimmer'}
             colors={theme.colors}
@@ -160,6 +177,7 @@ const createStyle = ({ padding }: ITheme) => {
     container: {
       flex: 1,
     },
+    loaderBox: { flex: 1, justifyContent: 'center', alignItems: 'center' },
     listContainer: {
       paddingBottom: padding.xxlg + 30,
     },

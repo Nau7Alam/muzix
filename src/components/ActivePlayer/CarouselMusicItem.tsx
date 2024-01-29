@@ -1,9 +1,17 @@
 import React, { Fragment } from 'react';
 import { Image, View } from 'react-native';
-import { CarouselMusicItemProps } from './ActivePlayer.interface';
 import Text from '../Text/Text';
 import { activeSongSelector } from '../../reducers/playerReducer';
 import { useAppSelector } from '../../hooks/stateHooks';
+
+import { ISong } from '../../interfaces/player/music.interface';
+import { ITheme } from '../../theme/theme.interface';
+
+export interface CarouselMusicItemProps {
+  music: ISong;
+  styles: any;
+  theme: ITheme;
+}
 
 const CarouselMusicItem = ({
   music,

@@ -22,6 +22,8 @@ const createStyles = (theme: ITheme) => {
 type BottomSheetUIProps = {
   bottomSheetModalRef: any;
   headerTitle: string;
+  subTitle?: string;
+  coverImage?: string;
   children: ReactNode;
   showHeader: boolean;
   initialSnapPoints: any[];
@@ -32,6 +34,8 @@ type BottomSheetUIProps = {
 const BottomSheetUI = ({
   children,
   headerTitle,
+  subTitle,
+  coverImage,
   closeFilter,
   showHeader,
   initialSnapPoints,
@@ -77,6 +81,8 @@ const BottomSheetUI = ({
           title={headerTitle}
           closeModal={closeFilter}
           colors={colors}
+          subTitle={subTitle}
+          coverImage={coverImage}
         />
       )}
       <BottomSheetScrollView>{children}</BottomSheetScrollView>

@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IMusic } from '../interfaces/player/music.interface';
+import { ISong } from '../interfaces/player/music.interface';
 import { RootState } from '../store';
 
 interface PlayerStateType {
-  songs: IMusic[];
-  activeSong: IMusic | null;
+  songs: ISong[];
+  activeSong: ISong | null;
 }
 const initialState: PlayerStateType = {
   songs: [],

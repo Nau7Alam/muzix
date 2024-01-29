@@ -6,9 +6,9 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { useTheme } from '@react-navigation/native';
 import { IColors, ITheme } from '../theme/theme.interface';
 import Settings from '../screens/Settings/Settings';
-import Playlists from '../screens/Playlists/Playlists';
 import { StyleSheet } from 'react-native';
 import AlbumStack from './AlbumStack';
+import PlaylistStack from './PlaylistStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -66,7 +66,7 @@ export const HomeBottomTab = () => {
       <Tab.Screen name="Songs" component={Songs} />
       <Tab.Screen name="Albums" component={AlbumStack} />
       <Tab.Screen name="Player" component={Player} />
-      <Tab.Screen name="Playlists" component={Playlists} />
+      <Tab.Screen name="Playlists" component={PlaylistStack} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );

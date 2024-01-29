@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { SetupService } from '../playerServices/setupServices';
 import { getLocalSongs } from '../helpers/localMedia';
-import { IMusic } from '../interfaces/player/music.interface';
+import { ISong } from '../interfaces/player/music.interface';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch } from './stateHooks';
@@ -13,7 +13,7 @@ export const useTrackSongs = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     let unmounted = false;
-    let idMappedSongs: IMusic[];
+    let idMappedSongs: ISong[];
     (async () => {
       await SetupService();
       if (unmounted) {

@@ -1,23 +1,24 @@
 import React, { useMemo } from 'react';
 import Layout from '../../components/Layout/Layout';
 import { useAppSelector } from '../../hooks/stateHooks';
-import { selectAllPlaylists } from '../../reducers/playlistReducer';
+import { allPlaylistSelector } from '../../reducers/playlistReducer';
 import ListItem from '../../components/ListItem/ListItem';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import { addS } from '../../helpers/utitlities';
 
-const Playlists = () => {
-  const playlists = useAppSelector(selectAllPlaylists);
+const Playlists = ({ navigation }: any) => {
+  const playlists = useAppSelector(allPlaylistSelector);
   const playlistNames = Object.keys(playlists);
 
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
 
-  const onPlaylistClick = (name: string) => {
-    console.log('PLAYLIST ', name);
+  const onPlaylistClick = (playlist: any) => {
+    navigation.navigate('PlaylistDetail', { playlist });
   };
+
   return (
     <Layout title="Playlists">
       {playlistNames.map(name => {

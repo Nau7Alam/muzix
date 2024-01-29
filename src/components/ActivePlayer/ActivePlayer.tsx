@@ -4,12 +4,12 @@ import Carousel from 'react-native-snap-carousel';
 import { StyleSheet } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
-import { IMusic } from '../../interfaces/player/music.interface';
+import { ISong } from '../../interfaces/player/music.interface';
 import CarouselMusicItem from './CarouselMusicItem';
 
 type ActivePlayerProps = {
   activeIndex: number;
-  songs: IMusic[];
+  songs: ISong[];
   onSlideChange: (n: number) => void;
 };
 

@@ -6,20 +6,28 @@ import { useTheme } from '@react-navigation/native';
 import { ITheme } from '../../theme/theme.interface';
 import {
   activeSongSelector,
-  allSongSelector,
   setActiveSong,
 } from '../../reducers/playerReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
-import AlbumHeader from './AlbumHeader';
+import PlaylistHeader from './PlaylistHeader';
+import { playlistSelector } from '../../reducers/playlistReducer';
+import { RootState } from '../../store';
+import { secondsToHms } from '../../helpers/utitlities';
 
-const PlaylistDetail = ({ navigation, route }: any) => {
+const AlbumDetail = ({ navigation, route }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | string>(null);
 
-  const activeAlbum = route?.params?.album;
+  const activePlaylist = route?.params?.playlist;
   const dispatch = useAppDispatch();
-  const songs = useAppSelector(allSongSelector);
-  const songsInAlbum = songs.filter(song => song.album === activeAlbum?.album);
+  const playlistSongs = useAppSelector((state: RootState) =>
+    playlistSelector(state, activePlaylist)
+  );
+  const totalPlaylistDuration = playlistSongs.reduce(
+    (currentResult: number, currentItem: ISong) =>
+      currentResult + (currentItem?.duration ?? 0) / 1000,
+    0
+  );
   const activeSong = useAppSelector(activeSongSelector);
 
   const theme = useTheme() as ITheme;
@@ -42,15 +50,15 @@ const PlaylistDetail = ({ navigation, route }: any) => {
 
   return (
     <Fragment>
-      <AlbumHeader
-        title={activeAlbum?.album}
-        coverImage={activeAlbum.cover}
-        songCount={activeAlbum.numberOfSongs}
-        artist={activeAlbum.artist}
+      <PlaylistHeader
+        title={activePlaylist}
+        // coverImage={activePlaylist.cover}
+        songCount={playlistSongs.length}
+        duration={secondsToHms(totalPlaylistDuration)}
       />
       <FlatList
         contentContainerStyle={styles.listContainer}
-        data={songsInAlbum}
+        data={playlistSongs}
         renderItem={({ item: song }: { item: ISong }) => (
           <ListItem
             key={song.id}
@@ -83,4 +91,4 @@ const createStyle = ({ padding }: ITheme) => {
   });
 };
 
-export default PlaylistDetail;
+export default AlbumDetail;

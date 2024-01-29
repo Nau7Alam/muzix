@@ -9,7 +9,6 @@ const Albums = ({ navigation }: { navigation: any }) => {
   const [albums, setAlbums] = useState<IAlbum[]>([]);
 
   const onAlbumClick = (album: IAlbum) => {
-    console.log('Openning Item', album);
     navigation.navigate('AlbumDetail', { album });
   };
 
@@ -22,8 +21,6 @@ const Albums = ({ navigation }: { navigation: any }) => {
   return (
     <Layout title="Albums">
       {albums.map(album => {
-        //"numberOfSongs", "album", "id", "artist", "cover"
-        console.log(Object.keys(album), { ...album, cover: '' });
         return (
           <ListItem
             key={album.id}

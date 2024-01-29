@@ -6,15 +6,20 @@ import { StyleSheet } from 'react-native';
 import Text from '../Text/Text';
 import Icon from '../Icon/Icon';
 import { IColors, ITheme } from '../../theme/theme.interface';
+import Avatar from '../Avatar/Avatar';
 
 type BottomSheetModalHeaderProps = {
   title: string;
-  closeModal: () => void;
+  subTitle?: string;
+  coverImage?: string;
   colors: IColors;
+  closeModal: () => void;
 };
 
 const BottomSheetModalHeader = ({
   title,
+  subTitle,
+  coverImage,
   closeModal,
   colors,
 }: BottomSheetModalHeaderProps) => {
@@ -23,10 +28,18 @@ const BottomSheetModalHeader = ({
 
   return (
     <View style={styles.headerContainer}>
-      <View>
-        <Text md bold color={colors.textDark} style={styles.headerTitle}>
-          {title}
-        </Text>
+      <View style={styles.headerBox}>
+        <Avatar style={[styles.coverImageStyle]} image={coverImage} />
+        <View style={styles.titleBox}>
+          <Text numberOfLines={1} md bold color={colors.textDark}>
+            {title}
+          </Text>
+          {!!subTitle && (
+            <Text numberOfLines={2} xs semiBold color={colors.textLight}>
+              {subTitle}
+            </Text>
+          )}
+        </View>
       </View>
       <Pressable style={styles.closeButton} onPress={closeModal}>
         <View
@@ -51,19 +64,25 @@ const createStyles = (theme: ITheme) => {
     headerContainer: {
       paddingBottom: padding.lg,
       paddingTop: padding.two,
-      paddingHorizontal: padding.eight,
+      paddingHorizontal: padding.ten,
       borderBottomColor: colors.border,
       borderBottomWidth: 0.4,
       flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
       width: '100%',
     },
-    headerTitle: {
-      textAlign: 'center',
+    headerBox: {
+      flexDirection: 'row',
+      gap: padding.ten,
+      alignItems: 'center',
+      flex: 1,
+    },
+    titleBox: { flex: 1 },
+    coverImageStyle: {
+      height: 45,
+      width: 45,
     },
     closeButton: {
-      paddingLeft: padding.four,
+      paddingLeft: padding.ten,
       paddingVertical: padding.two,
     },
     closeButtonView: {

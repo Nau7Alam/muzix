@@ -5,12 +5,12 @@ import { staticSongs } from '../constants/musicList';
 import localTrack from '../../assets/resources/pure.m4a';
 // @ts-expect-error – sure we can import this
 import localArtwork from '../../assets/resources/artwork.jpg';
-import { IMusic } from '../interfaces/player/music.interface';
+import { ISong } from '../interfaces/player/music.interface';
 
 export const QueueInitialTracksService = async (
-  localSongs: IMusic[]
+  localSongs: ISong[]
 ): Promise<void> => {
-  console.log('LOCAL SONGS   >>>>>>>>$$$$$$$$ ', localSongs);
+  // console.log('LOCAL SONGS   >>>>>>>>$$$$$$$$ ', localSongs);
   await TrackPlayer.reset();
   await TrackPlayer.add([
     ...(localSongs as Track[]),

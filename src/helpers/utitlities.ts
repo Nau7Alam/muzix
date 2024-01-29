@@ -1,6 +1,6 @@
-import { IMusic } from '../interfaces/player/music.interface';
+import { ISong } from '../interfaces/player/music.interface';
 
-export const getIndexOfSong = (list: IMusic[], song: IMusic) => {
+export const getIndexOfSong = (list: ISong[], song: ISong) => {
   return list.findIndex(item => item.id === song.id);
 };
 

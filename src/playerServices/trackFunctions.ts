@@ -1,7 +1,7 @@
 import TrackPlayer, { Track } from 'react-native-track-player';
-import { IMusic } from '../interfaces/player/music.interface';
+import { ISong } from '../interfaces/player/music.interface';
 
-export const addAndPlayCurrentTrack = async (track: IMusic) => {
+export const addAndPlayCurrentTrack = async (track: ISong) => {
   try {
     await TrackPlayer.reset();
     await TrackPlayer.add(track as Track);
@@ -11,7 +11,7 @@ export const addAndPlayCurrentTrack = async (track: IMusic) => {
   }
 };
 
-export const addCurrentTrack = async (track: IMusic) => {
+export const addCurrentTrack = async (track: ISong) => {
   try {
     console.log('AOND ', track);
     await TrackPlayer.reset();
