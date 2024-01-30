@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../Header/Header';
-import { ViewProps } from 'react-native';
+import { StyleSheet, ViewProps } from 'react-native';
 
 type LayoutProps = {
   title?: string;
@@ -10,11 +10,15 @@ type LayoutProps = {
 
 const Layout = ({ title, children, ...rest }: LayoutProps) => {
   return (
-    <SafeAreaView {...rest}>
+    <SafeAreaView style={styles.flex} {...rest}>
       <Header title={title} />
       {children}
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  flex: { flex: 1 },
+});
 
 export default Layout;

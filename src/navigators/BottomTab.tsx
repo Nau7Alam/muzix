@@ -52,7 +52,7 @@ export const HomeBottomTab = () => {
   const { colors, fontSize } = theme;
   return (
     <Tab.Navigator
-      initialRouteName="Songs"
+      initialRouteName="Playlists"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ focused }) =>

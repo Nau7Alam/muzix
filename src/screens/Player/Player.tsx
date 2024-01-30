@@ -11,6 +11,7 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import {
+  activeSongListSelector,
   activeSongSelector,
   allSongSelector,
   setActiveSong,
@@ -27,8 +28,9 @@ const Player = () => {
   const styles = useMemo(() => createStyle(theme), [theme]);
   const { position, duration } = useProgress();
   const songs = useAppSelector(allSongSelector);
+  const activeSongList = useAppSelector(activeSongListSelector) ?? songs;
   const activeSong = useAppSelector(activeSongSelector) ?? songs[0];
-  const activeSongIndex = getIndexOfSong(songs, activeSong);
+  const activeSongIndex = getIndexOfSong(activeSongList, activeSong);
   const dispatch = useAppDispatch();
   const carouselRef = useRef<any>(null);
 
@@ -50,14 +52,14 @@ const Player = () => {
   };
 
   const onSongSlide = (index: number) => {
-    const activeOnCarousel = songs[index];
+    const activeOnCarousel = activeSongList[index];
     addAndPlayCurrentTrack(activeOnCarousel);
     dispatch(setActiveSong(activeOnCarousel));
   };
 
   const onNext = async () => {
-    if (activeSongIndex <= songs.length - 2) {
-      const nextSong = songs[activeSongIndex + 1];
+    if (activeSongIndex <= activeSongList.length - 2) {
+      const nextSong = activeSongList[activeSongIndex + 1];
       carouselRef.current?.snapToNext();
       addAndPlayCurrentTrack(nextSong);
       dispatch(setActiveSong(nextSong));
@@ -66,7 +68,7 @@ const Player = () => {
 
   const onBack = async () => {
     if (activeSongIndex > 0) {
-      const previousSong = songs[activeSongIndex - 1];
+      const previousSong = activeSongList[activeSongIndex - 1];
       carouselRef.current.snapToPrev();
       addAndPlayCurrentTrack(previousSong);
       dispatch(setActiveSong(previousSong));
@@ -78,7 +80,7 @@ const Player = () => {
       <ActivePlayer
         ref={carouselRef}
         activeIndex={activeSongIndex}
-        songs={songs}
+        songs={activeSongList}
         onSlideChange={onSongSlide}
       />
       <PlayerProgress

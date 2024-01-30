@@ -9,6 +9,7 @@ import {
   activeSongSelector,
   allSongSelector,
   setActiveSong,
+  setActiveSongList,
 } from '../../reducers/playerReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import Text from '../../components/Text/Text';
@@ -45,6 +46,7 @@ const Songs = ({ navigation }: any) => {
     }
     addAndPlayCurrentTrack(song);
     dispatch(setActiveSong(song));
+    dispatch(setActiveSongList(songs));
     navigation.navigate('Player');
   };
 

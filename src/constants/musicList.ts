@@ -74,7 +74,7 @@ export const staticSongs = [
     url: 'https://kut.streamguys1.com/kutx-app.aac?listenerId=123456784123',
     title: 'KUTX',
     artist: 'Bob Don',
-    cover: 'https://picsum.photos/id/5/200/300',
+    cover: 'https://picsum.photos/id/6/200/300',
     duration: 111,
     album: '',
     genre: '',

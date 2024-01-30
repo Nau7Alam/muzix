@@ -7,6 +7,7 @@ import { ITheme } from '../../theme/theme.interface';
 import {
   activeSongSelector,
   setActiveSong,
+  setActiveSongList,
 } from '../../reducers/playerReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
@@ -43,6 +44,7 @@ const AlbumDetail = ({ navigation, route }: any) => {
     }
     addAndPlayCurrentTrack(song);
     dispatch(setActiveSong(song));
+    dispatch(setActiveSongList(playlistSongs));
     navigation.navigate('Player');
   };
   const onSongOptionClick = () => {};

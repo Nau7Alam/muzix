@@ -8,6 +8,7 @@ import {
   activeSongSelector,
   allSongSelector,
   setActiveSong,
+  setActiveSongList,
 } from '../../reducers/playerReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
@@ -35,6 +36,7 @@ const PlaylistDetail = ({ navigation, route }: any) => {
     }
     addAndPlayCurrentTrack(song);
     dispatch(setActiveSong(song));
+    dispatch(setActiveSongList(songsInAlbum));
     navigation.navigate('Player');
   };
   const onSongOptionClick = () => {};
