@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import ListItem from '../../components/ListItem/ListItem';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { ISong } from '../../interfaces/player/music.interface';
 import { useTheme } from '@react-navigation/native';
 import { ITheme } from '../../theme/theme.interface';
@@ -12,7 +12,6 @@ import {
   setActiveSongList,
 } from '../../reducers/playerReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
-import Text from '../../components/Text/Text';
 import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
 import Layout from '../../components/Layout/Layout';
 import BottomSheetUI from '../../components/BottomSheetUI/BottomSheetUI';
@@ -60,7 +59,7 @@ const Songs = ({ navigation }: any) => {
   };
 
   // Conversation filter modal
-  const songModalSnapPoints = useMemo(
+  const modalSnapPoints = useMemo(
     () => [theme.screen.height - 350, theme.screen.height - 350],
     [theme.screen.height]
   );
@@ -110,9 +109,7 @@ const Songs = ({ navigation }: any) => {
   if (!isPlayerReady) {
     return (
       <View style={styles.loaderBox}>
-        <Text xxxlg center>
-          NOT READY
-        </Text>
+        <ActivityIndicator size="large" color={theme.colors.primaryLight} />
       </View>
     );
   }
@@ -140,7 +137,7 @@ const Songs = ({ navigation }: any) => {
       />
       <BottomSheetUI
         bottomSheetModalRef={songOptionModal}
-        initialSnapPoints={songModalSnapPoints}
+        initialSnapPoints={modalSnapPoints}
         showHeader
         headerTitle={selectedSong?.title ?? ''}
         subTitle={selectedSong?.artist + '・' + selectedSong?.album}
@@ -157,7 +154,7 @@ const Songs = ({ navigation }: any) => {
       />
       <BottomSheetUI
         bottomSheetModalRef={playlistModal}
-        initialSnapPoints={songModalSnapPoints}
+        initialSnapPoints={modalSnapPoints}
         showHeader
         headerTitle={'Select Playlist'}
         closeFilter={closePlaylistModal}
@@ -179,7 +176,12 @@ const createStyle = ({ padding }: ITheme) => {
     container: {
       flex: 1,
     },
-    loaderBox: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+    loaderBox: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      transform: [{ scale: 3 }],
+    },
     listContainer: {
       paddingBottom: padding.xxlg + 30,
     },

@@ -14,6 +14,18 @@ export enum PLAY_MODES {
   album = 'album',
 }
 
+export enum ALERT_TYPE {
+  success = 'success',
+  info = 'info',
+  error = 'error',
+}
+
+export enum PLAYLIST_OPERATIONS {
+  play = 'play',
+  add_to_queue = 'add to queue',
+  delete = 'delete',
+}
+
 export const SONG_OPTIONS = [
   {
     value: SONG_OPERATION.play,
@@ -45,17 +57,17 @@ export const SONG_OPTIONS = [
   },
 ];
 
-export const ASSIGNEE_TYPES2 = [
+export const PLAYLIST_OPTIONS = [
   {
-    value: 'fav',
-    name: 'Favourite',
+    value: PLAYLIST_OPERATIONS.play,
+    name: 'Play',
   },
   {
-    value: 'mostHeard',
-    name: 'Most Heard',
+    value: PLAYLIST_OPERATIONS.add_to_queue,
+    name: 'Add to queue',
   },
   {
-    value: 'recentHeard',
-    name: 'Recently Heard',
+    value: PLAYLIST_OPERATIONS.delete,
+    name: 'Delete',
   },
 ];

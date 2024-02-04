@@ -52,7 +52,7 @@ export const HomeBottomTab = () => {
   const { colors, fontSize } = theme;
   return (
     <Tab.Navigator
-      initialRouteName="Playlists"
+      initialRouteName="Songs"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ focused }) =>
@@ -61,6 +61,7 @@ export const HomeBottomTab = () => {
         tabBarInactiveTintColor: colors.textSecondary,
         tabBarStyle: styles.tabBarStyle,
         tabBarLabelStyle: styles.tabBarLabelStyle,
+        tabBarHideOnKeyboard: true,
       })}
     >
       <Tab.Screen name="Songs" component={Songs} />

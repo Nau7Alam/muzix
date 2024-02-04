@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { ISong } from '../interfaces/player/music.interface';
 
 const initialState: any = {
   Favourites: [],
@@ -18,15 +17,14 @@ const playlistSlice = createSlice({
     addToPlaylist: (state, action) => {
       state[action.payload.name].unshift(action.payload.song);
     },
-    deleteFromPlaylist: (state, action) => {
-      state[action.payload.name] = state.filter(
-        (song: ISong) => song.id !== action.payload.id
-      );
+    deletePlaylist: (state, action) => {
+      delete state[action.payload];
     },
   },
 });
 
-export const { createPlaylist, addToPlaylist } = playlistSlice.actions;
+export const { createPlaylist, addToPlaylist, deletePlaylist } =
+  playlistSlice.actions;
 
 export const allPlaylistSelector = (state: RootState) => state.playlist;
 export const playlistSelector = (state: RootState, name: string) =>

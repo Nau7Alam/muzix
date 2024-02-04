@@ -27,7 +27,13 @@ const ModalUI = ({ children, visible, title, onClose }: ModalUIProps) => {
             size={21}
             style={styles.close}
           />
-          <Text lg semiBold center color={theme.colors.white}>
+          <Text
+            style={styles.titleStyle}
+            lg
+            semiBold
+            center
+            color={theme.colors.white}
+          >
             {title}
           </Text>
           {children}
@@ -54,6 +60,10 @@ const createStyle = (theme: ITheme) => {
       borderRadius: borderRadius.ten,
       elevation: 4,
       gap: padding.eight,
+      top: -65,
+    },
+    titleStyle: {
+      paddingBottom: padding.xlg,
     },
     close: { alignSelf: 'flex-end', padding: 0 },
   });

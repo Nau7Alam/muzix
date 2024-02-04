@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Button from '../../Button/Button';
-import Input from '../../Input/Input';
+import Button from '../../../Button/Button';
+import Input from '../../../Input/Input';
 import { useTheme } from '@react-navigation/native';
-import { ITheme } from '../../../theme/theme.interface';
+import { ITheme } from '../../../../theme/theme.interface';
 import Toast from 'react-native-toast-message';
-import { useAppDispatch } from '../../../hooks/stateHooks';
-import { createPlaylist } from '../../../reducers/playlistReducer';
+import { useAppDispatch } from '../../../../hooks/stateHooks';
+import { createPlaylist } from '../../../../reducers/playlistReducer';
 
 const CreatePlaylistForm = ({ onSubmit, list }: any) => {
   const [newPlaylistName, setNewPlaylistName] = useState('');
@@ -52,7 +52,7 @@ const createStyle = (theme: ITheme) => {
   const { padding } = theme;
   return StyleSheet.create({
     continer: {
-      gap: padding.eight,
+      gap: padding.lg,
     },
   });
 };
