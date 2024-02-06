@@ -9,12 +9,11 @@ import TrackPlayer, {
   usePlaybackState,
   useProgress,
 } from 'react-native-track-player';
-import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
+import { useAppSelector } from '../../hooks/stateHooks';
 import {
   activeSongListSelector,
   activeSongSelector,
   allSongSelector,
-  setActiveSong,
 } from '../../reducers/playerReducer';
 import { getIndexOfSong } from '../../helpers/utitlities';
 import {
@@ -31,7 +30,6 @@ const Player = () => {
   const activeSongList = useAppSelector(activeSongListSelector) ?? songs;
   const activeSong = useAppSelector(activeSongSelector) ?? songs[0];
   const activeSongIndex = getIndexOfSong(activeSongList, activeSong);
-  const dispatch = useAppDispatch();
   const carouselRef = useRef<any>(null);
 
   const onProgress = (value: any) => {
@@ -43,7 +41,9 @@ const Player = () => {
 
   const playSong = async () => {
     const currentQueue = await TrackPlayer.getQueue();
-    !currentQueue.length && addCurrentTrack(activeSong);
+    !currentQueue.length &&
+      addCurrentTrack({ track: activeSong, tracks: activeSongList });
+    console.log('PLAYLING', isPlaying);
     if (isPlaying) {
       await TrackPlayer.pause();
     } else {
@@ -51,18 +51,16 @@ const Player = () => {
     }
   };
 
-  const onSongSlide = (index: number) => {
+  const onSongSlide = async (index: number) => {
     const activeOnCarousel = activeSongList[index];
-    addAndPlayCurrentTrack(activeOnCarousel);
-    dispatch(setActiveSong(activeOnCarousel));
+    await addAndPlayCurrentTrack({ track: activeOnCarousel });
   };
 
   const onNext = async () => {
     if (activeSongIndex <= activeSongList.length - 2) {
       const nextSong = activeSongList[activeSongIndex + 1];
       carouselRef.current?.snapToNext();
-      addAndPlayCurrentTrack(nextSong);
-      dispatch(setActiveSong(nextSong));
+      await addAndPlayCurrentTrack({ track: nextSong });
     }
   };
 
@@ -70,8 +68,7 @@ const Player = () => {
     if (activeSongIndex > 0) {
       const previousSong = activeSongList[activeSongIndex - 1];
       carouselRef.current.snapToPrev();
-      addAndPlayCurrentTrack(previousSong);
-      dispatch(setActiveSong(previousSong));
+      await addAndPlayCurrentTrack({ track: previousSong });
     }
   };
 

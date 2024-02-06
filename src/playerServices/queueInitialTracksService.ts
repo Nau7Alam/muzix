@@ -10,7 +10,6 @@ import { ISong } from '../interfaces/player/music.interface';
 export const QueueInitialTracksService = async (
   localSongs: ISong[]
 ): Promise<void> => {
-  // console.log('LOCAL SONGS   >>>>>>>>$$$$$$$$ ', localSongs);
   await TrackPlayer.reset();
   await TrackPlayer.add([
     ...(localSongs as Track[]),

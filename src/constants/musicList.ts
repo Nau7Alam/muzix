@@ -8,6 +8,7 @@ export const staticSongs = [
     duration: 143,
     album: '',
     genre: '',
+    favourit: false,
   },
   {
     id: '2',
@@ -18,6 +19,7 @@ export const staticSongs = [
     duration: 77,
     album: '',
     genre: '',
+    favourit: false,
   },
   {
     id: '3',
@@ -28,6 +30,7 @@ export const staticSongs = [
     duration: 71,
     album: '',
     genre: '',
+    favourit: false,
   },
   {
     id: '4',
@@ -38,6 +41,7 @@ export const staticSongs = [
     duration: 106,
     album: '',
     genre: '',
+    favourit: false,
   },
   {
     id: '5',
@@ -48,6 +52,7 @@ export const staticSongs = [
     duration: 1111,
     album: '',
     genre: '',
+    favourit: false,
   },
   {
     id: '6',
@@ -58,6 +63,7 @@ export const staticSongs = [
     duration: 222,
     album: '',
     genre: '',
+    favourit: false,
   },
   {
     id: '7',
@@ -68,6 +74,7 @@ export const staticSongs = [
     duration: 111,
     album: '',
     genre: '',
+    favourit: false,
   },
   {
     id: '8',
@@ -78,5 +85,6 @@ export const staticSongs = [
     duration: 111,
     album: '',
     genre: '',
+    favourit: false,
   },
 ];

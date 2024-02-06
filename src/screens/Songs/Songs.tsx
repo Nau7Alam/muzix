@@ -8,8 +8,6 @@ import { useTrackSongs } from '../../hooks/trackHooks';
 import {
   activeSongSelector,
   allSongSelector,
-  setActiveSong,
-  setActiveSongList,
 } from '../../reducers/playerReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
@@ -39,13 +37,11 @@ const Songs = ({ navigation }: any) => {
     setSelectedSong(song);
   };
 
-  const onSongClick = (song: ISong) => {
+  const onSongClick = async (song: ISong) => {
     if (selectedSong?.id !== song.id) {
       setSelectedSong(null);
     }
-    addAndPlayCurrentTrack(song);
-    dispatch(setActiveSong(song));
-    dispatch(setActiveSongList(songs));
+    await addAndPlayCurrentTrack({ track: song, tracks: songs });
     navigation.navigate('Player');
   };
 

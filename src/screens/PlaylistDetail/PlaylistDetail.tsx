@@ -4,12 +4,8 @@ import { FlatList, StyleSheet } from 'react-native';
 import { ISong } from '../../interfaces/player/music.interface';
 import { useTheme } from '@react-navigation/native';
 import { ITheme } from '../../theme/theme.interface';
-import {
-  activeSongSelector,
-  setActiveSong,
-  setActiveSongList,
-} from '../../reducers/playerReducer';
-import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
+import { activeSongSelector } from '../../reducers/playerReducer';
+import { useAppSelector } from '../../hooks/stateHooks';
 import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
 import PlaylistHeader from './PlaylistHeader';
 import { playlistSelector } from '../../reducers/playlistReducer';
@@ -20,7 +16,6 @@ const AlbumDetail = ({ navigation, route }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | string>(null);
 
   const activePlaylist = route?.params?.playlist;
-  const dispatch = useAppDispatch();
   const playlistSongs = useAppSelector((state: RootState) =>
     playlistSelector(state, activePlaylist)
   );
@@ -38,13 +33,11 @@ const AlbumDetail = ({ navigation, route }: any) => {
     setSelectedSong(song.id);
   };
 
-  const onSongClick = (song: ISong) => {
+  const onSongClick = async (song: ISong) => {
     if (selectedSong !== song.id) {
       setSelectedSong(null);
     }
-    addAndPlayCurrentTrack(song);
-    dispatch(setActiveSong(song));
-    dispatch(setActiveSongList(playlistSongs));
+    await addAndPlayCurrentTrack({ track: song, tracks: playlistSongs });
     navigation.navigate('Player');
   };
   const onSongOptionClick = () => {};

@@ -35,7 +35,6 @@ const Playlists = ({ navigation }: any) => {
     setCreatePlaylaylistModal(!createPlaylistModal);
   };
 
-  console.log(playlistNames);
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
 

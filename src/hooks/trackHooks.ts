@@ -25,6 +25,7 @@ export const useTrackSongs = () => {
           result?.map(song => ({
             id: song.artist + song.album,
             ...song,
+            favourit: false,
           })) ?? [];
 
         dispatch(setAllSong([...idMappedSongs, ...staticSongs]));

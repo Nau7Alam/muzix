@@ -3,11 +3,12 @@ export interface ISong {
   title: string;
   artist: string;
   size?: string;
+  cover: string;
   url: string;
   album?: string;
   duration?: number;
   genre?: string;
-  cover: string;
+  favourit?: boolean;
 }
 
 export interface IAlbum {
