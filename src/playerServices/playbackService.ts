@@ -56,14 +56,6 @@ export async function PlaybackService() {
     const activeSongList = playerData.activeSongList;
     if (activeSongList && activeSong) {
       const activeSongIndex = getIndexOfSong(activeSongList, activeSong);
-      console.log(
-        'INDEX ',
-        activeSongIndex,
-        'SONGS LENGTH ',
-        activeSongList.length,
-        'LOGIC IS \n',
-        activeSongIndex < activeSongList.length - 1
-      );
       if (activeSongIndex < activeSongList.length - 1) {
         addAndPlayCurrentTrack({
           track: activeSongList[activeSongIndex + 1],
