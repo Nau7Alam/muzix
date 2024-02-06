@@ -7,10 +7,8 @@ import { ITheme } from '../../theme/theme.interface';
 import {
   activeSongSelector,
   allSongSelector,
-  setActiveSong,
-  setActiveSongList,
 } from '../../reducers/playerReducer';
-import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
+import { useAppSelector } from '../../hooks/stateHooks';
 import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
 import AlbumHeader from './AlbumHeader';
 
@@ -18,7 +16,6 @@ const PlaylistDetail = ({ navigation, route }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | string>(null);
 
   const activeAlbum = route?.params?.album;
-  const dispatch = useAppDispatch();
   const songs = useAppSelector(allSongSelector);
   const songsInAlbum = songs.filter(song => song.album === activeAlbum?.album);
   const activeSong = useAppSelector(activeSongSelector);
@@ -30,13 +27,11 @@ const PlaylistDetail = ({ navigation, route }: any) => {
     setSelectedSong(song.id);
   };
 
-  const onSongClick = (song: ISong) => {
+  const onSongClick = async (song: ISong) => {
     if (selectedSong !== song.id) {
       setSelectedSong(null);
     }
-    addAndPlayCurrentTrack(song);
-    dispatch(setActiveSong(song));
-    dispatch(setActiveSongList(songsInAlbum));
+    addAndPlayCurrentTrack({ track: song, tracks: songsInAlbum });
     navigation.navigate('Player');
   };
   const onSongOptionClick = () => {};

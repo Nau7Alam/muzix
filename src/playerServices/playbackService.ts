@@ -45,12 +45,7 @@ export async function PlaybackService() {
   });
 
   TrackPlayer.addEventListener(Event.PlaybackQueueEnded, event => {
-    console.log(
-      'Event.PlaybackQueueEnded   ----------ENDED QUEUE',
-      event.position,
-      '\n',
-      event.track
-    );
+    console.log('Event.PlaybackQueueEnded ', event);
     const playerData = store.getState().player;
     const activeSong = playerData.activeSong;
     const activeSongList = playerData.activeSongList;
