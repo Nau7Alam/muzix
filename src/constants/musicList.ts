@@ -8,7 +8,7 @@ export const staticSongs = [
     duration: 143,
     album: '',
     genre: '',
-    favourit: false,
+    favourit: true,
   },
   {
     id: '2',

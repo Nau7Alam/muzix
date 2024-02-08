@@ -9,11 +9,12 @@ import TrackPlayer, {
   usePlaybackState,
   useProgress,
 } from 'react-native-track-player';
-import { useAppSelector } from '../../hooks/stateHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import {
   activeSongListSelector,
   activeSongSelector,
   allSongSelector,
+  toggleFavouritSong,
 } from '../../reducers/playerReducer';
 import { getIndexOfSong } from '../../helpers/utitlities';
 import {
@@ -23,6 +24,7 @@ import {
 import Layout from '../../components/Layout/Layout';
 
 const Player = () => {
+  const dispatch = useAppDispatch();
   const theme: ITheme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
   const { position, duration } = useProgress();
@@ -43,7 +45,6 @@ const Player = () => {
     const currentQueue = await TrackPlayer.getQueue();
     !currentQueue.length &&
       addCurrentTrack({ track: activeSong, tracks: activeSongList });
-    console.log('PLAYLING', isPlaying);
     if (isPlaying) {
       await TrackPlayer.pause();
     } else {
@@ -72,6 +73,10 @@ const Player = () => {
     }
   };
 
+  const onFavourit = () => {
+    dispatch(toggleFavouritSong({ isPlaying: true, song: activeSong }));
+  };
+
   return (
     <Layout style={styles.container}>
       <ActivePlayer
@@ -82,8 +87,10 @@ const Player = () => {
       />
       <PlayerProgress
         isPlaying={isPlaying}
+        isFavourite={activeSong.favourit}
         progress={position}
         lenght={duration}
+        onFavourit={onFavourit}
         onProgressChange={onProgress}
         onPlayControl={playSong}
         onForwardControl={onNext}

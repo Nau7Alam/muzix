@@ -6,10 +6,10 @@ import {
   StyleSheet,
   ViewStyle,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import Text from '../Text/Text';
+import Icon from '../Icon/Icon';
 
 type PressableIconProps = {
   name: string;
@@ -17,6 +17,7 @@ type PressableIconProps = {
   color?: string;
   title?: string;
   style?: StyleProp<ViewStyle>;
+  iconType?: string;
   onPress: () => void;
 } & PressableProps;
 const PressableIcon = ({
@@ -25,13 +26,19 @@ const PressableIcon = ({
   color,
   name,
   title,
+  iconType,
   style: customStyle,
 }: PressableIconProps) => {
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
   return (
     <Pressable onPress={onPress} style={[styles.container, customStyle]}>
-      <Icon name={name} size={size} color={color ?? theme.colors.icon} />
+      <Icon
+        type={iconType}
+        name={name}
+        size={size}
+        color={color ?? theme.colors.icon}
+      />
       {!!title && (
         <Text md color={color ?? theme.colors.icon}>
           {title}

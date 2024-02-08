@@ -1,57 +1,68 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
 import ProgressBar from './ProgressBar';
+import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
+import {
+  selectRepeatMode,
+  selectShuffelMode,
+  toggleRepeatMode,
+  toggleShuffelMode,
+} from '../../reducers/playerReducer';
 
 interface PlayerProgressProps {
   isPlaying: boolean;
+  isFavourite: boolean;
   progress: number;
   lenght: number;
   onProgressChange: (e: any) => void;
   onPlayControl: () => void;
   onForwardControl: () => void;
   onBackwardCongrol: () => void;
+  onFavourit: () => void;
 }
 
 export const PlayerProgress = ({
   isPlaying,
+  isFavourite,
   progress,
   lenght,
   onProgressChange,
   onPlayControl,
   onForwardControl,
   onBackwardCongrol,
+  onFavourit,
 }: PlayerProgressProps) => {
-  const [pressCount, setPressCount] = useState(0);
   const theme = useTheme() as ITheme;
   const { colors, fontSize } = theme;
   const styles = useMemo(() => createStyle(theme), [theme]);
-  const onShare = () => {
-    const rounded = Number((pressCount + 0.1).toFixed(1));
-    setPressCount(rounded);
-  };
+  const repeatMode = useAppSelector(selectRepeatMode);
+  const shuffelMode = useAppSelector(selectShuffelMode);
+  const dispatch = useAppDispatch();
+
   return (
     <View style={styles.continer}>
       <View style={styles.musicOptions}>
         <PressableIcon
-          onPress={onShare}
+          onPress={() => dispatch(toggleRepeatMode())}
           size={fontSize.lg}
           name="refresh"
-          color={colors.icon}
+          color={repeatMode ? colors.primaryDark : colors.icon}
         />
         <PressableIcon
-          onPress={onShare}
-          name="heart"
-          size={fontSize.lg}
-          color={colors.icon}
+          onPress={onFavourit}
+          iconType="material"
+          name={isFavourite ? 'heart' : 'heart-outline'}
+          size={fontSize.xlg}
+          color={isFavourite ? colors.primaryDark : colors.icon}
         />
         <PressableIcon
-          onPress={onShare}
+          onPress={() => dispatch(toggleShuffelMode())}
           size={fontSize.lg}
           name="shuffle"
-          color={colors.icon}
+          color={shuffelMode ? colors.primaryDark : colors.icon}
         />
       </View>
       <ProgressBar
@@ -68,7 +79,7 @@ export const PlayerProgress = ({
         />
         <PressableIcon
           onPress={onPlayControl}
-          buttonStyle={styles.playButton}
+          style={styles.playButton}
           name={isPlaying ? 'control-pause' : 'control-play'}
           size={fontSize.xxlg}
           color={colors.iconDark}

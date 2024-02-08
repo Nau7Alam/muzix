@@ -21,6 +21,7 @@ type ListItemProps = {
   selected?: boolean;
   titleStyle?: StyleProp<TextStyle>;
   coverImageStyle?: StyleProp<ImageStyle>;
+  secondaryOptionIcon?: string;
   onClick: () => void;
   onSelect?: () => void;
   onOptionClick?: () => void;
@@ -34,6 +35,7 @@ const ListItem = ({
   selected,
   titleStyle,
   coverImageStyle,
+  secondaryOptionIcon,
   onClick,
   onSelect,
   onOptionClick,
@@ -77,10 +79,11 @@ const ListItem = ({
         <View style={styles.optionBox}>
           {!!onSecondaryOptionClick && (
             <PressableIcon
-              name="heart"
+              name={secondaryOptionIcon ?? 'settings'}
               onPress={onSecondaryOptionClick}
               color={selected ? colors.primaryDark : colors.primary}
               size={fontSize.lg}
+              iconType="material"
               style={styles.iconStyle}
             />
           )}

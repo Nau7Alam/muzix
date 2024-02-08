@@ -8,7 +8,7 @@ export interface ISong {
   album?: string;
   duration?: number;
   genre?: string;
-  favourit?: boolean;
+  favourit: boolean;
 }
 
 export interface IAlbum {

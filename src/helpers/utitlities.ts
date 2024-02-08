@@ -21,3 +21,8 @@ export function secondsToHms(d: number) {
 export const addS = (count: any, text: string) => {
   return Number(count) > 1 ? `${count} ${text}s` : `${count} ${text}`;
 };
+
+export const randomNumber = (min: number, max: number) => {
+  const value = Math.floor(Math.random() * (max - min) + min);
+  return value >= max ? value - 1 : value;
+};

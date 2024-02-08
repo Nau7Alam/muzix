@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import TrackPlayer, { Event } from 'react-native-track-player';
 import { store } from '../store';
-import { getIndexOfSong } from '../helpers/utitlities';
+import { getIndexOfSong, randomNumber } from '../helpers/utitlities';
 import { addAndPlayCurrentTrack } from './trackFunctions';
 
 export async function PlaybackService() {
@@ -46,14 +46,21 @@ export async function PlaybackService() {
 
   TrackPlayer.addEventListener(Event.PlaybackQueueEnded, event => {
     console.log('Event.PlaybackQueueEnded ', event);
-    const playerData = store.getState().player;
-    const activeSong = playerData.activeSong;
-    const activeSongList = playerData.activeSongList;
+    const { activeSong, activeSongList, repeatMode, toShuffel } =
+      store.getState().player;
+
     if (activeSongList && activeSong) {
       const activeSongIndex = getIndexOfSong(activeSongList, activeSong);
       if (activeSongIndex < activeSongList.length - 1) {
         addAndPlayCurrentTrack({
-          track: activeSongList[activeSongIndex + 1],
+          track:
+            activeSongList[
+              repeatMode
+                ? activeSongIndex
+                : toShuffel
+                ? randomNumber(0, activeSongList.length)
+                : activeSongIndex + 1
+            ],
           tracks: activeSongList,
         });
       }

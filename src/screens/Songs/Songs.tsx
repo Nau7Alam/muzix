@@ -8,6 +8,7 @@ import { useTrackSongs } from '../../hooks/trackHooks';
 import {
   activeSongSelector,
   allSongSelector,
+  toggleFavouritSong,
 } from '../../reducers/playerReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
@@ -51,7 +52,7 @@ const Songs = ({ navigation }: any) => {
     toggleSongModal();
   };
   const onSongFavClick = (song: ISong) => {
-    console.log(song.title);
+    dispatch(toggleFavouritSong({ isPlaying: false, song }));
   };
 
   // Conversation filter modal
@@ -123,6 +124,7 @@ const Songs = ({ navigation }: any) => {
             onClick={() => onSongClick(song)}
             onSelect={() => onSongSelect(song)}
             coverImage={song.cover}
+            secondaryOptionIcon={song.favourit ? 'heart' : 'heart-outline'}
             selected={activeSong?.id === song.id}
             onOptionClick={() => onSongOptionClick(song)}
             onSecondaryOptionClick={() => onSongFavClick(song)}
