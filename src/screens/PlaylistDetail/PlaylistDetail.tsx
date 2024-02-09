@@ -12,14 +12,15 @@ import { playlistSelector } from '../../reducers/playlistReducer';
 import { RootState } from '../../store';
 import { secondsToHms } from '../../helpers/utitlities';
 
-const AlbumDetail = ({ navigation, route }: any) => {
+const PlaylistDetail = ({ navigation, route }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | string>(null);
-
-  const activePlaylist = route?.params?.playlist;
-  const playlistSongs = useAppSelector((state: RootState) =>
-    playlistSelector(state, activePlaylist)
+  const playlistId = route?.params?.playlist;
+  const activePlaylist = useAppSelector((state: RootState) =>
+    playlistSelector(state, playlistId)
   );
-  const totalPlaylistDuration = playlistSongs.reduce(
+
+  console.log('activePlaylist', activePlaylist);
+  const totalPlaylistDuration = activePlaylist.songs.reduce(
     (currentResult: number, currentItem: ISong) =>
       currentResult + (currentItem?.duration ?? 0) / 1000,
     0
@@ -37,23 +38,23 @@ const AlbumDetail = ({ navigation, route }: any) => {
     if (selectedSong !== song.id) {
       setSelectedSong(null);
     }
-    await addAndPlayCurrentTrack({ track: song, tracks: playlistSongs });
+    await addAndPlayCurrentTrack({ track: song, tracks: activePlaylist.songs });
     navigation.navigate('Player');
   };
   const onSongOptionClick = () => {};
-  const onSongFavClick = () => {};
+  // const onSongFavClick = () => {};
 
   return (
     <Fragment>
       <PlaylistHeader
-        title={activePlaylist}
+        title={activePlaylist?.name}
         // coverImage={activePlaylist.cover}
-        songCount={playlistSongs.length}
+        songCount={activePlaylist.songs.length}
         duration={secondsToHms(totalPlaylistDuration)}
       />
       <FlatList
         contentContainerStyle={styles.listContainer}
-        data={playlistSongs}
+        data={activePlaylist.songs}
         renderItem={({ item: song }: { item: ISong }) => (
           <ListItem
             key={song.id}
@@ -64,7 +65,7 @@ const AlbumDetail = ({ navigation, route }: any) => {
             coverImage={song.cover}
             selected={activeSong?.id === song.id}
             onOptionClick={onSongOptionClick}
-            onSecondaryOptionClick={onSongFavClick}
+            // onSecondaryOptionClick={onSongFavClick}
           />
         )}
         keyExtractor={item => item.id}
@@ -86,4 +87,4 @@ const createStyle = ({ padding }: ITheme) => {
   });
 };
 
-export default AlbumDetail;
+export default PlaylistDetail;

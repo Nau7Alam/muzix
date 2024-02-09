@@ -3,6 +3,7 @@ import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { IconProps } from 'react-native-vector-icons/Icon';
 
 const getIcon = (type?: string) => {
@@ -13,6 +14,8 @@ const getIcon = (type?: string) => {
       return MCIcon;
     case 'font':
       return Fontisto;
+    case 'ant':
+      return AntDesign;
     default:
       return SimpleLineIcon;
   }

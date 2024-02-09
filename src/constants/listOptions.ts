@@ -24,6 +24,7 @@ export enum PLAYLIST_OPERATIONS {
   play = 'play',
   add_to_queue = 'add to queue',
   delete = 'delete',
+  rename = 'rename',
 }
 
 export const SONG_OPTIONS = [
@@ -68,6 +69,10 @@ export const PLAYLIST_OPTIONS = [
   },
   {
     value: PLAYLIST_OPERATIONS.delete,
-    name: 'Delete',
+    name: 'Delete Playlist',
+  },
+  {
+    value: PLAYLIST_OPERATIONS.rename,
+    name: 'Rename Playlist',
   },
 ];

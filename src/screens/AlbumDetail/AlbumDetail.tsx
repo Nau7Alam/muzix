@@ -35,7 +35,7 @@ const PlaylistDetail = ({ navigation, route }: any) => {
     navigation.navigate('Player');
   };
   const onSongOptionClick = () => {};
-  const onSongFavClick = () => {};
+  // const onSongFavClick = () => {};
 
   return (
     <Fragment>
@@ -58,7 +58,7 @@ const PlaylistDetail = ({ navigation, route }: any) => {
             coverImage={song.cover}
             selected={activeSong?.id === song.id}
             onOptionClick={onSongOptionClick}
-            onSecondaryOptionClick={onSongFavClick}
+            // onSecondaryOptionClick={onSongFavClick}
           />
         )}
         keyExtractor={item => item.id}
