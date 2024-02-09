@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Appearance, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
@@ -12,13 +12,11 @@ type HeaderProps = {
 export const Header = ({ title }: HeaderProps) => {
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
-  const isLight = Appearance.getColorScheme() === 'light';
+
   return (
     <View style={styles.continer}>
       <PressableIcon
-        onPress={() => {
-          Appearance.setColorScheme(isLight ? 'dark' : 'light');
-        }}
+        onPress={() => {}}
         size={theme.fontSize.xlg}
         style={styles.logo}
         name="music-tone-alt"

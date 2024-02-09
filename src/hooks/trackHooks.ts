@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import { SetupService } from '../playerServices/setupServices';
 import { getLocalSongs } from '../helpers/localMedia';
 import { ISong } from '../interfaces/player/music.interface';
-// import 'react-native-get-random-values';
-// import { v4 as uuidv4 } from 'uuid';
+
 import { useAppDispatch } from './stateHooks';
 import { staticSongs } from '../constants/musicList';
 import { setAllSong } from '../reducers/playerReducer';

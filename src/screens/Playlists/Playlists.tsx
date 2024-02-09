@@ -172,11 +172,11 @@ const Playlists = ({ navigation }: any) => {
       />
       <ModalUI
         visible={confirmDelete}
-        title={selectedPlaylist}
+        title={'Delete Playlist'}
         onClose={closeConfirmModal}
         children={
           <Confirm
-            title="Delete Playlist ?"
+            title={selectedPlaylist}
             message="Do you want to delete playlist?"
             onYes={onDeletePlaylist}
             onNo={closeConfirmModal}

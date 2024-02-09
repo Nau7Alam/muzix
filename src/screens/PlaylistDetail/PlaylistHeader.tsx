@@ -68,7 +68,7 @@ export const PlaylistHeader = ({
             color={theme.colors.textSecondary}
             style={styles.title}
           >
-            Duration : {duration + '・' + addS(songCount, 'Song')}
+            Total Duration - {duration + '・' + addS(songCount, 'Song')}
           </Text>
         </View>
       </ImageBackground>

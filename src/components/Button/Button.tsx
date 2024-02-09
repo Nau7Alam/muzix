@@ -51,6 +51,7 @@ const createStyle = (theme: ITheme) => {
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: borderRadius.eight,
+      flex: 1,
     },
   });
 };
