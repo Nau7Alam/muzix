@@ -127,7 +127,7 @@ const Songs = ({ navigation }: any) => {
             onClick={() => onSongClick(song)}
             onSelect={() => onSongSelect(song)}
             coverImage={song.cover}
-            secondaryOptionIcon={song.favourit ? 'heart' : 'heart-outline'}
+            secondaryOptionIcon={song.favourit ? 'heart-fill' : 'heart'}
             selected={activeSong?.id === song.id}
             onOptionClick={() => onSongOptionClick(song)}
             onSecondaryOptionClick={() => onSongFavClick(song)}
@@ -181,7 +181,6 @@ const createStyle = ({ padding }: ITheme) => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      transform: [{ scale: 3 }],
     },
     listContainer: {
       paddingBottom: padding.xxlg + 30,

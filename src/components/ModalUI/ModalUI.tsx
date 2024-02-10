@@ -51,7 +51,7 @@ const createStyle = (theme: ITheme) => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(0,0,0,0.15)',
+      backgroundColor: 'rgba(0,0,0,0.25)',
     },
     modelContainer: {
       width: screen.width * 0.9,

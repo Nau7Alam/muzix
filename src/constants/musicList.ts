@@ -1,4 +1,6 @@
-export const staticSongs = [
+import { ISong } from '../interfaces/player/music.interface';
+
+export const staticSongs: ISong[] = [
   {
     id: '1',
     url: 'https://rntp.dev/example/Longing.mp3',

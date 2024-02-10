@@ -6,14 +6,14 @@ import Icon from '../Icon/Icon';
 import { Switch as RNSwitch } from 'react-native-switch';
 
 const SwitchIcon = ({ active }: any) => {
-  //   const theme = useTheme() as ITheme;
+  const { colors } = useTheme() as ITheme;
   // const styles = useMemo(() => createStyle(theme), [theme]);
   return (
     <View>
       <Icon
         type="font"
         name={active ? 'day-sunny' : 'night-clear'}
-        color={active ? 'white' : 'black'}
+        color={active ? colors.white : colors.textDark}
         size={18}
       />
     </View>
@@ -49,7 +49,7 @@ const Switch = ({ value, onChange }: SwitchProps) => {
       // eslint-disable-next-line react-native/no-inline-styles
       innerCircleStyle={{
         ...styles.innerCircleStyle,
-        borderColor: value ? 'white' : 'black',
+        borderColor: value ? colors.white : colors.textDark,
       }} // style for inner animated circle for what you (may) be rendering inside the circle
       outerCircleStyle={{}} // style for outer animated circle
       containerStyle={{

@@ -14,6 +14,7 @@ import Player from './screens/Player/Player';
 import Songs from './screens/Songs/Songs';
 import { HomeBottomTab } from './navigators/BottomTab';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import BootSplash from 'react-native-bootsplash';
 
 const Stack = createStackNavigator();
 
@@ -28,7 +29,12 @@ export const Router = () => {
       enabled
     >
       <SafeAreaView style={styles.container}>
-        <NavigationContainer theme={isLight ? LightThemes : DarkThemes}>
+        <NavigationContainer
+          theme={isLight ? LightThemes : DarkThemes}
+          onReady={() => {
+            BootSplash.hide();
+          }}
+        >
           <BottomSheetModalProvider>
             <Stack.Navigator
               initialRouteName="HomeTabs"

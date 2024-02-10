@@ -53,8 +53,8 @@ export const PlayerProgress = ({
         />
         <PressableIcon
           onPress={onFavourit}
-          iconType="material"
-          name={isFavourite ? 'heart' : 'heart-outline'}
+          iconType="octa"
+          name={isFavourite ? 'heart-fill' : 'heart'}
           size={fontSize.xlg}
           color={isFavourite ? colors.primaryDark : colors.icon}
         />

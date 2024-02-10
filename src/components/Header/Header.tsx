@@ -4,6 +4,7 @@ import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
 import Text from '../Text/Text';
+import Icon from '../Icon/Icon';
 
 type HeaderProps = {
   title?: string;
@@ -15,11 +16,11 @@ export const Header = ({ title }: HeaderProps) => {
 
   return (
     <View style={styles.continer}>
-      <PressableIcon
-        onPress={() => {}}
-        size={theme.fontSize.xlg}
+      <Icon
+        type="font"
+        size={theme.fontSize.xlg + 5}
         style={styles.logo}
-        name="music-tone-alt"
+        name="headphone"
         color={theme.colors.text}
       />
       <View style={styles.titleBox}>
@@ -58,7 +59,7 @@ const createStyle = (theme: ITheme) => {
     },
     logo: {
       paddingVertical: 0,
-      transform: [{ rotate: '-20deg' }, { translateX: 5 }],
+      transform: [{ rotate: '180deg' }, { translateX: -22 }, { translateY: 0 }],
     },
     titleBox: {
       flex: 1,

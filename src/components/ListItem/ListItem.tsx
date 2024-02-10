@@ -83,7 +83,7 @@ const ListItem = ({
               onPress={onSecondaryOptionClick}
               color={selected ? colors.primaryDark : colors.primary}
               size={fontSize.lg}
-              iconType="material"
+              iconType="octa"
               style={styles.iconStyle}
             />
           )}
