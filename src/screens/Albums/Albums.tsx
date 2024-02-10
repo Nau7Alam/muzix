@@ -4,6 +4,7 @@ import ListItem from '../../components/ListItem/ListItem';
 import { IAlbum } from '../../interfaces/player/music.interface';
 import { addS } from '../../helpers/utitlities';
 import Layout from '../../components/Layout/Layout';
+import Empty from '../../components/Empty/Empty';
 
 const Albums = ({ navigation }: { navigation: any }) => {
   const [albums, setAlbums] = useState<IAlbum[]>([]);
@@ -18,6 +19,17 @@ const Albums = ({ navigation }: { navigation: any }) => {
       localAlbums?.length && setAlbums(localAlbums);
     })();
   }, []);
+
+  if (!albums.length) {
+    return (
+      <Empty
+        image={require('../../../assets/images/no_songs.png')}
+        title="No Album Found."
+        message={'No Songs or Album was found on this device memory.'}
+      />
+    );
+  }
+
   return (
     <Layout title="Albums">
       {albums.map(album => {

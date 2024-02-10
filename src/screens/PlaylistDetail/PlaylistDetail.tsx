@@ -11,6 +11,7 @@ import PlaylistHeader from './PlaylistHeader';
 import { playlistSelector } from '../../reducers/playlistReducer';
 import { RootState } from '../../store';
 import { secondsToHms } from '../../helpers/utitlities';
+import Empty from '../../components/Empty/Empty';
 
 const PlaylistDetail = ({ navigation, route }: any) => {
   const [_selectedSong, setSelectedSong] = useState<null | string>(null);
@@ -44,6 +45,16 @@ const PlaylistDetail = ({ navigation, route }: any) => {
   };
   const onSongOptionClick = () => {};
   // const onSongFavClick = () => {};
+
+  if (!activePlaylist?.song?.lenght) {
+    return (
+      <Empty
+        image={require('../../../assets/images/no_songs.png')}
+        title="Empty Playlist."
+        message={`No Songs is added to this Playlist "${activePlaylist.name}". You can add songs to a playlist from Songs, Album or other Playlists`}
+      />
+    );
+  }
 
   return (
     <Fragment>

@@ -19,6 +19,7 @@ import {
   addToPlaylist,
   allPlaylistSelector,
 } from '../../reducers/playlistReducer';
+import Empty from '../../components/Empty/Empty';
 
 const Songs = ({ navigation }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | ISong>(null);
@@ -103,6 +104,16 @@ const Songs = ({ navigation }: any) => {
     setSelectedSong(null);
     closePlaylistModal();
   };
+
+  if (!songs.length) {
+    return (
+      <Empty
+        image={require('../../../assets/images/no_songs.png')}
+        title="No Soung Found."
+        message={'No Song was found on this device memory.'}
+      />
+    );
+  }
 
   return (
     <Layout style={styles.container}>

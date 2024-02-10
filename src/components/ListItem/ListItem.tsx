@@ -13,6 +13,7 @@ import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
 import Avatar from '../Avatar/Avatar';
+import { IMAGE_TYPE } from '../../constants/listOptions';
 
 type ListItemProps = {
   title: string;
@@ -59,6 +60,9 @@ const ListItem = ({
           selected && styles.selectedCoverImage,
           !!coverImageStyle && (coverImageStyle as Object),
         ]}
+        type={
+          typeof coverImage === 'string' ? IMAGE_TYPE.url : IMAGE_TYPE.require
+        }
         image={coverImage}
       />
       <View style={styles.titleBox}>

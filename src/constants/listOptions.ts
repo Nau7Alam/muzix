@@ -76,3 +76,8 @@ export const PLAYLIST_OPTIONS = [
     name: 'Rename Playlist',
   },
 ];
+
+export enum IMAGE_TYPE {
+  url = 'url',
+  require = 'require',
+}
