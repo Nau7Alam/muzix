@@ -1,10 +1,9 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import ListItem from '../../components/ListItem/ListItem';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { ISong } from '../../interfaces/player/music.interface';
 import { useTheme } from '@react-navigation/native';
 import { ITheme } from '../../theme/theme.interface';
-import { useTrackSongs } from '../../hooks/trackHooks';
 import {
   activeSongSelector,
   allSongSelector,
@@ -23,7 +22,6 @@ import {
 
 const Songs = ({ navigation }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | ISong>(null);
-  const { isPlayerReady } = useTrackSongs();
 
   const dispatch = useAppDispatch();
   const songs = useAppSelector(allSongSelector);
@@ -106,14 +104,6 @@ const Songs = ({ navigation }: any) => {
     closePlaylistModal();
   };
 
-  if (!isPlayerReady) {
-    return (
-      <View style={styles.loaderBox}>
-        <ActivityIndicator size="large" color={theme.colors.primaryLight} />
-      </View>
-    );
-  }
-
   return (
     <Layout style={styles.container}>
       <FlatList
@@ -176,11 +166,6 @@ const createStyle = ({ padding }: ITheme) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-    },
-    loaderBox: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
     },
     listContainer: {
       paddingBottom: padding.xxlg + 30,

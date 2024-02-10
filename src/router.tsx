@@ -1,9 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useMemo } from 'react';
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
+  View,
   useColorScheme,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,12 +17,22 @@ import Songs from './screens/Songs/Songs';
 import { HomeBottomTab } from './navigators/BottomTab';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import BootSplash from 'react-native-bootsplash';
+import { useTrackSongs } from './hooks/trackHooks';
 
 const Stack = createStackNavigator();
 
 export const Router = () => {
   const styles = useMemo(() => createStyle(), []);
+  const { isPlayerReady } = useTrackSongs();
   const isLight = useColorScheme() === 'light';
+
+  if (!isPlayerReady) {
+    return (
+      <View style={styles.loaderBox}>
+        <ActivityIndicator size="large" color={'#fdb5bb'} />
+      </View>
+    );
+  }
 
   return (
     <KeyboardAvoidingView
@@ -54,5 +66,10 @@ export const Router = () => {
 const createStyle = () => {
   return StyleSheet.create({
     container: { flex: 1 },
+    loaderBox: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   });
 };

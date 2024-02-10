@@ -46,7 +46,6 @@ const Switch = ({ value, onChange }: SwitchProps) => {
       circleInActiveColor={colors.border}
       renderInsideCircle={() => <SwitchIcon active={value} />} // custom component to render inside the Switch circle (Text, Image, etc.)
       changeValueImmediately={true} // if rendering inside circle, change state immediately or wait for animation to complete
-      // eslint-disable-next-line react-native/no-inline-styles
       innerCircleStyle={{
         ...styles.innerCircleStyle,
         borderColor: value ? colors.white : colors.textDark,
