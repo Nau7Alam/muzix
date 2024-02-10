@@ -5,15 +5,12 @@ import {
   getAll,
   searchSongs,
 } from 'react-native-get-music-files';
-import { checkPermission, getPermission } from './permission';
+import { checkPermission } from './permission';
 import { IAlbum } from '../interfaces/player/music.interface';
 
 export const getLocalSongs = async () => {
   const hasPermission = await checkPermission();
-  if (!hasPermission) {
-    console.log('Request PERMISSION');
-    getPermission();
-  } else {
+  if (hasPermission) {
     const songsOrError = await getAll({
       // limit: 10, optional
       // offset: 0, optional
@@ -32,10 +29,7 @@ export const getLocalSongs = async () => {
 
 export const getLocalAlbumsByArtist = async (artist?: string) => {
   const hasPermission = await checkPermission();
-  if (!hasPermission) {
-    console.log('Request PERMISSION');
-    getPermission();
-  } else {
+  if (hasPermission) {
     const albumsOrError = await getAlbums({
       // limit: 10,
       // offset: 0,
@@ -54,10 +48,7 @@ export const getLocalAlbumsByArtist = async (artist?: string) => {
 
 export const searchSongsByKey = async (searchKey?: string) => {
   const hasPermission = await checkPermission();
-  if (!hasPermission) {
-    console.log('Request PERMISSION');
-    getPermission();
-  } else {
+  if (hasPermission) {
     const resultsOrError = await searchSongs({
       // limit: 10,
       // offset: 0,

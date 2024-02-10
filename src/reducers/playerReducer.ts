@@ -12,7 +12,7 @@ interface PlayerStateType {
 const initialState: PlayerStateType = {
   songs: [],
   activeSong: null,
-  activeSongList: [],
+  activeSongList: null,
   repeatMode: false,
   toShuffel: false,
 };

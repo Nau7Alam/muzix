@@ -22,7 +22,6 @@ import {
 import BottomSheetUI from '../../components/BottomSheetUI/BottomSheetUI';
 import OptionList from '../../components/BottomSheetUI/OptionList/OptionList';
 import Confirm from '../../components/ModalUI/CreatePlaylist/Confirm/Confirm';
-import Toast from 'react-native-toast-message';
 
 const Playlists = ({ navigation }: any) => {
   const playlists = useAppSelector(allPlaylistSelector);
@@ -103,17 +102,8 @@ const Playlists = ({ navigation }: any) => {
       dispatch(createPlaylist({ name: playlistName }));
       closePlaylistForm();
     } else if (selectedPlaylist && playlistName?.length) {
-      console.log('EDITING!!!!!!!');
       dispatch(renamePlaylist({ key: selectedPlaylist, name: playlistName }));
       closePlaylistForm();
-    } else {
-      console.log('Playlist already present!');
-      Toast.show({
-        type: 'error',
-        text1: 'Hello',
-        text2: 'Playlist already present! 👋',
-        visibilityTime: 10000,
-      });
     }
   };
 
@@ -139,7 +129,7 @@ const Playlists = ({ navigation }: any) => {
             title={playlists[key].name}
             titleStyle={styles.playlistTitle}
             coverImageStyle={styles.playlistImage}
-            onClick={() => onPlaylistClick([key])}
+            onClick={() => onPlaylistClick(key)}
             onOptionClick={
               playlists[key].isDeletable
                 ? () => onPlaylistOptionClick(key)

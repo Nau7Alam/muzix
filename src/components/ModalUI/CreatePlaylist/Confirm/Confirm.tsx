@@ -24,8 +24,18 @@ const Confirm = ({ title, message, onYes, onNo }: ConfirmProps) => {
         {message}
       </Text>
       <View style={styles.buttonBox}>
-        <Button title="No" type="primary" onClick={onNo} />
-        <Button title="YES" type="secondary" onClick={onYes} />
+        <Button
+          buttonStyle={styles.butttonStyle}
+          title="No"
+          type="primary"
+          onClick={onNo}
+        />
+        <Button
+          buttonStyle={styles.butttonStyle}
+          title="YES"
+          type="secondary"
+          onClick={onYes}
+        />
       </View>
     </View>
   );
@@ -39,7 +49,11 @@ const createStyle = (theme: ITheme) => {
     },
     buttonBox: {
       flexDirection: 'row',
+      justifyContent: 'space-evenly',
       gap: padding.lg,
+    },
+    butttonStyle: {
+      flex: 1,
     },
   });
 };

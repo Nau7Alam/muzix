@@ -24,6 +24,8 @@ const CreateRenameForm = ({
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
 
+  console.log('RENAME ', rename);
+
   return (
     <View style={styles.continer}>
       <Input type="primary" value={field1} onChange={onChangeField1} />

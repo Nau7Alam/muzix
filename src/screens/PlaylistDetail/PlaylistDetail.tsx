@@ -13,7 +13,7 @@ import { RootState } from '../../store';
 import { secondsToHms } from '../../helpers/utitlities';
 
 const PlaylistDetail = ({ navigation, route }: any) => {
-  const [selectedSong, setSelectedSong] = useState<null | string>(null);
+  const [_selectedSong, setSelectedSong] = useState<null | string>(null);
   const playlistId = route?.params?.playlist;
   const activePlaylist = useAppSelector((state: RootState) =>
     playlistSelector(state, playlistId)
@@ -35,8 +35,9 @@ const PlaylistDetail = ({ navigation, route }: any) => {
   };
 
   const onSongClick = async (song: ISong) => {
-    if (selectedSong !== song.id) {
-      setSelectedSong(null);
+    if (activeSong?.id === song.id) {
+      navigation.navigate('Player');
+      return;
     }
     await addAndPlayCurrentTrack({ track: song, tracks: activePlaylist.songs });
     navigation.navigate('Player');

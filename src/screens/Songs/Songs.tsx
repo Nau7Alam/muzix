@@ -28,7 +28,10 @@ const Songs = ({ navigation }: any) => {
   const dispatch = useAppDispatch();
   const songs = useAppSelector(allSongSelector);
   const playlist = useAppSelector(allPlaylistSelector);
-  const playlistArray = Object.keys(playlist).map(p => ({ name: p, value: p }));
+  const playlistArray = Object.keys(playlist).map(p => ({
+    name: playlist[p].name,
+    value: p,
+  }));
   const activeSong = useAppSelector(activeSongSelector);
 
   const theme = useTheme() as ITheme;
@@ -39,15 +42,15 @@ const Songs = ({ navigation }: any) => {
   };
 
   const onSongClick = async (song: ISong) => {
-    if (selectedSong?.id !== song.id) {
-      setSelectedSong(null);
+    if (activeSong?.id === song.id) {
+      navigation.navigate('Player');
+      return;
     }
     await addAndPlayCurrentTrack({ track: song, tracks: songs });
     navigation.navigate('Player');
   };
 
   const onSongOptionClick = (song: ISong) => {
-    console.log(song.title);
     setSelectedSong(song);
     toggleSongModal();
   };

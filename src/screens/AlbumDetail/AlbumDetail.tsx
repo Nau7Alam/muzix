@@ -13,7 +13,7 @@ import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
 import AlbumHeader from './AlbumHeader';
 
 const PlaylistDetail = ({ navigation, route }: any) => {
-  const [selectedSong, setSelectedSong] = useState<null | string>(null);
+  const [_selectedSong, setSelectedSong] = useState<null | string>(null);
 
   const activeAlbum = route?.params?.album;
   const songs = useAppSelector(allSongSelector);
@@ -28,8 +28,9 @@ const PlaylistDetail = ({ navigation, route }: any) => {
   };
 
   const onSongClick = async (song: ISong) => {
-    if (selectedSong !== song.id) {
-      setSelectedSong(null);
+    if (activeSong?.id === song.id) {
+      navigation.navigate('Player');
+      return;
     }
     addAndPlayCurrentTrack({ track: song, tracks: songsInAlbum });
     navigation.navigate('Player');
