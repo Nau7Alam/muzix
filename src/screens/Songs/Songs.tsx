@@ -18,6 +18,7 @@ import { SONG_OPTIONS, SONG_OPERATION } from '../../constants/listOptions';
 import {
   addToPlaylist,
   allPlaylistSelector,
+  toggleFavourite,
 } from '../../reducers/playlistReducer';
 import Empty from '../../components/Empty/Empty';
 
@@ -55,6 +56,7 @@ const Songs = ({ navigation }: any) => {
   };
   const onSongFavClick = (song: ISong) => {
     dispatch(toggleFavouritSong({ isPlaying: false, song }));
+    dispatch(toggleFavourite({ song }));
   };
 
   // Conversation filter modal

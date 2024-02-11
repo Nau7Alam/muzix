@@ -27,7 +27,7 @@ const Empty = ({ image, title, message }: EmptyProps) => {
         <Text center lg color={theme.colors.textDark}>
           {title}
         </Text>
-        <Text center light md color={theme.colors.textLight}>
+        <Text center light sm color={theme.colors.textLight}>
           {message}
         </Text>
       </View>

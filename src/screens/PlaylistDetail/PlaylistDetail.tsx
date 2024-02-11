@@ -20,7 +20,6 @@ const PlaylistDetail = ({ navigation, route }: any) => {
     playlistSelector(state, playlistId)
   );
 
-  console.log('activePlaylist', activePlaylist);
   const totalPlaylistDuration = activePlaylist.songs.reduce(
     (currentResult: number, currentItem: ISong) =>
       currentResult + (currentItem?.duration ?? 0) / 1000,
@@ -45,8 +44,7 @@ const PlaylistDetail = ({ navigation, route }: any) => {
   };
   const onSongOptionClick = () => {};
   // const onSongFavClick = () => {};
-
-  if (!activePlaylist?.song?.lenght) {
+  if (!activePlaylist.songs.length) {
     return (
       <Empty
         image={require('../../../assets/images/no_songs.png')}

@@ -22,6 +22,7 @@ import {
   addCurrentTrack,
 } from '../../playerServices/trackFunctions';
 import Layout from '../../components/Layout/Layout';
+import { toggleFavourite } from '../../reducers/playlistReducer';
 
 const Player = () => {
   const dispatch = useAppDispatch();
@@ -75,6 +76,7 @@ const Player = () => {
 
   const onFavourit = () => {
     dispatch(toggleFavouritSong({ isPlaying: true, song: activeSong }));
+    dispatch(toggleFavourite({ song: activeSong }));
   };
 
   return (
