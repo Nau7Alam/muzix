@@ -12,7 +12,6 @@ type AvatarProps = {
 const Avatar = ({ image, type, style }: AvatarProps) => {
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
-  console.log('TYPE ', type);
   return (
     <Image
       style={[styles.coverImage, style]}

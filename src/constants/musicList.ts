@@ -10,7 +10,7 @@ export const staticSongs: ISong[] = [
     duration: 143,
     album: '',
     genre: '',
-    favourit: true,
+    favourit: false,
   },
   {
     id: '2',

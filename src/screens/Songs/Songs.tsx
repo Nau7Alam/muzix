@@ -107,38 +107,38 @@ const Songs = ({ navigation }: any) => {
     closePlaylistModal();
   };
 
-  if (!songs.length) {
-    return (
-      <Empty
-        image={require('../../../assets/images/no_songs.png')}
-        title="No Soung Found."
-        message={'No Song was found on this device memory.'}
-      />
-    );
-  }
-
   return (
     <Layout style={styles.container}>
-      <FlatList
-        contentContainerStyle={styles.listContainer}
-        data={songs}
-        renderItem={({ item: song }: { item: ISong }) => (
-          <ListItem
-            key={song.id}
-            title={song.title}
-            subTitle={song.artist}
-            onClick={() => onSongClick(song)}
-            onSelect={() => onSongSelect(song)}
-            coverImage={song.cover}
-            secondaryOptionIcon={song.favourit ? 'heart-fill' : 'heart'}
-            selected={activeSong?.id === song.id}
-            onOptionClick={() => onSongOptionClick(song)}
-            onSecondaryOptionClick={() => onSongFavClick(song)}
-          />
-        )}
-        keyExtractor={item => item.id}
-        keyboardShouldPersistTaps={'handled'}
-      />
+      {!songs.length ? (
+        <Empty
+          image={require('../../../assets/images/no_songs.png')}
+          title="No Soung Found."
+          message={'No Song was found on this device memory.'}
+        />
+      ) : (
+        <FlatList
+          contentContainerStyle={styles.listContainer}
+          data={songs}
+          renderItem={({ item: song }: { item: ISong }) => (
+            <ListItem
+              key={song.id}
+              title={song.title}
+              subTitle={song.artist}
+              onClick={() => onSongClick(song)}
+              onSelect={() => onSongSelect(song)}
+              coverImage={song.cover}
+              secondaryOptionIcon={song.favourit ? 'heart-fill' : 'heart'}
+              selected={activeSong?.id === song.id}
+              onOptionClick={() => onSongOptionClick(song)}
+              onSecondaryOptionClick={() => onSongFavClick(song)}
+            />
+          )}
+          keyExtractor={item => item.id}
+          keyboardShouldPersistTaps={'handled'}
+          keyboardDismissMode="on-drag"
+        />
+      )}
+
       <BottomSheetUI
         bottomSheetModalRef={songOptionModal}
         initialSnapPoints={modalSnapPoints}

@@ -12,6 +12,7 @@ import { playlistSelector } from '../../reducers/playlistReducer';
 import { RootState } from '../../store';
 import { secondsToHms } from '../../helpers/utitlities';
 import Empty from '../../components/Empty/Empty';
+import Layout from '../../components/Layout/Layout';
 
 const PlaylistDetail = ({ navigation, route }: any) => {
   const [_selectedSong, setSelectedSong] = useState<null | string>(null);
@@ -44,43 +45,47 @@ const PlaylistDetail = ({ navigation, route }: any) => {
   };
   const onSongOptionClick = () => {};
   // const onSongFavClick = () => {};
-  if (!activePlaylist.songs.length) {
-    return (
-      <Empty
-        image={require('../../../assets/images/no_songs.png')}
-        title="Empty Playlist."
-        message={`No Songs is added to this Playlist "${activePlaylist.name}". You can add songs to a playlist from Songs, Album or other Playlists`}
-      />
-    );
-  }
 
   return (
     <Fragment>
-      <PlaylistHeader
-        title={activePlaylist?.name}
-        // coverImage={activePlaylist.cover}
-        songCount={activePlaylist.songs.length}
-        duration={secondsToHms(totalPlaylistDuration)}
-      />
-      <FlatList
-        contentContainerStyle={styles.listContainer}
-        data={activePlaylist.songs}
-        renderItem={({ item: song }: { item: ISong }) => (
-          <ListItem
-            key={song.id}
-            title={song.title}
-            subTitle={song.artist}
-            onClick={() => onSongClick(song)}
-            onSelect={() => onSongSelect(song)}
-            coverImage={song.cover}
-            selected={activeSong?.id === song.id}
-            onOptionClick={onSongOptionClick}
-            // onSecondaryOptionClick={onSongFavClick}
+      {!activePlaylist.songs.length ? (
+        <Layout title={activePlaylist?.name}>
+          <Empty
+            image={require('../../../assets/images/no_songs.png')}
+            title="Empty Playlist."
+            message={`No Songs is added to this Playlist "${activePlaylist.name}". You can add songs to a playlist from Songs, Album or other Playlists`}
           />
-        )}
-        keyExtractor={item => item.id}
-        keyboardShouldPersistTaps={'handled'}
-      />
+        </Layout>
+      ) : (
+        <Fragment>
+          <PlaylistHeader
+            title={activePlaylist?.name}
+            // coverImage={activePlaylist.cover}
+            songCount={activePlaylist.songs.length}
+            duration={secondsToHms(totalPlaylistDuration)}
+          />
+          <FlatList
+            contentContainerStyle={styles.listContainer}
+            data={activePlaylist.songs}
+            renderItem={({ item: song }: { item: ISong }) => (
+              <ListItem
+                key={song.id}
+                title={song.title}
+                subTitle={song.artist}
+                onClick={() => onSongClick(song)}
+                onSelect={() => onSongSelect(song)}
+                coverImage={song.cover}
+                selected={activeSong?.id === song.id}
+                onOptionClick={onSongOptionClick}
+                // onSecondaryOptionClick={onSongFavClick}
+              />
+            )}
+            keyExtractor={item => item.id}
+            keyboardShouldPersistTaps={'handled'}
+            keyboardDismissMode="on-drag"
+          />
+        </Fragment>
+      )}
     </Fragment>
   );
 };

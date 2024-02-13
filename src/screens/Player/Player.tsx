@@ -40,7 +40,12 @@ const Player = () => {
   };
 
   const playerState = usePlaybackState();
-  const isPlaying = playerState.state === State.Playing;
+  console.log('playerState', playerState);
+  const isPlaying =
+    playerState.state === State.Playing ||
+    playerState.state === State.Loading ||
+    playerState.state === State.Buffering ||
+    playerState.state === State.Ready;
 
   const playSong = async () => {
     const currentQueue = await TrackPlayer.getQueue();

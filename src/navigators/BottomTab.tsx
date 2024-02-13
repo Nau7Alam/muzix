@@ -41,7 +41,7 @@ const renderIcons = (
         { backgroundColor: focused ? colors.primaryDark : colors.cardLight },
       ]}
       color={iconColor}
-      size={iconSize}
+      size={iconSize ?? fontSize.lg}
     />
   );
 };

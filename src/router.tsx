@@ -1,5 +1,5 @@
-import { NavigationContainer } from '@react-navigation/native';
 import React, { useMemo } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   ActivityIndicator,
   KeyboardAvoidingView,

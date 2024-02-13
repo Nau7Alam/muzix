@@ -17,7 +17,7 @@ export const getLocalSongs = async () => {
       coverQuality: 100,
       minSongDuration: 1000,
       sortBy: SortSongFields.TITLE,
-      sortOrder: SortSongOrder.DESC,
+      sortOrder: SortSongOrder.ASC,
     });
     if (typeof songsOrError === 'string') {
       console.log('ERROR ::: ', songsOrError);
@@ -54,7 +54,7 @@ export const searchSongsByKey = async (searchKey?: string) => {
       // offset: 0,
       coverQuality: 50,
       searchBy: searchKey ?? '',
-      sortBy: SortSongFields.DURATION,
+      sortBy: SortSongFields.TITLE,
       sortOrder: SortSongOrder.DESC,
     });
 

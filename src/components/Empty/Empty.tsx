@@ -43,6 +43,7 @@ const createStyle = (theme: ITheme) => {
       justifyContent: 'center',
     },
     messageContainer: {
+      top: '-8%',
       gap: theme.padding.four,
       alignItems: 'center',
       justifyContent: 'center',
