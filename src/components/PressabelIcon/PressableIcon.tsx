@@ -17,6 +17,7 @@ type PressableIconProps = {
   color?: string;
   title?: string;
   style?: StyleProp<ViewStyle>;
+  iconStyle?: StyleProp<ViewStyle>;
   iconType?: string;
   onPress: () => void;
 } & PressableProps;
@@ -27,6 +28,7 @@ const PressableIcon = ({
   name,
   title,
   iconType,
+  iconStyle,
   style: customStyle,
 }: PressableIconProps) => {
   const theme = useTheme() as ITheme;
@@ -35,6 +37,7 @@ const PressableIcon = ({
     <Pressable onPress={onPress} style={[styles.container, customStyle]}>
       <Icon
         type={iconType}
+        style={iconStyle}
         name={name}
         size={size}
         color={color ?? theme.colors.icon}

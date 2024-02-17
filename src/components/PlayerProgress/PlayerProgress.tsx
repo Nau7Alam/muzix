@@ -80,6 +80,8 @@ export const PlayerProgress = ({
         <PressableIcon
           onPress={onPlayControl}
           style={styles.playButton}
+          // eslint-disable-next-line react-native/no-inline-styles
+          iconStyle={{ left: !isPlaying ? 2 : 0 }}
           name={isPlaying ? 'control-pause' : 'control-play'}
           size={fontSize.xxlg}
           color={colors.iconDark}

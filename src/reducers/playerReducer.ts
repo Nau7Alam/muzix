@@ -8,6 +8,7 @@ interface PlayerStateType {
   activeSongList: ISong[] | null;
   repeatMode: boolean;
   toShuffel: boolean;
+  isPlaying: boolean;
 }
 const initialState: PlayerStateType = {
   songs: [],
@@ -15,12 +16,16 @@ const initialState: PlayerStateType = {
   activeSongList: null,
   repeatMode: false,
   toShuffel: false,
+  isPlaying: false,
 };
 
 const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
+    setPlayState: (state, { payload }) => {
+      state.isPlaying = payload;
+    },
     setAllSong: (state, action) => {
       state.songs = action.payload;
     },
@@ -56,6 +61,7 @@ const playerSlice = createSlice({
 });
 
 export const {
+  setPlayState,
   setAllSong,
   setActiveSong,
   setActiveSongList,
@@ -64,6 +70,7 @@ export const {
   toggleFavouritSong,
 } = playerSlice.actions;
 
+export const playStateSelector = (state: RootState) => state.player.isPlaying;
 export const allSongSelector = (state: RootState) => state.player.songs;
 export const activeSongSelector = (state: RootState) => state.player.activeSong;
 export const activeSongListSelector = (state: RootState) =>

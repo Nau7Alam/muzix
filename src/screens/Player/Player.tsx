@@ -4,16 +4,14 @@ import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import ActivePlayer from '../../components/ActivePlayer/ActivePlayer';
 import PlayerProgress from '../../components/PlayerProgress/PlayerProgress';
-import TrackPlayer, {
-  State,
-  usePlaybackState,
-  useProgress,
-} from 'react-native-track-player';
+import TrackPlayer, { useProgress } from 'react-native-track-player';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
 import {
   activeSongListSelector,
   activeSongSelector,
   allSongSelector,
+  playStateSelector,
+  setPlayState,
   toggleFavouritSong,
 } from '../../reducers/playerReducer';
 import { getIndexOfSong } from '../../helpers/utitlities';
@@ -28,33 +26,29 @@ const Player = () => {
   const dispatch = useAppDispatch();
   const theme: ITheme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
+  const carouselRef = useRef<any>(null);
   const { position, duration } = useProgress();
+
+  const isPlaying = useAppSelector(playStateSelector);
   const songs = useAppSelector(allSongSelector);
   const activeSongList = useAppSelector(activeSongListSelector) ?? songs;
   const activeSong = useAppSelector(activeSongSelector) ?? songs[0];
   const activeSongIndex = getIndexOfSong(activeSongList, activeSong);
-  const carouselRef = useRef<any>(null);
 
   const onProgress = (value: any) => {
     TrackPlayer.seekTo(value[0]);
   };
-
-  const playerState = usePlaybackState();
-  console.log('playerState', playerState);
-  const isPlaying =
-    playerState.state === State.Playing ||
-    playerState.state === State.Loading ||
-    playerState.state === State.Buffering ||
-    playerState.state === State.Ready;
 
   const playSong = async () => {
     const currentQueue = await TrackPlayer.getQueue();
     !currentQueue.length &&
       addCurrentTrack({ track: activeSong, tracks: activeSongList });
     if (isPlaying) {
+      dispatch(setPlayState(false));
       await TrackPlayer.pause();
     } else {
       await TrackPlayer.play();
+      dispatch(setPlayState(true));
     }
   };
 
