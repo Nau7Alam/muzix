@@ -8,9 +8,14 @@ type LayoutProps = {
   children: ReactNode;
 } & ViewProps;
 
-const Layout = ({ title, children, ...rest }: LayoutProps) => {
+const Layout = ({
+  title,
+  children,
+  style: customStyle,
+  ...rest
+}: LayoutProps) => {
   return (
-    <SafeAreaView style={styles.flex} {...rest}>
+    <SafeAreaView style={[styles.flex, customStyle]} {...rest}>
       <Header title={title} />
       {children}
     </SafeAreaView>
@@ -18,7 +23,7 @@ const Layout = ({ title, children, ...rest }: LayoutProps) => {
 };
 
 const styles = StyleSheet.create({
-  flex: { flex: 1 },
+  flex: { flex: 1, paddingBottom: 30 },
 });
 
 export default Layout;

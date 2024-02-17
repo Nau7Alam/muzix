@@ -106,6 +106,7 @@ const createStyle = (theme: ITheme) => {
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
+      paddingBottom: 0,
     },
   });
 };

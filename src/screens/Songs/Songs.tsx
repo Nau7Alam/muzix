@@ -6,7 +6,9 @@ import { useTheme } from '@react-navigation/native';
 import { ITheme } from '../../theme/theme.interface';
 import {
   activeSongSelector,
+  addToActiveSongList,
   allSongSelector,
+  blockSong,
   toggleFavouritSong,
 } from '../../reducers/playerReducer';
 import { useAppDispatch, useAppSelector } from '../../hooks/stateHooks';
@@ -21,9 +23,12 @@ import {
   toggleFavourite,
 } from '../../reducers/playlistReducer';
 import Empty from '../../components/Empty/Empty';
+import ModalUI from '../../components/ModalUI/ModalUI';
+import Confirm from '../../components/ModalUI/CreatePlaylist/Confirm/Confirm';
 
 const Songs = ({ navigation }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | ISong>(null);
+  const [confirmBlocked, setConfirmBlocked] = useState(false);
 
   const dispatch = useAppDispatch();
   const songs = useAppSelector(allSongSelector);
@@ -95,6 +100,12 @@ const Songs = ({ navigation }: any) => {
       case SONG_OPERATION.play:
         onSongClick(selectedSong!);
         break;
+      case SONG_OPERATION.add_to_blocklist:
+        toggleConfirmBlockModal();
+        break;
+      case SONG_OPERATION.add_to_queue:
+        dispatch(addToActiveSongList({ song: selectedSong }));
+        break;
       default:
         console.log('FROM SWITCH');
         break;
@@ -105,6 +116,22 @@ const Songs = ({ navigation }: any) => {
     dispatch(addToPlaylist({ name: item.value, song: selectedSong }));
     setSelectedSong(null);
     closePlaylistModal();
+  };
+
+  const closeConfirmBlockModal = () => {
+    setConfirmBlocked(false);
+    setSelectedSong(null);
+  };
+
+  const toggleConfirmBlockModal = () => {
+    setConfirmBlocked(!confirmBlocked);
+  };
+
+  const onBlockSong = () => {
+    console.log('BLOCKING SONG ', selectedSong?.id);
+    dispatch(blockSong({ song: selectedSong }));
+    setSelectedSong(null);
+    toggleConfirmBlockModal();
   };
 
   return (
@@ -118,7 +145,7 @@ const Songs = ({ navigation }: any) => {
       ) : (
         <FlatList
           contentContainerStyle={styles.listContainer}
-          data={songs}
+          data={songs.filter(s => !s.blocked)}
           renderItem={({ item: song }: { item: ISong }) => (
             <ListItem
               key={song.id}
@@ -171,18 +198,29 @@ const Songs = ({ navigation }: any) => {
           />
         }
       />
+      <ModalUI
+        visible={confirmBlocked}
+        title={'Delete Playlist'}
+        onClose={closeConfirmBlockModal}
+        children={
+          <Confirm
+            title={selectedSong?.title ?? ''}
+            message="Do you want to block this song?"
+            onYes={onBlockSong}
+            onNo={closeConfirmBlockModal}
+          />
+        }
+      />
     </Layout>
   );
 };
 
-const createStyle = ({ padding }: ITheme) => {
+const createStyle = ({}: ITheme) => {
   return StyleSheet.create({
     container: {
       flex: 1,
     },
-    listContainer: {
-      paddingBottom: padding.xxlg + 30,
-    },
+    listContainer: {},
   });
 };
 

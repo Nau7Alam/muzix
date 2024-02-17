@@ -11,6 +11,7 @@ export const staticSongs: ISong[] = [
     album: '',
     genre: '',
     favourit: false,
+    blocked: false,
   },
   {
     id: '2',
@@ -22,6 +23,7 @@ export const staticSongs: ISong[] = [
     album: '',
     genre: '',
     favourit: false,
+    blocked: false,
   },
   {
     id: '3',
@@ -33,6 +35,7 @@ export const staticSongs: ISong[] = [
     album: '',
     genre: '',
     favourit: false,
+    blocked: false,
   },
   {
     id: '4',
@@ -44,6 +47,7 @@ export const staticSongs: ISong[] = [
     album: '',
     genre: '',
     favourit: false,
+    blocked: false,
   },
   {
     id: '5',
@@ -55,6 +59,7 @@ export const staticSongs: ISong[] = [
     album: '',
     genre: '',
     favourit: false,
+    blocked: false,
   },
   {
     id: '6',
@@ -66,6 +71,7 @@ export const staticSongs: ISong[] = [
     album: '',
     genre: '',
     favourit: false,
+    blocked: false,
   },
   {
     id: '7',
@@ -77,6 +83,7 @@ export const staticSongs: ISong[] = [
     album: '',
     genre: '',
     favourit: false,
+    blocked: false,
   },
   {
     id: '8',
@@ -88,5 +95,6 @@ export const staticSongs: ISong[] = [
     album: '',
     genre: '',
     favourit: false,
+    blocked: false,
   },
 ];

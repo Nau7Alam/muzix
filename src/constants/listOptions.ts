@@ -4,7 +4,7 @@ export enum SONG_OPERATION {
   add_to_playlist = 'add_to_playlist',
   detail = 'detail',
   share = 'share',
-  add_to_blacklist = 'add_to_blacklist',
+  add_to_blocklist = 'add_to_blocklist',
   delete = 'delete',
 }
 
@@ -34,7 +34,7 @@ export const SONG_OPTIONS = [
   },
   {
     value: SONG_OPERATION.add_to_queue,
-    name: 'Add to Playing Queue',
+    name: 'Add to Queue',
   },
   {
     value: SONG_OPERATION.add_to_playlist,
@@ -44,12 +44,12 @@ export const SONG_OPTIONS = [
     value: SONG_OPERATION.detail,
     name: 'Detail',
   },
+  // {
+  //   value: SONG_OPERATION.share,
+  //   name: 'Share',
+  // },
   {
-    value: SONG_OPERATION.share,
-    name: 'Share',
-  },
-  {
-    value: SONG_OPERATION.add_to_blacklist,
+    value: SONG_OPERATION.add_to_blocklist,
     name: 'Add to Blacklist',
   },
   {

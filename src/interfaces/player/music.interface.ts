@@ -9,6 +9,7 @@ export interface ISong {
   duration?: number;
   genre?: string;
   favourit: boolean;
+  blocked: boolean;
 }
 
 export interface IAlbum {

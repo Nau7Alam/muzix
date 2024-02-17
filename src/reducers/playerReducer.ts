@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { ISong } from '../interfaces/player/music.interface';
 import { RootState } from '../store';
+import Toast from 'react-native-toast-message';
 
 interface PlayerStateType {
   songs: ISong[];
@@ -57,6 +58,36 @@ const playerSlice = createSlice({
         }
       });
     },
+    blockSong: (state, { payload }) => {
+      if (state.activeSong && payload.isPlaying) {
+        state.activeSong.blocked = true;
+      }
+      state.songs.forEach(song => {
+        if (song.id === payload.song.id) {
+          song.blocked = true;
+        }
+      });
+      state.activeSongList?.forEach(song => {
+        if (song.id === payload.song.id) {
+          song.blocked = true;
+        }
+      });
+    },
+    addToActiveSongList: (state, { payload }) => {
+      const isPresent = state.activeSongList?.some(
+        (song: ISong) => song.id === payload.song.id
+      );
+      if (isPresent) {
+        Toast.show({
+          type: 'error',
+          text1: payload.song.title,
+          text2: 'Song is already in queue!',
+          visibilityTime: 1000,
+        });
+      } else {
+        state?.activeSongList?.push(payload.song);
+      }
+    },
   },
 });
 
@@ -68,13 +99,28 @@ export const {
   toggleRepeatMode,
   toggleShuffelMode,
   toggleFavouritSong,
+  blockSong,
+  addToActiveSongList,
 } = playerSlice.actions;
 
 export const playStateSelector = (state: RootState) => state.player.isPlaying;
-export const allSongSelector = (state: RootState) => state.player.songs;
+
+// MEMOIZED SONGs SELECTOR
+const unblockedSongs = (state: RootState) => state.player.songs;
+export const allSongSelector = createSelector([unblockedSongs], songs =>
+  songs.filter(s => !s.blocked)
+);
+
 export const activeSongSelector = (state: RootState) => state.player.activeSong;
-export const activeSongListSelector = (state: RootState) =>
+
+//MEMOIZED ACTIVE SONG LIST
+const unblockedSongListSelector = (state: RootState) =>
   state.player.activeSongList;
+export const activeSongListSelector = createSelector(
+  [unblockedSongListSelector],
+  activeList => activeList?.filter(s => !s.blocked)
+);
+
 export const selectRepeatMode = (state: RootState) => state.player.repeatMode;
 export const selectShuffelMode = (state: RootState) => state.player.toShuffel;
 
