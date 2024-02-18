@@ -23,7 +23,7 @@ const Layout = ({
 };
 
 const styles = StyleSheet.create({
-  flex: { flex: 1, paddingBottom: 30 },
+  flex: { flex: 1, paddingBottom: 0 },
 });
 
 export default Layout;

@@ -2,17 +2,17 @@
   "images": [
     {
       "idiom": "universal",
-      "filename": "bootsplash_logo-1wilex4.png",
+      "filename": "bootsplash_logo-12tcnk.png",
       "scale": "1x"
     },
     {
       "idiom": "universal",
-      "filename": "bootsplash_logo-1wilex4@2x.png",
+      "filename": "bootsplash_logo-12tcnk@2x.png",
       "scale": "2x"
     },
     {
       "idiom": "universal",
-      "filename": "bootsplash_logo-1wilex4@3x.png",
+      "filename": "bootsplash_logo-12tcnk@3x.png",
       "scale": "3x"
     }
   ],
