@@ -25,10 +25,13 @@ import {
 import Empty from '../../components/Empty/Empty';
 import ModalUI from '../../components/ModalUI/ModalUI';
 import Confirm from '../../components/ModalUI/CreatePlaylist/Confirm/Confirm';
+import SongDetails from '../../components/ModalUI/CreatePlaylist/SongDetails/SongDetails';
+import { secondsToHms } from '../../helpers/utitlities';
 
 const Songs = ({ navigation }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | ISong>(null);
   const [confirmBlocked, setConfirmBlocked] = useState(false);
+  const [songDetail, setSongDetail] = useState(false);
 
   const dispatch = useAppDispatch();
   const songs = useAppSelector(allSongSelector);
@@ -106,6 +109,9 @@ const Songs = ({ navigation }: any) => {
       case SONG_OPERATION.add_to_queue:
         dispatch(addToActiveSongList({ song: selectedSong }));
         break;
+      case SONG_OPERATION.detail:
+        setSongDetail(true);
+        break;
       default:
         console.log('FROM SWITCH');
         break;
@@ -134,6 +140,11 @@ const Songs = ({ navigation }: any) => {
     toggleConfirmBlockModal();
   };
 
+  const onCloseSongDetailModel = () => {
+    setSongDetail(false);
+    setSelectedSong(null);
+  };
+
   return (
     <Layout style={styles.container}>
       {!songs.length ? (
@@ -146,20 +157,23 @@ const Songs = ({ navigation }: any) => {
         <FlatList
           contentContainerStyle={styles.listContainer}
           data={songs.filter(s => !s.blocked)}
-          renderItem={({ item: song }: { item: ISong }) => (
-            <ListItem
-              key={song.id}
-              title={song.title}
-              subTitle={song.artist}
-              onClick={() => onSongClick(song)}
-              onSelect={() => onSongSelect(song)}
-              coverImage={song.cover}
-              secondaryOptionIcon={song.favourit ? 'heart-fill' : 'heart'}
-              selected={activeSong?.id === song.id}
-              onOptionClick={() => onSongOptionClick(song)}
-              onSecondaryOptionClick={() => onSongFavClick(song)}
-            />
-          )}
+          renderItem={({ item: song }: { item: ISong }) => {
+            const duration = secondsToHms((song.duration ?? 0) / 1000);
+            return (
+              <ListItem
+                key={song.id}
+                title={song.title}
+                subTitle={song.artist + '・' + duration}
+                onClick={() => onSongClick(song)}
+                onSelect={() => onSongSelect(song)}
+                coverImage={song.cover}
+                secondaryOptionIcon={song.favourit ? 'heart-fill' : 'heart'}
+                selected={activeSong?.id === song.id}
+                onOptionClick={() => onSongOptionClick(song)}
+                onSecondaryOptionClick={() => onSongFavClick(song)}
+              />
+            );
+          }}
           keyExtractor={item => item.id}
           keyboardShouldPersistTaps={'handled'}
           keyboardDismissMode="on-drag"
@@ -200,7 +214,7 @@ const Songs = ({ navigation }: any) => {
       />
       <ModalUI
         visible={confirmBlocked}
-        title={'Delete Playlist'}
+        title={'Block Song'}
         onClose={closeConfirmBlockModal}
         children={
           <Confirm
@@ -210,6 +224,13 @@ const Songs = ({ navigation }: any) => {
             onNo={closeConfirmBlockModal}
           />
         }
+      />
+
+      <ModalUI
+        visible={songDetail}
+        title={'Song Details'}
+        onClose={onCloseSongDetailModel}
+        children={<SongDetails song={selectedSong} />}
       />
     </Layout>
   );

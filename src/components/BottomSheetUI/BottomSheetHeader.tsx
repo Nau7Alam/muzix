@@ -51,7 +51,12 @@ const BottomSheetModalHeader = ({
             styles.closeButtonView,
           ]}
         >
-          <Icon type="font" name="close" color={colors.danger} size={16} />
+          <Icon
+            type="font"
+            name="close"
+            color={colors.danger}
+            size={theme.fontSize.lg}
+          />
         </View>
       </Pressable>
     </View>

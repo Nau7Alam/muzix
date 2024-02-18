@@ -31,18 +31,22 @@ export const SONG_OPTIONS = [
   {
     value: SONG_OPERATION.play,
     name: 'Play',
+    icon: 'play',
   },
   {
     value: SONG_OPERATION.add_to_queue,
     name: 'Add to Queue',
+    icon: 'pail-plus-outline',
   },
   {
     value: SONG_OPERATION.add_to_playlist,
     name: 'Add to Playlist',
+    icon: 'playlist-plus',
   },
   {
     value: SONG_OPERATION.detail,
     name: 'Detail',
+    icon: 'card-text-outline',
   },
   // {
   //   value: SONG_OPERATION.share,
@@ -50,11 +54,13 @@ export const SONG_OPTIONS = [
   // },
   {
     value: SONG_OPERATION.add_to_blocklist,
-    name: 'Add to Blacklist',
+    name: 'Add to Blocklist',
+    icon: 'music-note-off-outline',
   },
   {
     value: SONG_OPERATION.delete,
     name: 'Delete',
+    icon: 'delete-variant',
   },
 ];
 

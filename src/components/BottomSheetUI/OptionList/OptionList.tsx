@@ -59,9 +59,9 @@ const OptionList = ({
             {leftIcon && (
               <Icon
                 type="material"
-                name={leftIcon}
+                name={item.icon ?? leftIcon}
                 color={colors.black}
-                size={24}
+                size={theme.fontSize.lg}
               />
             )}
             <Text numberOfLines={1} md color={colors.text}>

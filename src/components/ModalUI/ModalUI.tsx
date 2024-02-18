@@ -24,12 +24,12 @@ const ModalUI = ({ children, visible, title, onClose }: ModalUIProps) => {
             onPress={onClose}
             name="close"
             color={theme.colors.white}
-            size={21}
+            size={theme.fontSize.lg}
             style={styles.close}
           />
           <Text
             style={styles.titleStyle}
-            lg
+            md
             semiBold
             center
             color={theme.colors.white}
@@ -51,11 +51,12 @@ const createStyle = (theme: ITheme) => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(0,0,0,0.25)',
+      backgroundColor: 'rgba(0,0,0,0.26)',
     },
     modelContainer: {
       width: screen.width * 0.9,
-      backgroundColor: colors.black,
+      maxHeight: screen.height * 0.8,
+      backgroundColor: colors.textDark,
       padding: padding.lg,
       borderRadius: borderRadius.ten,
       elevation: 4,

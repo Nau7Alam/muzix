@@ -11,6 +11,7 @@ import {
 import { useAppSelector } from '../../hooks/stateHooks';
 import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
 import AlbumHeader from './AlbumHeader';
+import { secondsToHms } from '../../helpers/utitlities';
 
 const PlaylistDetail = ({ navigation, route }: any) => {
   const [_selectedSong, setSelectedSong] = useState<null | string>(null);
@@ -49,19 +50,22 @@ const PlaylistDetail = ({ navigation, route }: any) => {
       <FlatList
         contentContainerStyle={styles.listContainer}
         data={songsInAlbum}
-        renderItem={({ item: song }: { item: ISong }) => (
-          <ListItem
-            key={song.id}
-            title={song.title}
-            subTitle={song.artist}
-            onClick={() => onSongClick(song)}
-            onSelect={() => onSongSelect(song)}
-            coverImage={song.cover}
-            selected={activeSong?.id === song.id}
-            onOptionClick={onSongOptionClick}
-            // onSecondaryOptionClick={onSongFavClick}
-          />
-        )}
+        renderItem={({ item: song }: { item: ISong }) => {
+          const duration = secondsToHms((song.duration ?? 0) / 1000);
+          return (
+            <ListItem
+              key={song.id}
+              title={song.title}
+              subTitle={song.artist + '・' + duration}
+              onClick={() => onSongClick(song)}
+              onSelect={() => onSongSelect(song)}
+              coverImage={song.cover}
+              selected={activeSong?.id === song.id}
+              onOptionClick={onSongOptionClick}
+              // onSecondaryOptionClick={onSongFavClick}
+            />
+          );
+        }}
         keyExtractor={item => item.id}
         keyboardShouldPersistTaps={'handled'}
       />

@@ -82,7 +82,7 @@ const playerSlice = createSlice({
           type: 'error',
           text1: payload.song.title,
           text2: 'Song is already in queue!',
-          visibilityTime: 1000,
+          visibilityTime: 1500,
         });
       } else {
         state?.activeSongList?.push(payload.song);

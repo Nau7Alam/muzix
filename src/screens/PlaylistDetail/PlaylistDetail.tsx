@@ -67,19 +67,22 @@ const PlaylistDetail = ({ navigation, route }: any) => {
           <FlatList
             contentContainerStyle={styles.listContainer}
             data={activePlaylist.songs}
-            renderItem={({ item: song }: { item: ISong }) => (
-              <ListItem
-                key={song.id}
-                title={song.title}
-                subTitle={song.artist}
-                onClick={() => onSongClick(song)}
-                onSelect={() => onSongSelect(song)}
-                coverImage={song.cover}
-                selected={activeSong?.id === song.id}
-                onOptionClick={onSongOptionClick}
-                // onSecondaryOptionClick={onSongFavClick}
-              />
-            )}
+            renderItem={({ item: song }: { item: ISong }) => {
+              const duration = secondsToHms((song.duration ?? 0) / 1000);
+              return (
+                <ListItem
+                  key={song.id}
+                  title={song.title}
+                  subTitle={song.artist + '・' + duration}
+                  onClick={() => onSongClick(song)}
+                  onSelect={() => onSongSelect(song)}
+                  coverImage={song.cover}
+                  selected={activeSong?.id === song.id}
+                  onOptionClick={onSongOptionClick}
+                  // onSecondaryOptionClick={onSongFavClick}
+                />
+              );
+            }}
             keyExtractor={item => item.id}
             keyboardShouldPersistTaps={'handled'}
             keyboardDismissMode="on-drag"
