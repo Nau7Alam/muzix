@@ -22,8 +22,8 @@ export const useTrackSongs = () => {
         const result = await getLocalSongs();
         idMappedSongs =
           result?.map(song => ({
-            id: song.artist + song.album,
             ...song,
+            id: song.artist + song.album,
             favourit: false,
             blocked: false,
           })) ?? [];

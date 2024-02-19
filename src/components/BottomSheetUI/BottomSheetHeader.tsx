@@ -42,29 +42,19 @@ const BottomSheetModalHeader = ({
         </View>
       </View>
       <Pressable style={styles.closeButton} onPress={closeModal}>
-        <View
-          style={[
-            {
-              backgroundColor: colors.cardLight,
-              borderColor: colors.borderLight,
-            },
-            styles.closeButtonView,
-          ]}
-        >
-          <Icon
-            type="font"
-            name="close"
-            color={colors.danger}
-            size={theme.fontSize.lg}
-          />
-        </View>
+        <Icon
+          type="font"
+          name="close"
+          color={colors.danger}
+          size={theme.fontSize.lg}
+        />
       </Pressable>
     </View>
   );
 };
 
 const createStyles = (theme: ITheme) => {
-  const { padding, colors, borderRadius } = theme;
+  const { padding, colors } = theme;
   return StyleSheet.create({
     headerContainer: {
       paddingBottom: padding.lg,
@@ -88,12 +78,7 @@ const createStyles = (theme: ITheme) => {
     },
     closeButton: {
       paddingLeft: padding.ten,
-      paddingVertical: padding.two,
-    },
-    closeButtonView: {
-      padding: padding.two,
-      borderRadius: borderRadius.full,
-      borderWidth: 0.5,
+      paddingVertical: padding.four,
     },
   });
 };

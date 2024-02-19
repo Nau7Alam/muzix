@@ -82,23 +82,23 @@ const SongDetails = ({ song }: SongDetailsProps) => {
 };
 
 const createStyle = (theme: ITheme) => {
-  const { padding } = theme;
+  const { padding, screen } = theme;
   return StyleSheet.create({
     continer: {
-      padding: padding.six,
-      paddingBottom: padding.xlg,
+      paddingHorizontal: padding.md,
+      maxHeight: screen.height * 0.6,
     },
     coverImageBox: {
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: padding.lg,
+      paddingBottom: padding.xlg,
     },
     coverImageStyle: {
       height: 140,
       width: 140,
     },
     textStyle: {
-      paddingTop: padding.lg,
+      paddingBottom: padding.lg,
     },
     heartStyle: { bottom: 20, left: 67 },
   });

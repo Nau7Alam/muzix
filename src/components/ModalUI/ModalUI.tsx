@@ -1,6 +1,6 @@
 import { useTheme } from '@react-navigation/native';
 import React, { ReactNode, useMemo } from 'react';
-import { Modal, Pressable, StyleSheet, View } from 'react-native';
+import { Modal, Pressable, StyleSheet } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import PressableIcon from '../PressabelIcon/PressableIcon';
 import Text from '../Text/Text';
@@ -19,7 +19,10 @@ const ModalUI = ({ children, visible, title, onClose }: ModalUIProps) => {
   return (
     <Modal visible={visible} transparent onRequestClose={onClose}>
       <Pressable onPress={onClose} style={styles.continer}>
-        <View style={styles.modelContainer}>
+        <Pressable
+          onPress={e => e.stopPropagation()}
+          style={styles.modelContainer}
+        >
           <PressableIcon
             onPress={onClose}
             name="close"
@@ -37,7 +40,7 @@ const ModalUI = ({ children, visible, title, onClose }: ModalUIProps) => {
             {title}
           </Text>
           {children}
-        </View>
+        </Pressable>
       </Pressable>
       <Toast />
     </Modal>
@@ -55,13 +58,12 @@ const createStyle = (theme: ITheme) => {
     },
     modelContainer: {
       width: screen.width * 0.9,
-      maxHeight: screen.height * 0.8,
       backgroundColor: colors.textDark,
       padding: padding.lg,
       borderRadius: borderRadius.ten,
       elevation: 4,
       gap: padding.eight,
-      top: -65,
+      top: -padding.xlg,
     },
     titleStyle: {
       paddingBottom: padding.xlg,

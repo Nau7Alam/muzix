@@ -1,4 +1,4 @@
-import { ISong } from '../interfaces/player/music.interface';
+import { IAlbum, ISong } from '../interfaces/player/music.interface';
 
 export const getIndexOfSong = (list: ISong[], song: ISong) => {
   return list.findIndex(item => item.id === song.id);
@@ -25,4 +25,12 @@ export const addS = (count: any, text: string) => {
 export const randomNumber = (min: number, max: number) => {
   const value = Math.floor(Math.random() * (max - min) + min);
   return value >= max ? value - 1 : value;
+};
+
+export const sortAlbum = (list: IAlbum[]) => {
+  return list.sort((a, b) => a.album.localeCompare(b.album));
+};
+
+export const sortSong = (list: ISong[]) => {
+  return list.sort((a, b) => a.title.localeCompare(b.title));
 };
