@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { getLocalAlbumsByArtist } from '../../helpers/localMedia';
+import React from 'react';
 import ListItem from '../../components/ListItem/ListItem';
 import { IAlbum } from '../../interfaces/player/music.interface';
 import { addS } from '../../helpers/utitlities';
 import Layout from '../../components/Layout/Layout';
 import Empty from '../../components/Empty/Empty';
 import { FlatList } from 'react-native';
+import { useAppSelector } from '../../hooks/stateHooks';
+import { selectAllAlbums } from '../../reducers/playerReducer';
 
 const Albums = ({ navigation }: { navigation: any }) => {
-  const [albums, setAlbums] = useState<IAlbum[]>([]);
+  const albums = useAppSelector(selectAllAlbums);
 
   const onAlbumClick = (album: IAlbum) => {
     navigation.navigate('AlbumDetail', { album });
   };
-
-  useEffect(() => {
-    (async () => {
-      const localAlbums = await getLocalAlbumsByArtist();
-      localAlbums?.length && setAlbums(localAlbums);
-    })();
-  }, []);
 
   return (
     <Layout title="Albums">

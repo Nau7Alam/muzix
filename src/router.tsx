@@ -13,11 +13,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { LightThemes } from './theme/light';
 import { DarkThemes } from './theme/dark';
 import Player from './screens/Player/Player';
-import Songs from './screens/Songs/Songs';
 import { HomeBottomTab } from './navigators/BottomTab';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import BootSplash from 'react-native-bootsplash';
 import { useTrackSongs } from './hooks/trackHooks';
+import SearchSongs from './screens/SearchSongs/SearchSongs';
 
 const Stack = createStackNavigator();
 
@@ -54,7 +54,7 @@ export const Router = () => {
             >
               <Stack.Screen name="HomeTabs" component={HomeBottomTab} />
               <Stack.Screen name="Player" component={Player} />
-              <Stack.Screen name="Songs" component={Songs} />
+              <Stack.Screen name="SearchSongs" component={SearchSongs} />
             </Stack.Navigator>
           </BottomSheetModalProvider>
         </NavigationContainer>

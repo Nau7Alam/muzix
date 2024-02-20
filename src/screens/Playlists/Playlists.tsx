@@ -155,6 +155,7 @@ const Playlists = ({ navigation }: any) => {
           <CreatePlaylistForm
             rename={!!selectedPlaylist}
             field1={playlistName}
+            placeholder1="Type Playlist Name..."
             onChangeField1={text => setPlaylistName(text)}
             onSubmit={onFormSubmit}
           />

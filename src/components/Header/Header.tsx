@@ -1,28 +1,46 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
-import { useTheme } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
 import Text from '../Text/Text';
 import Icon from '../Icon/Icon';
 
 type HeaderProps = {
   title?: string;
+  rightIcon?: string;
+  rightOnClick?: () => void;
+  goBack?: boolean;
 };
 
-export const Header = ({ title }: HeaderProps) => {
+export const Header = ({
+  title,
+  goBack,
+  rightIcon,
+  rightOnClick,
+}: HeaderProps) => {
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
+  const navigation = useNavigation();
 
   return (
     <View style={styles.continer}>
-      <Icon
-        type="font"
-        size={theme.fontSize.xlg + 5}
-        style={styles.logo}
-        name="headphone"
-        color={theme.colors.text}
-      />
+      {goBack ? (
+        <PressableIcon
+          onPress={() => navigation.goBack()}
+          size={theme.fontSize.lg}
+          name="arrow-left"
+        />
+      ) : (
+        <Icon
+          type="font"
+          size={theme.fontSize.xlg + 5}
+          style={styles.logo}
+          name="headphone"
+          color={theme.colors.text}
+        />
+      )}
+
       <View style={styles.titleBox}>
         <Text
           numberOfLines={1}
@@ -36,9 +54,16 @@ export const Header = ({ title }: HeaderProps) => {
         </Text>
       </View>
       <PressableIcon
-        onPress={() => console.log('SEARCH')}
+        onPress={() => {
+          if (rightOnClick) {
+            rightOnClick();
+          } else {
+            console.log('SEARCHING.....');
+            navigation.navigate('SearchSongs' as never);
+          }
+        }}
         size={theme.fontSize.lg}
-        name="magnifier"
+        name={rightIcon ?? 'magnifier'}
         color={theme.colors.text}
       />
     </View>

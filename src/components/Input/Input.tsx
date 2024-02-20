@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import { TextInput, StyleSheet, TextInputProps } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 
 type InputProps = {
-  onChange: (text: string) => void;
+  onValueChange: (text: string) => void;
   value: string;
   type: string;
-};
-const Input = ({ value, onChange, type }: InputProps) => {
+} & TextInputProps;
+const Input = ({ value, onValueChange, type, ...otherProps }: InputProps) => {
   const theme = useTheme() as ITheme;
   const { colors } = theme;
   const styles = useMemo(() => createStyle(theme), [theme]);
@@ -29,7 +29,9 @@ const Input = ({ value, onChange, type }: InputProps) => {
     <TextInput
       style={[styles.input, { color: titleColor, borderColor: bgColor }]}
       value={value}
-      onChangeText={text => onChange(text)}
+      placeholderTextColor={colors.borderLight}
+      onChangeText={text => onValueChange(text)}
+      {...otherProps}
     />
   );
 };
@@ -38,7 +40,8 @@ const createStyle = (theme: ITheme) => {
   const { padding, borderRadius } = theme;
   return StyleSheet.create({
     input: {
-      padding: padding.eight,
+      paddingHorizontal: padding.md,
+      paddingVertical: padding.eight,
       borderRadius: borderRadius.six,
       borderWidth: 1.77,
     },

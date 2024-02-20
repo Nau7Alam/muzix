@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { SetupService } from '../playerServices/setupServices';
-import { getLocalSongs } from '../helpers/localMedia';
+import { getLocalAlbumsByArtist, getLocalSongs } from '../helpers/localMedia';
 import { ISong } from '../interfaces/player/music.interface';
 
 import { useAppDispatch } from './stateHooks';
 import { staticSongs } from '../constants/musicList';
-import { setAllSong } from '../reducers/playerReducer';
+import { setAllAlbums, setAllSong } from '../reducers/playerReducer';
 
 export const useTrackSongs = () => {
   const [isPlayerReady, setPlayerReady] = useState<boolean>(false);
@@ -20,6 +20,7 @@ export const useTrackSongs = () => {
       }
       try {
         const result = await getLocalSongs();
+        const albums = await getLocalAlbumsByArtist();
         idMappedSongs =
           result?.map(song => ({
             ...song,
@@ -29,6 +30,7 @@ export const useTrackSongs = () => {
           })) ?? [];
 
         dispatch(setAllSong([...idMappedSongs, ...staticSongs]));
+        dispatch(setAllAlbums(albums));
         setPlayerReady(true);
       } catch (error) {
         console.log('ERROR OCCUREED', error);

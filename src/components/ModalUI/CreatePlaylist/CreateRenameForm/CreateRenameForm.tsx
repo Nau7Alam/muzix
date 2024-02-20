@@ -9,6 +9,8 @@ type CreateRenameFormProps = {
   rename: boolean;
   field1: string;
   field2?: string;
+  placeholder1?: string;
+  placeholder2?: string;
   onChangeField1: (text: string) => void;
   onChangeField2?: (text: string) => void;
   onSubmit: () => void;
@@ -16,6 +18,8 @@ type CreateRenameFormProps = {
 const CreateRenameForm = ({
   rename,
   field1,
+  placeholder1,
+  placeholder2,
   onChangeField1,
   field2,
   onChangeField2,
@@ -24,13 +28,22 @@ const CreateRenameForm = ({
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
 
-  console.log('RENAME ', rename);
-
   return (
     <View style={styles.continer}>
-      <Input type="primary" value={field1} onChange={onChangeField1} />
+      <Input
+        type="primary"
+        autoFocus
+        placeholder={placeholder1}
+        value={field1}
+        onValueChange={onChangeField1}
+      />
       {!!field2 && !!onChangeField2 ? (
-        <Input type="primary" value={field2} onChange={onChangeField2} />
+        <Input
+          type="primary"
+          placeholder={placeholder2}
+          value={field2}
+          onValueChange={onChangeField2}
+        />
       ) : null}
       <Button
         title={rename ? 'Rename' : 'Create'}

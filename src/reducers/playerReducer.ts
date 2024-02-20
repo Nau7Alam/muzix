@@ -1,10 +1,11 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { ISong } from '../interfaces/player/music.interface';
+import { IAlbum, ISong } from '../interfaces/player/music.interface';
 import { RootState } from '../store';
 import Toast from 'react-native-toast-message';
 
 interface PlayerStateType {
   songs: ISong[];
+  albums: IAlbum[];
   activeSong: ISong | null;
   activeSongList: ISong[] | null;
   repeatMode: boolean;
@@ -13,6 +14,7 @@ interface PlayerStateType {
 }
 const initialState: PlayerStateType = {
   songs: [],
+  albums: [],
   activeSong: null,
   activeSongList: null,
   repeatMode: false,
@@ -29,6 +31,9 @@ const playerSlice = createSlice({
     },
     setAllSong: (state, action) => {
       state.songs = action.payload;
+    },
+    setAllAlbums: (state, action) => {
+      state.albums = action.payload;
     },
     setActiveSong: (state, action) => {
       state.activeSong = action.payload;
@@ -94,6 +99,7 @@ const playerSlice = createSlice({
 export const {
   setPlayState,
   setAllSong,
+  setAllAlbums,
   setActiveSong,
   setActiveSongList,
   toggleRepeatMode,
@@ -121,6 +127,7 @@ export const activeSongListSelector = createSelector(
   activeList => activeList?.filter(s => !s.blocked)
 );
 
+export const selectAllAlbums = (state: RootState) => state.player.albums;
 export const selectRepeatMode = (state: RootState) => state.player.repeatMode;
 export const selectShuffelMode = (state: RootState) => state.player.toShuffel;
 

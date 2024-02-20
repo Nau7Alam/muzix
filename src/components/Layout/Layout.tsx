@@ -6,17 +6,28 @@ import { StyleSheet, ViewProps } from 'react-native';
 type LayoutProps = {
   title?: string;
   children: ReactNode;
+  goBack?: boolean;
+  rightIcon?: string;
+  rightOnClick?: () => void;
 } & ViewProps;
 
 const Layout = ({
   title,
   children,
   style: customStyle,
+  goBack,
+  rightIcon,
+  rightOnClick,
   ...rest
 }: LayoutProps) => {
   return (
     <SafeAreaView style={[styles.flex, customStyle]} {...rest}>
-      <Header title={title} />
+      <Header
+        title={title}
+        goBack={goBack}
+        rightIcon={rightIcon}
+        rightOnClick={rightOnClick}
+      />
       {children}
     </SafeAreaView>
   );
