@@ -26,6 +26,7 @@ import Confirm from '../../components/ModalUI/CreatePlaylist/Confirm/Confirm';
 const Playlists = ({ navigation }: any) => {
   const playlists = useAppSelector(allPlaylistSelector);
   const playlistKeys = Object.keys(playlists);
+  console.log('PLAYLISt ', playlistKeys, playlistKeys.length);
   const [playlistName, setPlaylistName] = useState('');
   const [createPlaylistModal, setCreatePlaylaylistModal] = useState(false);
   const [selectedPlaylist, setSelectedPlaylist] = useState<string>('');

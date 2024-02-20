@@ -19,9 +19,20 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
+const playerPersistConfig = {
+  key: 'player',
+  version: 1,
+  storage: AsyncStorage,
+};
+const playlistPersistConfig = {
+  key: 'playlist',
+  version: 1,
+  storage: AsyncStorage,
+};
+
 const rootReducer = combineReducers({
-  player: playerReducer,
-  playlist: playlistReducer,
+  player: persistReducer(playerPersistConfig, playerReducer),
+  playlist: persistReducer(playlistPersistConfig, playlistReducer),
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
