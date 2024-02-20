@@ -50,6 +50,7 @@ export const Router = () => {
           <BottomSheetModalProvider>
             <Stack.Navigator
               initialRouteName="HomeTabs"
+              // initialRouteName="SearchSongs"
               screenOptions={{ headerShown: false, gestureEnabled: true }}
             >
               <Stack.Screen name="HomeTabs" component={HomeBottomTab} />

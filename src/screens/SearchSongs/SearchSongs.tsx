@@ -1,4 +1,10 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import ListItem from '../../components/ListItem/ListItem';
 import { FlatList, StyleSheet } from 'react-native';
 import { ISong } from '../../interfaces/player/music.interface';
@@ -16,7 +22,11 @@ import { addAndPlayCurrentTrack } from '../../playerServices/trackFunctions';
 import Layout from '../../components/Layout/Layout';
 import BottomSheetUI from '../../components/BottomSheetUI/BottomSheetUI';
 import OptionList from '../../components/BottomSheetUI/OptionList/OptionList';
-import { SONG_OPTIONS, SONG_OPERATION } from '../../constants/listOptions';
+import {
+  SONG_OPTIONS,
+  SONG_OPERATION,
+  INPUT_TYPES,
+} from '../../constants/listOptions';
 import {
   addToPlaylist,
   allPlaylistSelector,
@@ -27,14 +37,17 @@ import ModalUI from '../../components/ModalUI/ModalUI';
 import Confirm from '../../components/ModalUI/CreatePlaylist/Confirm/Confirm';
 import SongDetails from '../../components/ModalUI/CreatePlaylist/SongDetails/SongDetails';
 import { secondsToHms } from '../../helpers/utitlities';
+import Input from '../../components/Input/Input';
 
 const SearchSongs = ({ navigation }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | ISong>(null);
+  const [searchedSongs, setSearchedSongs] = useState<ISong[]>([]);
+  const [searchedName, setSearchedName] = useState('');
   const [confirmBlocked, setConfirmBlocked] = useState(false);
   const [songDetail, setSongDetail] = useState(false);
 
   const dispatch = useAppDispatch();
-  const songs = useAppSelector(allSongSelector);
+  const allSongs = useAppSelector(allSongSelector);
   const playlist = useAppSelector(allPlaylistSelector);
   const playlistArray = Object.keys(playlist).map(p => ({
     name: playlist[p].name,
@@ -54,7 +67,7 @@ const SearchSongs = ({ navigation }: any) => {
       navigation.navigate('HomeTabs', { screen: 'Player' });
       return;
     }
-    await addAndPlayCurrentTrack({ track: song, tracks: songs });
+    await addAndPlayCurrentTrack({ track: song, tracks: allSongs });
     navigation.navigate('HomeTabs', { screen: 'Player' });
   };
 
@@ -119,7 +132,7 @@ const SearchSongs = ({ navigation }: any) => {
   };
 
   const onSelectPlaylist = async (item: any) => {
-    dispatch(addToPlaylist({ name: item.value, song: selectedSong }));
+    dispatch(addToPlaylist({ name: item.value, song: allSongs }));
     setSelectedSong(null);
     closePlaylistModal();
   };
@@ -144,18 +157,49 @@ const SearchSongs = ({ navigation }: any) => {
     setSelectedSong(null);
   };
 
+  useEffect(() => {
+    onSearch(searchedName);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onSearch = (name: string) => {
+    const matchingSongs = allSongs.filter((song: ISong) =>
+      song.title.toLowerCase().includes(name.toLocaleLowerCase())
+    );
+    setSearchedSongs(matchingSongs);
+  };
+
   return (
-    <Layout goBack title="Search Here..." style={styles.container}>
-      {!songs.length ? (
+    <Layout
+      goBack
+      titleNode={
+        <Input
+          autoFocus
+          placeholder="Search your songs..."
+          returnKeyType="search"
+          value={searchedName}
+          type={INPUT_TYPES.secondary}
+          onValueChange={(text: string) => {
+            setSearchedName(text);
+            onSearch(text);
+          }}
+        />
+      }
+      rightOnClick={() => {
+        console.log('ON RIGHT CLICK');
+        onSearch(searchedName);
+      }}
+    >
+      {!searchedSongs.length ? (
         <Empty
           image={require('../../../assets/images/no_songs.png')}
-          title="No Soung Found."
+          title="Songs Not Found."
           message={'No Song was found on this device memory.'}
         />
       ) : (
         <FlatList
           contentContainerStyle={styles.listContainer}
-          data={songs.filter(s => !s.blocked)}
+          data={searchedSongs.filter(s => !s.blocked)}
           renderItem={({ item: song }: { item: ISong }) => {
             const duration = secondsToHms((song.duration ?? 0) / 1000);
             return (
@@ -237,9 +281,6 @@ const SearchSongs = ({ navigation }: any) => {
 
 const createStyle = ({}: ITheme) => {
   return StyleSheet.create({
-    container: {
-      flex: 1,
-    },
     listContainer: {},
   });
 };

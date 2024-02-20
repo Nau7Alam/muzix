@@ -4,6 +4,7 @@ import Text from '../Text/Text';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
 import { StyleProp } from 'react-native';
+import { BUTTON_TYPES } from '../../constants/listOptions';
 
 type ButtonProps = {
   onClick: () => void;
@@ -17,15 +18,15 @@ const Button = ({ onClick, title, type, buttonStyle }: ButtonProps) => {
   const styles = useMemo(() => createStyle(theme), [theme]);
 
   const titleColor =
-    type === 'primary'
+    type === BUTTON_TYPES.primary
       ? theme.colors.white
-      : type === 'secondary'
+      : type === BUTTON_TYPES.secondary
       ? theme.colors.primary
       : colors.text;
   const bgColor =
-    type === 'primary'
+    type === BUTTON_TYPES.primary
       ? colors.primary
-      : type === 'secondary'
+      : type === BUTTON_TYPES.secondary
       ? colors.white
       : colors.transparent;
 

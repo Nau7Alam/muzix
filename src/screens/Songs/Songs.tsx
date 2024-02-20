@@ -150,7 +150,7 @@ const Songs = ({ navigation }: any) => {
       {!songs.length ? (
         <Empty
           image={require('../../../assets/images/no_songs.png')}
-          title="No Soung Found."
+          title="No Song Found."
           message={'No Song was found on this device memory.'}
         />
       ) : (

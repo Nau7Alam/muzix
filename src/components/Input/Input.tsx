@@ -2,32 +2,43 @@ import React, { useMemo } from 'react';
 import { TextInput, StyleSheet, TextInputProps } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useTheme } from '@react-navigation/native';
+import { INPUT_TYPES } from '../../constants/listOptions';
 
 type InputProps = {
   onValueChange: (text: string) => void;
   value: string;
-  type: string;
+  type?: string;
 } & TextInputProps;
-const Input = ({ value, onValueChange, type, ...otherProps }: InputProps) => {
+const Input = ({
+  value,
+  onValueChange,
+  type,
+  style: inputStyle,
+  ...otherProps
+}: InputProps) => {
   const theme = useTheme() as ITheme;
   const { colors } = theme;
   const styles = useMemo(() => createStyle(theme), [theme]);
   const titleColor =
-    type === 'primary'
+    type === INPUT_TYPES.primary
       ? theme.colors.white
-      : type === 'secondary'
+      : type === INPUT_TYPES.secondary
       ? theme.colors.primary
       : colors.text;
   const bgColor =
-    type === 'primary'
+    type === INPUT_TYPES.primary
       ? colors.primary
-      : type === 'secondary'
+      : type === INPUT_TYPES.secondary
       ? colors.white
       : colors.transparent;
 
   return (
     <TextInput
-      style={[styles.input, { color: titleColor, borderColor: bgColor }]}
+      style={[
+        styles.input,
+        inputStyle,
+        { color: titleColor, borderColor: bgColor },
+      ]}
       value={value}
       placeholderTextColor={colors.borderLight}
       onChangeText={text => onValueChange(text)}

@@ -26,6 +26,15 @@ export enum PLAYLIST_OPERATIONS {
   delete = 'delete',
   rename = 'rename',
 }
+export enum BUTTON_TYPES {
+  primary = 'primary',
+  secondary = 'secondary',
+}
+
+export enum INPUT_TYPES {
+  primary = 'primary',
+  secondary = 'secondary',
+}
 
 export const SONG_OPTIONS = [
   {

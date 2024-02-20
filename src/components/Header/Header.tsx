@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ITheme } from '../../theme/theme.interface';
 import { useNavigation, useTheme } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import Icon from '../Icon/Icon';
 
 type HeaderProps = {
   title?: string;
+  titleNode?: ReactNode;
   rightIcon?: string;
   rightOnClick?: () => void;
   goBack?: boolean;
@@ -15,6 +16,7 @@ type HeaderProps = {
 
 export const Header = ({
   title,
+  titleNode,
   goBack,
   rightIcon,
   rightOnClick,
@@ -42,16 +44,20 @@ export const Header = ({
       )}
 
       <View style={styles.titleBox}>
-        <Text
-          numberOfLines={1}
-          md
-          medium
-          center
-          color={theme.colors.primaryLight}
-          style={styles.title}
-        >
-          {title ? title : 'Muzix'}
-        </Text>
+        {titleNode ? (
+          titleNode
+        ) : (
+          <Text
+            numberOfLines={1}
+            md
+            medium
+            center
+            color={theme.colors.primaryLight}
+            style={styles.title}
+          >
+            {title ? title : 'Muzix'}
+          </Text>
+        )}
       </View>
       <PressableIcon
         onPress={() => {
