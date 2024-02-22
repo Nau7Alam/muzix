@@ -8,6 +8,9 @@ import {
 import { checkPermission } from './permission';
 import { IAlbum, ISong } from '../interfaces/player/music.interface';
 import { sortAlbum, sortSong } from './utitlities';
+import { staticSongs } from '../constants/musicList';
+import { setAllAlbums, setAllSong } from '../reducers/playerReducer';
+import { store } from '../store';
 
 export const getLocalSongs = async () => {
   const hasPermission = await checkPermission();
@@ -65,4 +68,30 @@ export const searchSongsByKey = async (searchKey?: string) => {
     }
     return sortSong(resultsOrError as ISong[]);
   }
+};
+
+export const loadLocalData = () => {
+  let unmounted = false;
+  let idMappedSongs: ISong[];
+  (async () => {
+    if (unmounted) {
+      return;
+    }
+    try {
+      const result = await getLocalSongs();
+      const albums = await getLocalAlbumsByArtist();
+      idMappedSongs =
+        result?.map(song => ({
+          ...song,
+          id: song.artist + song.album,
+          favourit: false,
+          blocked: false,
+        })) ?? [];
+
+      store.dispatch(setAllSong([...idMappedSongs, ...staticSongs]));
+      store.dispatch(setAllAlbums(albums));
+    } catch (error) {
+      console.log('ERROR OCCUREED', error);
+    }
+  })();
 };

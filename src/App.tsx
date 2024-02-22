@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Router } from './router';
 import { StatusBar, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
@@ -8,8 +8,13 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from './helpers/toast';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { loadLocalData } from './helpers/localMedia';
 
 export const App = () => {
+  useEffect(() => {
+    loadLocalData();
+  }, []);
+
   return (
     <GestureHandlerRootView style={styles.container}>
       <SafeAreaProvider>

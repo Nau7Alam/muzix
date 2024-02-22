@@ -1,11 +1,9 @@
 import React, { useMemo } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {
-  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
-  View,
   useColorScheme,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -16,22 +14,19 @@ import Player from './screens/Player/Player';
 import { HomeBottomTab } from './navigators/BottomTab';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import BootSplash from 'react-native-bootsplash';
-import { useTrackSongs } from './hooks/trackHooks';
 import SearchSongs from './screens/SearchSongs/SearchSongs';
+import { useSetup } from './hooks/setupHook';
+import Loader from './components/Loader/Loader';
 
 const Stack = createStackNavigator();
 
 export const Router = () => {
   const styles = useMemo(() => createStyle(), []);
-  const { isPlayerReady } = useTrackSongs();
+  const { isPlayerReady } = useSetup();
   const isLight = useColorScheme() === 'light';
 
   if (!isPlayerReady) {
-    return (
-      <View style={styles.loaderBox}>
-        <ActivityIndicator size="large" color={'#fdb5bb'} />
-      </View>
-    );
+    return <Loader />;
   }
 
   return (

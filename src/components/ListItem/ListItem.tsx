@@ -86,7 +86,7 @@ const ListItem = ({
               name={secondaryOptionIcon ?? 'settings'}
               onPress={onSecondaryOptionClick}
               color={selected ? colors.primaryDark : colors.primary}
-              size={fontSize.lg}
+              size={fontSize.base + 4}
               iconType="octa"
               style={styles.iconStyle}
             />
@@ -95,7 +95,7 @@ const ListItem = ({
             name="options-vertical"
             color={selected ? colors.icon : colors.iconDark}
             onPress={onOptionClick}
-            size={fontSize.lg}
+            size={fontSize.base + 4}
             style={styles.iconStyle}
           />
         </View>

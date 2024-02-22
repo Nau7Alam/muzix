@@ -13,14 +13,8 @@ import {
 } from 'redux-persist';
 import playlistReducer from './reducers/playlistReducer';
 
-const persistConfig = {
-  key: 'root',
-  version: 1,
-  storage: AsyncStorage,
-};
-
 const playerPersistConfig = {
-  key: 'player',
+  key: 'root',
   version: 1,
   storage: AsyncStorage,
 };
@@ -34,10 +28,9 @@ const rootReducer = combineReducers({
   player: persistReducer(playerPersistConfig, playerReducer),
   playlist: persistReducer(playlistPersistConfig, playlistReducer),
 });
-const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
