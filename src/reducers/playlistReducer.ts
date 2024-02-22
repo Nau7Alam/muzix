@@ -72,9 +72,10 @@ const playlistSlice = createSlice({
       );
       console.log('Payload', payload.song.id, { isPresent });
       if (isPresent) {
-        state.playlists.favourites.songs = state.favourites.songs.filter(
-          (song: ISong) => song.id !== payload.song.id
-        );
+        state.playlists.favourites.songs =
+          state.playlists.favourites.songs.filter(
+            (song: ISong) => song.id !== payload.song.id
+          );
       } else {
         state.playlists.favourites.songs.unshift({
           ...payload.song,
@@ -83,11 +84,6 @@ const playlistSlice = createSlice({
       }
     },
   },
-  // extraReducers: builder => { // CHECK REHYDRATION
-  //   builder.addCase(REHYDRATE, state => {
-  //     console.log('REHYDRATED STATE ', state);
-  //   });
-  // },
 });
 
 export const {

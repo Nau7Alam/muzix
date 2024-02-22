@@ -34,3 +34,7 @@ export const sortAlbum = (list: IAlbum[]) => {
 export const sortSong = (list: ISong[]) => {
   return list.sort((a, b) => a.title.localeCompare(b.title));
 };
+
+export const songPresent = (song: ISong, list: ISong[]) => {
+  return list.some(s => s.id === song.id);
+};
