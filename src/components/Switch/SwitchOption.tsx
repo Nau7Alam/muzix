@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import Text from '../Text/Text';
 import Switch from './Switch';
 import Icon from '../Icon/Icon';
+import { IconTypes } from '../../constants/typeConstant';
 
 type SwitchOptionProps = {
   label: string;
@@ -27,7 +28,7 @@ const SwitchOption = ({
       <View style={styles.labelContainer}>
         <Icon
           name={icon}
-          type="material"
+          type={IconTypes.MCICONS}
           color={theme.colors.black}
           size={theme.fontSize.xxlg}
         />

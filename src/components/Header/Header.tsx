@@ -5,6 +5,7 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
 import Text from '../Text/Text';
 import Icon from '../Icon/Icon';
+import { IconTypes } from '../../constants/typeConstant';
 
 type HeaderProps = {
   title?: string;
@@ -37,7 +38,7 @@ export const Header = ({
         />
       ) : (
         <Icon
-          type="font"
+          type={IconTypes.FONTISTOICON}
           size={theme.fontSize.xlg + 5}
           style={styles.logo}
           name="headphone"

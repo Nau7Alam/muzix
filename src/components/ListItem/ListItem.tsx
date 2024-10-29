@@ -14,6 +14,7 @@ import { useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
 import Avatar from '../Avatar/Avatar';
 import { IMAGE_TYPE } from '../../constants/listOptions';
+import { IconTypes } from '../../constants/typeConstant';
 
 type ListItemProps = {
   title: string;
@@ -87,7 +88,7 @@ const ListItem = ({
               onPress={onSecondaryOptionClick}
               color={selected ? colors.primaryDark : colors.primary}
               size={fontSize.base + 4}
-              iconType="octa"
+              iconType={IconTypes.OCTAICONS}
               style={styles.iconStyle}
             />
           )}

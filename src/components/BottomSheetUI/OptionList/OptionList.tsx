@@ -4,6 +4,7 @@ import { useTheme } from '@react-navigation/native';
 import Text from '../../Text/Text';
 import Icon from '../../Icon/Icon';
 import { IColors, ITheme } from '../../../theme/theme.interface';
+import { IconTypes } from '../../../constants/typeConstant';
 
 const createStyles = (theme: ITheme) => {
   const { padding, borderRadius, colors } = theme;
@@ -58,7 +59,7 @@ const OptionList = ({
           >
             {leftIcon && (
               <Icon
-                type="material"
+                type={IconTypes.MCICONS}
                 name={item.icon ?? leftIcon}
                 color={colors.black}
                 size={theme.fontSize.lg}

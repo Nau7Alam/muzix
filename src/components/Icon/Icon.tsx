@@ -5,16 +5,17 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { IconProps } from 'react-native-vector-icons/Icon';
+import { IconTypes } from '../../constants/typeConstant';
 
 const getIcon = (type?: string) => {
   switch (type) {
-    case 'octa':
+    case IconTypes.OCTAICONS:
       return Octicons;
-    case 'material':
+    case IconTypes.MCICONS:
       return MCIcon;
-    case 'font':
+    case IconTypes.FONTISTOICON:
       return Fontisto;
-    case 'ant':
+    case IconTypes.ANTDESIGN:
       return AntDesign;
     default:
       return SimpleLineIcon;

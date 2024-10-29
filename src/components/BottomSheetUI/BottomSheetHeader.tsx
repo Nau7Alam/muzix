@@ -7,6 +7,7 @@ import Text from '../Text/Text';
 import Icon from '../Icon/Icon';
 import { IColors, ITheme } from '../../theme/theme.interface';
 import Avatar from '../Avatar/Avatar';
+import { IconTypes } from '../../constants/typeConstant';
 
 type BottomSheetModalHeaderProps = {
   title: string;
@@ -43,7 +44,7 @@ const BottomSheetModalHeader = ({
       </View>
       <Pressable style={styles.closeButton} onPress={closeModal}>
         <Icon
-          type="font"
+          type={IconTypes.FONTISTOICON}
           name="close"
           color={colors.danger}
           size={theme.fontSize.lg}

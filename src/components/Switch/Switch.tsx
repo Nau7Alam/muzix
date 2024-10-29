@@ -4,6 +4,7 @@ import { ITheme } from '../../theme/theme.interface';
 import { StyleSheet, View } from 'react-native';
 import Icon from '../Icon/Icon';
 import { Switch as RNSwitch } from 'react-native-switch';
+import { IconTypes } from '../../constants/typeConstant';
 
 const SwitchIcon = ({ active }: any) => {
   const { colors } = useTheme() as ITheme;
@@ -11,7 +12,7 @@ const SwitchIcon = ({ active }: any) => {
   return (
     <View>
       <Icon
-        type="font"
+        type={IconTypes.FONTISTOICON}
         name={active ? 'day-sunny' : 'night-clear'}
         color={active ? colors.white : colors.textDark}
         size={18}

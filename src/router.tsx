@@ -62,10 +62,5 @@ export const Router = () => {
 const createStyle = () => {
   return StyleSheet.create({
     container: { flex: 1 },
-    loaderBox: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
   });
 };

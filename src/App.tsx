@@ -9,6 +9,7 @@ import Toast from 'react-native-toast-message';
 import { toastConfig } from './helpers/toast';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { loadLocalData } from './helpers/localMedia';
+import { LightThemes } from './theme/light';
 
 export const App = () => {
   useEffect(() => {
@@ -20,7 +21,10 @@ export const App = () => {
       <SafeAreaProvider>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <StatusBar barStyle="dark-content" backgroundColor="pink" />
+            <StatusBar
+              barStyle="light-content"
+              backgroundColor={LightThemes.colors.primaryDark}
+            />
             <Router />
           </PersistGate>
         </Provider>

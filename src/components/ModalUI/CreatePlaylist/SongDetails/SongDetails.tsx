@@ -8,6 +8,7 @@ import Avatar from '../../../Avatar/Avatar';
 import { IMAGE_TYPE } from '../../../../constants/listOptions';
 import { secondsToHms } from '../../../../helpers/utitlities';
 import Icon from '../../../Icon/Icon';
+import { IconTypes } from '../../../../constants/typeConstant';
 
 type SongDetailsProps = {
   song: ISong | null;
@@ -28,7 +29,7 @@ const SongDetails = ({ song }: SongDetailsProps) => {
           <Icon
             style={styles.heartStyle}
             name="heart-fill"
-            type="octa"
+            type={IconTypes.OCTAICONS}
             color={theme.colors.primaryDark}
             size={theme.fontSize.xxlg}
           />

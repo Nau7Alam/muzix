@@ -11,6 +11,7 @@ import {
   toggleRepeatMode,
   toggleShuffelMode,
 } from '../../reducers/playerReducer';
+import { IconTypes } from '../../constants/typeConstant';
 
 interface PlayerProgressProps {
   isPlaying: boolean;
@@ -53,7 +54,7 @@ export const PlayerProgress = ({
         />
         <PressableIcon
           onPress={onFavourit}
-          iconType="octa"
+          iconType={IconTypes.OCTAICONS}
           name={isFavourite ? 'heart-fill' : 'heart'}
           size={fontSize.xlg}
           color={isFavourite ? colors.primaryDark : colors.icon}
