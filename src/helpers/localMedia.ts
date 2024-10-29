@@ -39,7 +39,7 @@ export const getLocalAlbumsByArtist = async (artist?: string) => {
       // offset: 0,
       coverQuality: 100,
       artist: artist ?? '',
-      sortOrder: SortSongOrder.DESC,
+      sortOrder: SortSongOrder.ASC,
     });
 
     if (typeof albumsOrError === 'string') {

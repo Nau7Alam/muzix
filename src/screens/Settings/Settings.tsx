@@ -12,7 +12,7 @@ const Settings = () => {
   const styles = useMemo(() => createStyle(theme), [theme]);
 
   return (
-    <Layout title="Settings">
+    <Layout title="Settings" searchabel={false}>
       <View style={styles.container}>
         <Text lg bold>
           Update Settings

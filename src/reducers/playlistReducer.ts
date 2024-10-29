@@ -84,6 +84,13 @@ const playlistSlice = createSlice({
       }
     },
   },
+  // extraReducers: builder => {
+  //   // CHECK REHYDRATION
+  //   // builder.addCase(REHYDRATE, (state, action: any) => {
+  //   //   console.log('REHYDRATED STATE ', Object.keys(state.songs));
+  //   //   console.log('REHYDRATED ACTION', action);
+  //   // });
+  // },
 });
 
 export const {

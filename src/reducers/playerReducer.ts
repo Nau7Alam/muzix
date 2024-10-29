@@ -2,6 +2,7 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { IAlbum, ISong } from '../interfaces/player/music.interface';
 import { RootState } from '../store';
 import Toast from 'react-native-toast-message';
+// import { REHYDRATE } from 'redux-persist';
 
 interface PlayerStateType {
   songs: ISong[];
@@ -93,6 +94,13 @@ const playerSlice = createSlice({
         state?.activeSongList?.push(payload.song);
       }
     },
+  },
+  extraReducers: _builder => {
+    // CHECK REHYDRATION
+    // builder.addCase(REHYDRATE, (state, action: any) => {
+    //   // console.log('REHYDRATED STATE ', Object.keys(state.songs));
+    //   // console.log('REHYDRATED ACTION', action);
+    // });
   },
 });
 

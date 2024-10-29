@@ -10,6 +10,7 @@ type HeaderProps = {
   title?: string;
   titleNode?: ReactNode;
   rightIcon?: string;
+  searchabel?: boolean;
   rightOnClick?: () => void;
   goBack?: boolean;
 };
@@ -19,6 +20,7 @@ export const Header = ({
   titleNode,
   goBack,
   rightIcon,
+  searchabel = true,
   rightOnClick,
 }: HeaderProps) => {
   const theme = useTheme() as ITheme;
@@ -59,19 +61,21 @@ export const Header = ({
           </Text>
         )}
       </View>
-      <PressableIcon
-        onPress={() => {
-          if (rightOnClick) {
-            rightOnClick();
-          } else {
-            console.log('SEARCHING.....');
-            navigation.navigate('SearchSongs' as never);
-          }
-        }}
-        size={theme.fontSize.lg}
-        name={rightIcon ?? 'magnifier'}
-        color={theme.colors.text}
-      />
+      {searchabel && (
+        <PressableIcon
+          onPress={() => {
+            if (rightOnClick) {
+              rightOnClick();
+            } else {
+              console.log('SEARCHING.....');
+              navigation.navigate('SearchSongs' as never);
+            }
+          }}
+          size={theme.fontSize.lg}
+          name={rightIcon ?? 'magnifier'}
+          color={theme.colors.text}
+        />
+      )}
     </View>
   );
 };
@@ -90,7 +94,7 @@ const createStyle = (theme: ITheme) => {
     },
     logo: {
       paddingVertical: 0,
-      transform: [{ rotate: '180deg' }, { translateX: -22 }, { translateY: 0 }],
+      transform: [{ rotate: '180deg' }, { translateX: -10 }, { translateY: 0 }],
     },
     titleBox: {
       flex: 1,

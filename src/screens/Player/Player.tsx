@@ -14,13 +14,17 @@ import {
   setPlayState,
   toggleFavouritSong,
 } from '../../reducers/playerReducer';
-import { getIndexOfSong } from '../../helpers/utitlities';
+import { getIndexOfSong, songPresentInList } from '../../helpers/utitlities';
 import {
   addAndPlayCurrentTrack,
   addCurrentTrack,
 } from '../../playerServices/trackFunctions';
 import Layout from '../../components/Layout/Layout';
-import { toggleFavourite } from '../../reducers/playlistReducer';
+import {
+  playlistSelector,
+  toggleFavourite,
+} from '../../reducers/playlistReducer';
+import { RootState } from '../../store';
 
 const Player = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +37,9 @@ const Player = () => {
   const songs = useAppSelector(allSongSelector);
   const activeSongList = useAppSelector(activeSongListSelector) ?? songs;
   const activeSong = useAppSelector(activeSongSelector) ?? songs[0];
+  const favouriteSongs = useAppSelector((state: RootState) =>
+    playlistSelector(state, 'favourites')
+  );
   const activeSongIndex = getIndexOfSong(activeSongList, activeSong);
 
   const onProgress = (value: any) => {
@@ -88,7 +95,10 @@ const Player = () => {
       />
       <PlayerProgress
         isPlaying={isPlaying}
-        isFavourite={activeSong.favourit}
+        isFavourite={
+          activeSong.favourit ||
+          songPresentInList(activeSong, favouriteSongs.songs)
+        }
         progress={position}
         lenght={duration}
         onFavourit={onFavourit}

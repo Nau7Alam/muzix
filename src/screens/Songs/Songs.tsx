@@ -26,7 +26,7 @@ import Empty from '../../components/Empty/Empty';
 import ModalUI from '../../components/ModalUI/ModalUI';
 import Confirm from '../../components/ModalUI/CreatePlaylist/Confirm/Confirm';
 import SongDetails from '../../components/ModalUI/CreatePlaylist/SongDetails/SongDetails';
-import { secondsToHms } from '../../helpers/utitlities';
+import { secondsToHms, songPresentInList } from '../../helpers/utitlities';
 
 const Songs = ({ navigation }: any) => {
   const [selectedSong, setSelectedSong] = useState<null | ISong>(null);
@@ -35,12 +35,17 @@ const Songs = ({ navigation }: any) => {
 
   const dispatch = useAppDispatch();
   const songs = useAppSelector(allSongSelector);
+
   const playlist = useAppSelector(allPlaylistSelector);
   const playlistArray = Object.keys(playlist).map(p => ({
     name: playlist[p].name,
     value: p,
   }));
   const activeSong = useAppSelector(activeSongSelector);
+
+  const favouriteSongs = playlist.favourites.songs;
+
+  console.log(' favourites ', favouriteSongs.length);
 
   const theme = useTheme() as ITheme;
   const styles = useMemo(() => createStyle(theme), [theme]);
@@ -167,7 +172,11 @@ const Songs = ({ navigation }: any) => {
                 onClick={() => onSongClick(song)}
                 onSelect={() => onSongSelect(song)}
                 coverImage={song.cover}
-                secondaryOptionIcon={song.favourit ? 'heart-fill' : 'heart'}
+                secondaryOptionIcon={
+                  song.favourit || songPresentInList(song, favouriteSongs)
+                    ? 'heart-fill'
+                    : 'heart'
+                }
                 selected={activeSong?.id === song.id}
                 onOptionClick={() => onSongOptionClick(song)}
                 onSecondaryOptionClick={() => onSongFavClick(song)}

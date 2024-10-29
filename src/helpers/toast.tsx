@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { BaseToast, ErrorToast } from 'react-native-toast-message';
 import Text from '../components/Text/Text';

@@ -9,6 +9,7 @@ type LayoutProps = {
   titleNode?: ReactNode;
   goBack?: boolean;
   rightIcon?: string;
+  searchabel?: boolean;
   rightOnClick?: () => void;
 } & ViewProps;
 
@@ -19,6 +20,7 @@ const Layout = ({
   style: customStyle,
   goBack,
   rightIcon,
+  searchabel,
   rightOnClick,
   ...rest
 }: LayoutProps) => {
@@ -30,6 +32,7 @@ const Layout = ({
         goBack={goBack}
         rightIcon={rightIcon}
         rightOnClick={rightOnClick}
+        searchabel={searchabel}
       />
       {children}
     </SafeAreaView>
