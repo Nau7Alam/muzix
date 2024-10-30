@@ -16,14 +16,14 @@ export const addAndPlayCurrentTrack = async ({
   track,
   tracks,
 }: addTrackProps) => {
-  console.log('TRACK *****zzzzz', track.title);
+  console.log('TRACK *****zzzzz', track.title.substring(1, 30));
   try {
-    await TrackPlayer.reset();
-    await TrackPlayer.add(track as Track);
-    await TrackPlayer.play();
     store.dispatch(setActiveSong(track));
     store.dispatch(setPlayState(true));
     tracks && store.dispatch(setActiveSongList(tracks));
+    await TrackPlayer.reset();
+    await TrackPlayer.add(track as Track);
+    await TrackPlayer.play();
   } catch (e) {
     console.log('ERROR ::::', e);
   }
@@ -31,11 +31,11 @@ export const addAndPlayCurrentTrack = async ({
 
 export const addCurrentTrack = async ({ track, tracks }: addTrackProps) => {
   try {
+    store.dispatch(setActiveSong(track));
+    tracks && store.dispatch(setActiveSongList(tracks));
     console.log('ADDED TRACK *****zzzzz ', track.title);
     await TrackPlayer.reset();
     await TrackPlayer.add(track as Track);
-    store.dispatch(setActiveSong(track));
-    tracks && store.dispatch(setActiveSongList(tracks));
   } catch (e) {
     console.log('ERROR ::::', e);
   }

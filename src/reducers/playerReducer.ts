@@ -1,7 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { IAlbum, ISong } from '../interfaces/player/music.interface';
 import { RootState } from '../store';
-import Toast from 'react-native-toast-message';
+import { WarningToast } from '../helpers/toast';
 // import { REHYDRATE } from 'redux-persist';
 
 interface PlayerStateType {
@@ -84,12 +84,7 @@ const playerSlice = createSlice({
         (song: ISong) => song.id === payload.song.id
       );
       if (isPresent) {
-        Toast.show({
-          type: 'error',
-          text1: payload.song.title,
-          text2: 'Song is already in queue!',
-          visibilityTime: 1500,
-        });
+        WarningToast(payload.song.title, 'Song is already in queue!');
       } else {
         state?.activeSongList?.push(payload.song);
       }

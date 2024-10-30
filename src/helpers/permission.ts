@@ -1,5 +1,5 @@
 import { Alert as RNAlert, PermissionsAndroid } from 'react-native';
-import Toast from 'react-native-toast-message';
+import { SuccessToast, WarningToast } from './toast';
 
 export const getPermission = async () => {
   try {
@@ -13,32 +13,17 @@ export const getPermission = async () => {
       readPermission[PermissionsAndroid.PERMISSIONS.READ_MEDIA_AUDIO] ===
         PermissionsAndroid.RESULTS.GRANTED
     ) {
-      Toast.show({
-        type: 'success',
-        text1: 'Muzix',
-        text2: 'Permission Granted!',
-        visibilityTime: 1000,
-      });
+      SuccessToast('Muzix', 'Permission Granted!');
       return true;
     } else {
-      Toast.show({
-        type: 'error',
-        text1: 'Muzix',
-        text2: 'Permission Not Granted! ' + readPermission,
-        visibilityTime: 1000,
-      });
+      WarningToast('Muzix', 'Permission Not Granted!' + readPermission);
       RNAlert.alert('Muzix', 'Muzix Requires Storage Permission.', [
         { text: 'Ok', onPress: () => getPermission() },
       ]);
       return false;
     }
   } catch (err) {
-    Toast.show({
-      type: 'error',
-      text1: 'Muzix',
-      text2: 'ERROR occurred! ' + err,
-      visibilityTime: 1000,
-    });
+    WarningToast('Muzix', 'ERROR occurred! ' + err);
     return false;
   }
 };

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { BaseToast, ErrorToast } from 'react-native-toast-message';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import Text from '../components/Text/Text';
 import { View } from 'react-native';
 
@@ -51,4 +51,30 @@ export const toastConfig = {
       <Text>{props.uuid}</Text>
     </View>
   ),
+};
+
+export const SuccessToast = (
+  title: string,
+  message: string,
+  duration?: number
+) => {
+  return Toast.show({
+    type: 'success',
+    text1: title,
+    text2: message,
+    visibilityTime: duration ?? 1300,
+  });
+};
+
+export const WarningToast = (
+  title: string,
+  message: string,
+  duration?: number
+) => {
+  return Toast.show({
+    type: 'error',
+    text1: title,
+    text2: message,
+    visibilityTime: duration ?? 1300,
+  });
 };

@@ -25,6 +25,7 @@ import {
   toggleFavourite,
 } from '../../reducers/playlistReducer';
 import { RootState } from '../../store';
+import { WarningToast } from '../../helpers/toast';
 
 const Player = () => {
   const dispatch = useAppDispatch();
@@ -66,17 +67,17 @@ const Player = () => {
 
   const onNext = async () => {
     if (activeSongIndex <= activeSongList.length - 2) {
-      const nextSong = activeSongList[activeSongIndex + 1];
       carouselRef.current?.snapToNext();
-      await addAndPlayCurrentTrack({ track: nextSong });
+    } else {
+      WarningToast('End!', 'Last song in the queue!');
     }
   };
 
   const onBack = async () => {
     if (activeSongIndex > 0) {
-      const previousSong = activeSongList[activeSongIndex - 1];
       carouselRef.current.snapToPrev();
-      await addAndPlayCurrentTrack({ track: previousSong });
+    } else {
+      WarningToast('First!', 'First song in the queue!');
     }
   };
 

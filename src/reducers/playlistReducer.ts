@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { ISong } from '../interfaces/player/music.interface';
-import Toast from 'react-native-toast-message';
+import { WarningToast } from '../helpers/toast';
 
 const initialState: any = {
   playlists: {
@@ -46,11 +46,10 @@ const playlistSlice = createSlice({
         isPresent
       );
       if (isPresent) {
-        Toast.show({
-          type: 'error',
-          text1: 'Song Present',
-          text2: 'Song is already present in the playlist',
-        });
+        WarningToast(
+          payload.song.title,
+          'Song is already present in the playlist'
+        );
       } else {
         state.playlists[payload.name]?.songs.unshift(payload.song);
       }
