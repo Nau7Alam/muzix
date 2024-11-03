@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
-import Text from '../components/Text/Text';
 import { View } from 'react-native';
+import Text from '../components/Text/Text';
 
 /*
   1. Create the config
@@ -31,10 +31,10 @@ export const toastConfig = {
     <ErrorToast
       {...props}
       text1Style={{
-        fontSize: 17,
+        fontSize: 15,
       }}
       text2Style={{
-        fontSize: 15,
+        fontSize: 13,
       }}
     />
   ),

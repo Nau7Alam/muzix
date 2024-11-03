@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
 import { Router } from './router';
-import { StatusBar, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { PersistGate } from 'redux-persist/integration/react';
-import Toast from 'react-native-toast-message';
-import { toastConfig } from './helpers/toast';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { loadLocalData } from './helpers/localMedia';
-import { LightThemes } from './theme/light';
+import { StyleSheet } from 'react-native';
 
 export const App = () => {
   useEffect(() => {
@@ -21,14 +18,9 @@ export const App = () => {
       <SafeAreaProvider>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <StatusBar
-              barStyle="light-content"
-              backgroundColor={LightThemes.colors.primaryDark}
-            />
             <Router />
           </PersistGate>
         </Provider>
-        <Toast config={toastConfig} />
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

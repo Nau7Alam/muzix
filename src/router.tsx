@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import {
   KeyboardAvoidingView,
   Platform,
+  StatusBar,
   StyleSheet,
   useColorScheme,
 } from 'react-native';
@@ -17,6 +18,8 @@ import BootSplash from 'react-native-bootsplash';
 import SearchSongs from './screens/SearchSongs/SearchSongs';
 import { useSetup } from './hooks/setupHook';
 import Loader from './components/Loader/Loader';
+import Toast from 'react-native-toast-message';
+import { toastConfig } from './helpers/toast';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +46,14 @@ export const Router = () => {
           }}
         >
           <BottomSheetModalProvider>
+            <StatusBar
+              barStyle="light-content"
+              backgroundColor={
+                isLight
+                  ? LightThemes.colors.primaryDark
+                  : DarkThemes.colors.primaryDark
+              }
+            />
             <Stack.Navigator
               initialRouteName="HomeTabs"
               // initialRouteName="SearchSongs"
@@ -53,6 +64,7 @@ export const Router = () => {
               <Stack.Screen name="SearchSongs" component={SearchSongs} />
             </Stack.Navigator>
           </BottomSheetModalProvider>
+          <Toast config={toastConfig} />
         </NavigationContainer>
       </SafeAreaView>
     </KeyboardAvoidingView>
