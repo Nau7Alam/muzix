@@ -11,7 +11,7 @@ import {
   toggleRepeatMode,
   toggleShuffelMode,
 } from '../../reducers/playerReducer';
-import { IconTypes } from '../../constants/typeConstant';
+import { IconTypes } from '../../constants/settingsConstant';
 
 interface PlayerProgressProps {
   isPlaying: boolean;

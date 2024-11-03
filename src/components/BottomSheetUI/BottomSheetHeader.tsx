@@ -7,7 +7,7 @@ import Text from '../Text/Text';
 import Icon from '../Icon/Icon';
 import { IColors, ITheme } from '../../theme/theme.interface';
 import Avatar from '../Avatar/Avatar';
-import { IconTypes } from '../../constants/typeConstant';
+import { IconTypes } from '../../constants/settingsConstant';
 
 type BottomSheetModalHeaderProps = {
   title: string;

@@ -4,3 +4,5 @@ export enum IconTypes {
   FONTISTOICON = 'fontisto',
   ANTDESIGN = 'ant_design',
 }
+
+export const HEADER_HEIGHT = 60;

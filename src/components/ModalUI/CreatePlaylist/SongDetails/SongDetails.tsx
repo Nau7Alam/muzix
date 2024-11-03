@@ -8,7 +8,7 @@ import Avatar from '../../../Avatar/Avatar';
 import { IMAGE_TYPE } from '../../../../constants/listOptions';
 import { secondsToHms } from '../../../../helpers/utitlities';
 import Icon from '../../../Icon/Icon';
-import { IconTypes } from '../../../../constants/typeConstant';
+import { IconTypes } from '../../../../constants/settingsConstant';
 
 type SongDetailsProps = {
   song: ISong | null;

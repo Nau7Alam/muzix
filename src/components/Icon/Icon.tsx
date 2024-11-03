@@ -5,7 +5,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { IconProps } from 'react-native-vector-icons/Icon';
-import { IconTypes } from '../../constants/typeConstant';
+import { IconTypes } from '../../constants/settingsConstant';
 
 const getIcon = (type?: string) => {
   switch (type) {

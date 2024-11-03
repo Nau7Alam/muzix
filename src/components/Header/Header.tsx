@@ -5,7 +5,7 @@ import { useNavigation, useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
 import Text from '../Text/Text';
 import Icon from '../Icon/Icon';
-import { IconTypes } from '../../constants/typeConstant';
+import { HEADER_HEIGHT, IconTypes } from '../../constants/settingsConstant';
 
 type HeaderProps = {
   title?: string;
@@ -90,8 +90,10 @@ const createStyle = (theme: ITheme) => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: colors.card,
+      backgroundColor: colors.backgroundDarker,
       padding: padding.four,
+      elevation: 3,
+      minHeight: HEADER_HEIGHT,
     },
     logo: {
       paddingVertical: 0,

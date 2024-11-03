@@ -14,7 +14,7 @@ import { useTheme } from '@react-navigation/native';
 import PressableIcon from '../PressabelIcon/PressableIcon';
 import Avatar from '../Avatar/Avatar';
 import { IMAGE_TYPE } from '../../constants/listOptions';
-import { IconTypes } from '../../constants/typeConstant';
+import { IconTypes } from '../../constants/settingsConstant';
 
 type ListItemProps = {
   title: string;

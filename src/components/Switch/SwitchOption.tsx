@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import Text from '../Text/Text';
 import Switch from './Switch';
 import Icon from '../Icon/Icon';
-import { IconTypes } from '../../constants/typeConstant';
+import { IconTypes } from '../../constants/settingsConstant';
 
 type SwitchOptionProps = {
   label: string;

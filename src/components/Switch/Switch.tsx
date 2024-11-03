@@ -4,7 +4,7 @@ import { ITheme } from '../../theme/theme.interface';
 import { StyleSheet, View } from 'react-native';
 import Icon from '../Icon/Icon';
 import { Switch as RNSwitch } from 'react-native-switch';
-import { IconTypes } from '../../constants/typeConstant';
+import { IconTypes } from '../../constants/settingsConstant';
 
 const SwitchIcon = ({ active }: any) => {
   const { colors } = useTheme() as ITheme;
